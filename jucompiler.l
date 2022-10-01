@@ -82,7 +82,6 @@ REALLIT         (({INTLIT}"."{INTLIT}?|"."({INTLIT}))([eE][-+]?{INTLIT})?)|({INT
 
 
     // "\"
-STRLIT
 
 %%
 

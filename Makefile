@@ -9,7 +9,7 @@ prog:		run
 
 run:		${OBJS}
 		${CC} ${OBJS} -o ${EXE}
-		./${EXE} 
+		./${EXE}
 
 
 clean:		${LEXFILE}

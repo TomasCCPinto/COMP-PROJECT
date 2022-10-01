@@ -80,8 +80,7 @@ INTLIT          0|{NUMBER}{NUMBER0}*|({NUMBER}+_{NUMBER}+)+
 
 REALLIT         (({INTLIT}"."{INTLIT}?|"."({INTLIT}))([eE][-+]?{INTLIT})?)|({INTLIT}([eE][-+]?{INTLIT}))
 
-
-    // "\"
+%X STRING
 
 %%
 
@@ -90,6 +89,9 @@ REALLIT         (({INTLIT}"."{INTLIT}?|"."({INTLIT}))([eE][-+]?{INTLIT})?)|({INT
 {REALLIT}       {printf("REALLIT(%s)\n", yytext);}
 
 
+"\""               {BEGIN STRING;}
+<STRING>.*"\""       {printf("STRLIT: \"%s\n", yytext); BEGIN 0;}
+<STRING>(\r|\n|"\"".)  {printf("Error (%s)\n", yytext); BEGIN 0;}
 
 .               {printf("illegal character (%c)\n", *yytext);}
 

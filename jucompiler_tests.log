@@ -1,0 +1,3747 @@
+================== tests/meta1/REALLIT.juc DIFF OUTPUT ==================
+REALLIT(3.)							REALLIT(3.)
+REALLIT(0.)							REALLIT(0.)
+REALLIT(3_1.)							REALLIT(3_1.)
+REALLIT(3.0)							REALLIT(3.0)
+REALLIT(3.0)						      |	REALLIT(3.0_1)
+ID(_1)							      |	REALLIT(3_3.0_1_3____5)
+REALLIT(3_3.0)						      <
+ID(_1_3____5)						      <
+REALLIT(3.e1)							REALLIT(3.e1)
+REALLIT(3.e+1_2)						REALLIT(3.e+1_2)
+INTLIT(3)						      |	REALLIT(3_00.5_3E-1_2_3)
+ID(_00)							      <
+REALLIT(.5_3E-1_2)					      <
+ID(_3)							      <
+REALLIT(3E-5)							REALLIT(3E-5)
+REALLIT(9.4E-0)							REALLIT(9.4E-0)
+REALLIT(.4)							REALLIT(.4)
+REALLIT(.1_42)							REALLIT(.1_42)
+REALLIT(.0)						      |	REALLIT(.03e-13_3)
+REALLIT(3e-13_3)					      <
+================== tests/meta1/strlit_win.juc DIFF OUTPUT ==================
+illegal character (")					      |	Line 1, col 1: unterminated string literal
+ID(isto)						      |	Line 2, col 23: invalid escape sequence (\)
+illegal character ( )					      |	Line 2, col 2: unterminated string literal
+illegal character (Ã)					      |	Line 3, col 4: invalid escape sequence (\g)
+illegal character (©)					      <
+illegal character ( )					      <
+ID(uma)							      <
+illegal character ( )					      <
+ID(frase)						      <
+illegal character ()							      <
+illegal character (	)				      <
+illegal character (")					      <
+ID(isto)						      <
+illegal character ( )					      <
+illegal character (Ã)					      <
+illegal character (©)					      <
+illegal character ( )					      <
+ID(outra)						      <
+illegal character ( )					      <
+ID(frase)						      <
+illegal character ( )					      <
+illegal character (\)					      <
+illegal character ()							      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(n)							      <
+illegal character (\)					      <
+ID(g)							      <
+illegal character (\)					      <
+ID(r)							      <
+illegal character (")					      <
+illegal character ()							      <
+================== tests/meta1/SimpleClass.java DIFF OUTPUT ==================
+DIV							      <
+STAR							      <
+STAR							      <
+STAR							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+ID(Test)						      <
+illegal character ( )					      <
+ID(Cass)						      <
+STAR							      <
+STAR							      <
+illegal character ( )					      <
+STAR							      <
+DIV							      <
+PUBLIC								PUBLIC
+illegal character ( )					      <
+CLASS								CLASS
+illegal character ( )					      <
+ID(SimpleClass)							ID(SimpleClass)
+illegal character ( )					      <
+LBRACE								LBRACE
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+PUBLIC								PUBLIC
+illegal character ( )					      <
+STATIC								STATIC
+illegal character ( )					      <
+VOID								VOID
+illegal character ( )					      <
+ID(main)							ID(main)
+LPAR								LPAR
+STRING								STRING
+LSQ								LSQ
+RSQ								RSQ
+illegal character ( )					      <
+ID(args)							ID(args)
+RPAR								RPAR
+illegal character ( )					      <
+LBRACE								LBRACE
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+STAR							      <
+illegal character ( )					      <
+ID(Print)						      <
+illegal character ( )					      <
+ID(Albums)						      <
+illegal character ( )					      <
+STAR							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+INT								INT
+illegal character ( )					      <
+ID(n)								ID(n)
+illegal character ( )					      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+INTLIT(0)							INTLIT(0)
+SEMICOLON							SEMICOLON
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+BOOL								BOOL
+illegal character ( )					      <
+ID(print)							ID(print)
+illegal character ( )					      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+BOOLLIT(true)							BOOLLIT(true)
+SEMICOLON							SEMICOLON
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+BOOL								BOOL
+illegal character ( )					      <
+ID(empty)							ID(empty)
+illegal character ( )					      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+BOOLLIT(true)							BOOLLIT(true)
+SEMICOLON							SEMICOLON
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+STRING								STRING
+LSQ								LSQ
+RSQ								RSQ
+illegal character ( )					      <
+ID(albums)							ID(albums)
+illegal character ( )					      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+LBRACE								LBRACE
+illegal character (")					      |	STRLIT("Cowboys From Hell")
+ID(Cowboys)						      <
+illegal character ( )					      <
+ID(From)						      <
+illegal character ( )					      <
+ID(Hell)						      <
+illegal character (")					      <
+COMMA								COMMA
+illegal character (")					      |	STRLIT("Vulgar Display Of Power")
+ID(Vulgar)						      <
+illegal character ( )					      <
+ID(Display)						      <
+illegal character ( )					      <
+ID(Of)							      <
+illegal character ( )					      <
+ID(Power)						      <
+illegal character (")					      <
+COMMA								COMMA
+illegal character (")					      |	STRLIT("Far Beyond Driven")
+ID(Far)							      <
+illegal character ( )					      <
+ID(Beyond)						      <
+illegal character ( )					      <
+ID(Driven)						      <
+illegal character (")					      <
+COMMA								COMMA
+illegal character (")					      |	STRLIT("The Great Southern Trendkill")
+ID(The)							      <
+illegal character ( )					      <
+ID(Great)						      <
+illegal character ( )					      <
+ID(Southern)						      <
+illegal character ( )					      <
+ID(Trendkill)						      <
+illegal character (")					      <
+COMMA								COMMA
+illegal character (")					      |	STRLIT("Reinventing The Steel")
+ID(Reinventing)						      <
+illegal character ( )					      <
+ID(The)							      <
+illegal character ( )					      <
+ID(Steel)						      <
+illegal character (")					      <
+RBRACE								RBRACE
+SEMICOLON							SEMICOLON
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+PRINT								PRINT
+LPAR								LPAR
+illegal character (")					      |	STRLIT("Albums:\n")
+ID(Albums)						      <
+illegal character (:)					      <
+illegal character (\)					      <
+ID(n)							      <
+illegal character (")					      <
+RPAR								RPAR
+SEMICOLON							SEMICOLON
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RESERVED(for)							RESERVED(for)
+illegal character ( )					      <
+LPAR								LPAR
+INT								INT
+illegal character ( )					      <
+ID(i)								ID(i)
+illegal character ( )					      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+INTLIT(0)							INTLIT(0)
+SEMICOLON							SEMICOLON
+illegal character ( )					      <
+ID(i)								ID(i)
+illegal character ( )					      <
+LT								LT
+illegal character ( )					      <
+ID(albums)							ID(albums)
+DOTLENGTH							DOTLENGTH
+SEMICOLON							SEMICOLON
+illegal character ( )					      <
+ID(i)								ID(i)
+RESERVED(++)							RESERVED(++)
+RPAR								RPAR
+illegal character ( )					      <
+LBRACE								LBRACE
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+ID(n)								ID(n)
+RESERVED(++)							RESERVED(++)
+SEMICOLON							SEMICOLON
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+PRINT								PRINT
+LPAR								LPAR
+ID(albums)							ID(albums)
+LSQ								LSQ
+ID(i)								ID(i)
+RSQ								RSQ
+illegal character ( )					      <
+PLUS								PLUS
+illegal character ( )					      |	STRLIT(": ")
+illegal character (")					      <
+illegal character (:)					      <
+illegal character ( )					      <
+illegal character (")					      <
+illegal character ( )					      <
+PLUS								PLUS
+illegal character ( )					      <
+ID(n)								ID(n)
+illegal character ( )					      <
+PLUS								PLUS
+illegal character ( )					      |	STRLIT("\n")
+illegal character (")					      <
+illegal character (\)					      <
+ID(n)							      <
+illegal character (")					      <
+RPAR								RPAR
+SEMICOLON							SEMICOLON
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RBRACE								RBRACE
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+IF								IF
+illegal character ( )					      <
+LPAR								LPAR
+ID(n)								ID(n)
+illegal character ( )					      <
+GT								GT
+illegal character ( )					      <
+INTLIT(0)							INTLIT(0)
+RPAR								RPAR
+illegal character ( )					      <
+LBRACE								LBRACE
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+ID(empty)							ID(empty)
+illegal character ( )					      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+BOOLLIT(false)							BOOLLIT(false)
+SEMICOLON							SEMICOLON
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RBRACE								RBRACE
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+IF								IF
+illegal character ( )					      <
+LPAR								LPAR
+ID(print)							ID(print)
+illegal character ( )					      <
+AND								AND
+illegal character ( )					      <
+NOT								NOT
+ID(empty)							ID(empty)
+RPAR								RPAR
+illegal character ( )					      <
+LBRACE								LBRACE
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+PRINT								PRINT
+ID(ln)								ID(ln)
+LPAR								LPAR
+illegal character (")					      |	STRLIT("Total albums: ")
+ID(Total)						      <
+illegal character ( )					      <
+ID(albums)						      <
+illegal character (:)					      <
+illegal character ( )					      <
+illegal character (")					      <
+illegal character ( )					      <
+PLUS								PLUS
+illegal character ( )					      <
+ID(n)								ID(n)
+RPAR								RPAR
+SEMICOLON							SEMICOLON
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RBRACE								RBRACE
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RBRACE								RBRACE
+RBRACE								RBRACE
+================== tests/meta1/errorsAndOthers.java DIFF OUTPUT ==================
+ID(recurso)							ID(recurso)
+illegal character ( )					      |	Line 1, col 9: illegal character (&)
+illegal character (&)					      <
+ID(recurso)							ID(recurso)
+illegal character (")					      |	Line 2, col 11: invalid escape sequence (\5)
+ID(as)							      |	Line 2, col 20: invalid escape sequence (\x)
+illegal character (\)					      |	Line 2, col 8: unterminated string literal
+INTLIT(5)						      |	Line 3, col 9: invalid escape sequence (\g)
+ID(recurso)						      |	Line 4, col 5: invalid escape sequence (\g)
+illegal character (\)					      |	Line 5, col 5: invalid escape sequence (\g)
+ID(x)							      |	Line 5, col 1: unterminated string literal
+illegal character (")					      |	Line 6, col 2: invalid escape sequence (\)
+ID(recurso)						      |	Line 6, col 1: unterminated string literal
+illegal character (\)					      |	REALLIT(0123.3)
+ID(g)							      <
+illegal character (")					      <
+illegal character (")					      <
+INTLIT(123)						      <
+illegal character (\)					      <
+ID(g456)						      <
+illegal character (")					      <
+illegal character (")					      <
+INTLIT(123)						      <
+illegal character (\)					      <
+ID(g456)						      <
+illegal character (")					      <
+illegal character (\)					      <
+INTLIT(0)						      <
+REALLIT(123.3)						      <
+REALLIT(3.333)							REALLIT(3.333)
+ID(_e_1)							ID(_e_1)
+ID(recurso)							ID(recurso)
+illegal character (")					      |	Line 9, col 9: invalid escape sequence (\)
+illegal character (\)					      |	Line 9, col 8: unterminated string literal
+illegal character (")					      |	Line 10, col 1: unterminated string literal
+illegal character (\)					      |	Line 11, col 1: illegal character (#)
+illegal character (")					      |	Line 11, col 2: unterminated string literal
+ID(recurso)						      |	Line 12, col 1: illegal character (#)
+illegal character (#)					      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (#)					      <
+ID(linha)							ID(linha)
+illegal character (#)					      |	Line 12, col 7: illegal character (#)
+illegal character (`)					      |	Line 13, col 1: illegal character (`)
+illegal character (')					      |	Line 13, col 2: illegal character (')
+illegal character ()					      |	STRLIT("outraLinha")
+illegal character (")					      |	Line 16, col 1: illegal character (#)
+ID(outraLinha)						      |	STRLIT("recurso''")
+illegal character (")					      |	Line 16, col 13: illegal character (?)
+illegal character (#)					      <
+illegal character (")					      <
+ID(recurso)						      <
+illegal character (')					      <
+illegal character (')					      <
+illegal character (")					      <
+illegal character (?)					      <
+DIV							      <
+DIV							      <
+ID(xD)								ID(xD)
+illegal character ( )					      |	Line 17, col 4: illegal character (?)
+illegal character (?)					      |	Line 17, col 5: illegal character (\)
+illegal character (\)					      <
+ID(n)								ID(n)
+illegal character (|)					      |	Line 17, col 7: illegal character (|)
+illegal character (')					      |	Line 17, col 8: illegal character (')
+illegal character (')					      |	Line 17, col 9: illegal character (')
+INT								INT
+illegal character ( )					      <
+ID(a)								ID(a)
+illegal character ( )					      <
+ASSIGN								ASSIGN
+ID(x)								ID(x)
+illegal character (?)					      |	Line 18, col 9: illegal character (?)
+INTLIT(0)							INTLIT(0)
+INTLIT(0)							INTLIT(0)
+INTLIT(123321)							INTLIT(123321)
+ID(ttrhwrhewrjree)						ID(ttrhwrhewrjree)
+DIV							      |	Line 20, col 2: illegal character (?)
+DIV							      |	Line 20, col 5: illegal character (?)
+ID(adsasd)						      |	STRLIT("asdadasdas")
+illegal character (?)					      |	STRLIT("dsadasd sadsad")
+illegal character (?)					      |	STRLIT("dasdsadas		asdasd123")
+illegal character (?)					      |	STRLIT("dsadasdas\n")
+illegal character (?)					      <
+illegal character (?)					      <
+illegal character (?)					      <
+illegal character (?)					      <
+illegal character (?)					      <
+illegal character (?)					      <
+illegal character (	)				      <
+illegal character (?)					      <
+illegal character (	)				      <
+illegal character (	)				      <
+illegal character (?)					      <
+illegal character (	)				      <
+illegal character (")					      <
+ID(asdadasdas)						      <
+illegal character (")					      <
+illegal character (")					      <
+ID(dsadasd)						      <
+illegal character ( )					      <
+ID(sadsad)						      <
+illegal character (")					      <
+illegal character (")					      <
+ID(dasdsadas)						      <
+illegal character (	)				      <
+illegal character (	)				      <
+ID(asdasd123)						      <
+illegal character (")					      <
+illegal character (")					      <
+ID(dsadasdas)						      <
+illegal character (\)					      <
+ID(n)							      <
+illegal character (")					      <
+ID(sd)								ID(sd)
+illegal character (")					      |	Line 25, col 3: unterminated string literal
+ID(umalinha)						      <
+ID(duaslinhas)							ID(duaslinhas)
+ID(ultimalinha)							ID(ultimalinha)
+illegal character (")					      |	Line 27, col 12: unterminated string literal
+illegal character (")					      |	STRLIT("")
+illegal character (")					      |	STRLIT("\tadssadsadsa\t")
+illegal character (")					      |	STRLIT("\\")
+illegal character (\)					      |	STRLIT("\f")
+ID(tadssadsadsa)					      |	STRLIT("\r\f")
+illegal character (\)					      |	STRLIT("aspas\"")
+ID(t)							      |	STRLIT("\\dsadasdsadas")
+illegal character (")					      |	Line 35, col 1: illegal character (\)
+illegal character (")					      |	Line 35, col 3: invalid escape sequence (\b)
+illegal character (\)					      |	Line 35, col 2: unterminated string literal
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(f)							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(r)							      <
+illegal character (\)					      <
+ID(f)							      <
+illegal character (")					      <
+illegal character (")					      <
+ID(aspas)						      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character (\)					      <
+ID(dsadasdsadas)					      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(b)							      <
+================== tests/meta1/InsertionSort.java DIFF OUTPUT ==================
+CLASS							      |	Line 22, col 32: invalid escape sequence (\h)
+illegal character ( )					      |	Line 22, col 29: unterminated string literal
+ID(InsertionSort)					      |	Line 28, col 31: invalid escape sequence (\d)
+illegal character ( )					      |	Line 32, col 5: unterminated comment
+LBRACE							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+PUBLIC							      <
+illegal character ( )					      <
+STATIC							      <
+illegal character ( )					      <
+VOID							      <
+illegal character ( )					      <
+ID(insertionSort)					      <
+LPAR							      <
+INT							      <
+LSQ							      <
+RSQ							      <
+illegal character ( )					      <
+ID(arr)							      <
+COMMA							      <
+illegal character ( )					      <
+INT							      <
+illegal character ( )					      <
+ID(low)							      <
+COMMA							      <
+illegal character ( )					      <
+INT							      <
+illegal character ( )					      <
+ID(high)						      <
+RPAR							      <
+illegal character ( )					      <
+LBRACE							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+INT							      <
+illegal character ( )					      <
+ID(tmp)							      <
+SEMICOLON						      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+INT							      <
+illegal character ( )					      <
+ID(i)							      <
+COMMA							      <
+illegal character ( )					      <
+ID(j)							      <
+SEMICOLON						      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RESERVED(for)						      <
+LPAR							      <
+ID(i)							      <
+illegal character ( )					      <
+ASSIGN							      <
+illegal character ( )					      <
+ID(low)							      <
+PLUS							      <
+INTLIT(1)						      <
+SEMICOLON						      <
+illegal character ( )					      <
+ID(i)							      <
+LE							      <
+ID(high)						      <
+SEMICOLON						      <
+illegal character ( )					      <
+ID(i)							      <
+RESERVED(++)						      <
+RPAR							      <
+LBRACE							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+ID(tmp)							      <
+illegal character ( )					      <
+ASSIGN							      <
+illegal character ( )					      <
+ID(arr)							      <
+LSQ							      <
+ID(i)							      <
+RSQ							      <
+SEMICOLON						      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RESERVED(for)						      <
+LPAR							      <
+ID(j)							      <
+illegal character ( )					      <
+ASSIGN							      <
+illegal character ( )					      <
+ID(i)							      <
+SEMICOLON						      <
+illegal character ( )					      <
+ID(j)							      <
+GT							      <
+ID(low)							      <
+illegal character ( )					      <
+AND							      <
+illegal character ( )					      <
+LPAR							      <
+ID(tmp)							      <
+illegal character ( )					      <
+LT							      <
+illegal character ( )					      <
+ID(arr)							      <
+LSQ							      <
+ID(j)							      <
+MINUS							      <
+INTLIT(1)						      <
+RSQ							      <
+RPAR							      <
+SEMICOLON						      <
+illegal character ( )					      <
+ID(j)							      <
+RESERVED(--)						      <
+RPAR							      <
+LBRACE							      <
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+ID(Smallest)						      <
+illegal character ( )					      <
+ID(to)							      <
+illegal character ( )					      <
+ID(Biggest)						      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+ID(arr)							      <
+LSQ							      <
+ID(j)							      <
+RSQ							      <
+illegal character ( )					      <
+ASSIGN							      <
+illegal character ( )					      <
+ID(arr)							      <
+LSQ							      <
+ID(j)							      <
+MINUS							      <
+INTLIT(1)						      <
+RSQ							      <
+SEMICOLON						      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RBRACE							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+ID(arr)							      <
+LSQ							      <
+ID(j)							      <
+RSQ							      <
+illegal character ( )					      <
+ASSIGN							      <
+illegal character ( )					      <
+ID(tmp)							      <
+SEMICOLON						      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RBRACE							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RBRACE							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+DIV							      <
+STAR							      <
+ID(A)							      <
+illegal character ( )					      <
+ID(Simple)						      <
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+ID(Insertion)						      <
+illegal character ( )					      <
+ID(Sort)						      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+ID(It)							      <
+illegal character ( )					      <
+ID(sorts)						      <
+illegal character ( )					      <
+ID(in)							      <
+illegal character ( )					      <
+ID(ascending)						      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(b)							      <
+illegal character ( )					      <
+ID(order)						      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+ID(It)							      <
+illegal character ( )					      <
+ID(works)						      <
+illegal character ( )					      <
+ID(on)							      <
+illegal character ( )					      <
+ID(portions)						      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(g)							      <
+illegal character ( )					      <
+ID(of)							      <
+illegal character ( )					      <
+ID(arrays)						      <
+illegal character ( )					      <
+ID(and)							      <
+illegal character ( )					      <
+ID(entire)						      <
+illegal character ( )					      <
+ID(arrays)						      <
+illegal character ( )					      <
+ID(alike)						      <
+STAR							      <
+DIV							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+PUBLIC							      <
+illegal character ( )					      <
+STATIC							      <
+illegal character ( )					      <
+VOID							      <
+illegal character ( )					      <
+ID(main)						      <
+LPAR							      <
+STRING							      <
+LSQ							      <
+RSQ							      <
+illegal character ( )					      <
+ID(args)						      <
+RPAR							      <
+illegal character ( )					      <
+LBRACE							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+INT							      <
+illegal character ( )					      <
+ID(size)						      <
+illegal character ( )					      <
+ASSIGN							      <
+illegal character ( )					      <
+INTLIT(10)						      <
+SEMICOLON						      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+INT							      <
+illegal character ( )					      <
+ID(arr)							      <
+LSQ							      <
+RSQ							      <
+illegal character ( )					      <
+ASSIGN							      <
+illegal character ( )					      <
+LBRACE							      <
+INTLIT(33)						      <
+COMMA							      <
+illegal character ( )					      <
+INTLIT(45)						      <
+COMMA							      <
+illegal character ( )					      <
+INTLIT(66)						      <
+COMMA							      <
+illegal character ( )					      <
+INTLIT(75)						      <
+COMMA							      <
+illegal character ( )					      <
+INTLIT(21)						      <
+COMMA							      <
+illegal character ( )					      <
+INTLIT(10)						      <
+COMMA							      <
+illegal character ( )					      <
+INTLIT(77)						      <
+COMMA							      <
+illegal character ( )					      <
+INTLIT(90)						      <
+COMMA							      <
+illegal character ( )					      <
+INTLIT(18)						      <
+COMMA							      <
+illegal character ( )					      <
+INTLIT(42)						      <
+RBRACE							      <
+SEMICOLON						      <
+illegal character (	)				      <
+STRING							      <
+illegal character ( )					      <
+ID(neverEndingString)					      <
+illegal character ( )					      <
+ASSIGN							      <
+illegal character ( )					      <
+illegal character (")					      <
+ID(I)							      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(have)						      <
+illegal character ( )					      <
+ID(no)							      <
+illegal character ( )					      <
+ID(end)							      <
+SEMICOLON						      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+ID(insertionSort)					      <
+LPAR							      <
+ID(arr)							      <
+COMMA							      <
+illegal character ( )					      <
+INTLIT(0)						      <
+COMMA							      <
+illegal character ( )					      <
+ID(size)						      <
+MINUS							      <
+INTLIT(1)						      <
+RPAR							      <
+SEMICOLON						      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RESERVED(for)						      <
+LPAR							      <
+INT							      <
+illegal character ( )					      <
+ID(i)							      <
+ASSIGN							      <
+INTLIT(0)						      <
+SEMICOLON						      <
+illegal character ( )					      <
+ID(i)							      <
+LT							      <
+ID(size)						      <
+SEMICOLON						      <
+illegal character ( )					      <
+ID(i)							      <
+RESERVED(++)						      <
+RPAR							      <
+LBRACE							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+PRINT							      <
+LPAR							      <
+ID(arr)							      <
+LSQ							      <
+ID(i)							      <
+RSQ							      <
+RPAR							      <
+SEMICOLON						      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+PRINT							      <
+LPAR							      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(dn)							      <
+illegal character (")					      <
+RPAR							      <
+SEMICOLON						      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RBRACE							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RBRACE							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+DIV							      <
+STAR							      <
+ID(So)							      <
+COMMA							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+ID(shouldn)						      <
+illegal character (')					      <
+ID(t)							      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(t)							      <
+illegal character ( )					      <
+RESERVED(this)						      <
+illegal character ( )					      <
+ID(comment)						      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(end)							      <
+COMMA							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+ID(or)							      <
+illegal character ( )					      <
+ID(something)						      <
+illegal character (?)					      <
+illegal character (?)					      <
+illegal character (?)					      <
+RBRACE							      <
+================== tests/meta1/INTLIT.juc DIFF OUTPUT ==================
+INTLIT(0)							INTLIT(0)
+INTLIT(1)							INTLIT(1)
+INTLIT(2)							INTLIT(2)
+INTLIT(3)							INTLIT(3)
+INTLIT(4)							INTLIT(4)
+INTLIT(5)							INTLIT(5)
+INTLIT(6)							INTLIT(6)
+INTLIT(7)							INTLIT(7)
+INTLIT(8)							INTLIT(8)
+INTLIT(9)							INTLIT(9)
+INTLIT(10)							INTLIT(10)
+INTLIT(1_1)							INTLIT(1_1)
+INTLIT(1)						      |	INTLIT(1____2)
+ID(____2)						      <
+INTLIT(134_123)							INTLIT(134_123)
+INTLIT(1)						      |	INTLIT(1_0_3_0)
+ID(_0_3_0)						      <
+================== tests/meta1/StringsAndComments.juc DIFF OUTPUT ==================
+illegal character (")					      |	STRLIT("Esta e uma string valida")
+ID(Esta)						      |	Line 2, col 1: unterminated string literal
+illegal character ( )					      <
+ID(e)							      <
+illegal character ( )					      <
+ID(uma)							      <
+illegal character ( )					      <
+ID(string)						      <
+illegal character ( )					      <
+ID(valida)						      <
+illegal character (")					      <
+illegal character ()							      <
+illegal character (")					      <
+ID(esta)						      <
+illegal character ( )					      <
+ID(nao)							      <
+illegal character ()							      <
+CLASS								CLASS
+illegal character ( )					      <
+ID(Main)							ID(Main)
+illegal character ( )					      <
+LBRACE								LBRACE
+illegal character ()							      |	Line 4, col 2: unterminated string literal
+illegal character (	)				      <
+illegal character (")					      <
+ID(esta)						      <
+illegal character ( )					      <
+ID(tambem)						      <
+illegal character ( )					      <
+ID(nao)							      <
+illegal character ()							      <
+illegal character (	)				      <
+PUBLIC								PUBLIC
+illegal character ( )					      <
+STATIC								STATIC
+illegal character ( )					      <
+INT								INT
+illegal character ( )					      <
+ID(soma)							ID(soma)
+LPAR								LPAR
+INT								INT
+illegal character ( )					      <
+ID(n)								ID(n)
+RPAR								RPAR
+illegal character ( )					      <
+LBRACE								LBRACE
+illegal character ()							      |	Line 6, col 2: illegal character (?)
+illegal character (	)				      |	Line 6, col 3: illegal character (#)
+illegal character (?)					      |	Line 9, col 1: unterminated string literal
+illegal character (#)					      |	Line 10, col 1: unterminated comment
+illegal character ( )					      <
+DIV							      <
+STAR							      <
+ID(caracteres)						      <
+illegal character ( )					      <
+ID(ilegais)						      <
+STAR							      <
+DIV							      <
+illegal character ()							      <
+illegal character (	)				      <
+DIV							      <
+STAR							      <
+ID(algumas)						      <
+illegal character ( )					      <
+ID(mudancas)						      <
+illegal character ( )					      <
+ID(de)							      <
+illegal character ( )					      <
+ID(linha)						      <
+illegal character ( )					      <
+ID(com)							      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(r)							      <
+STAR							      <
+DIV							      <
+illegal character ()							      <
+illegal character ()							      <
+illegal character (")					      <
+ID(Mais)						      <
+illegal character ( )					      <
+ID(uma)							      <
+illegal character ( )					      <
+ID(string)						      <
+illegal character ( )					      <
+ID(incompleta)						      <
+illegal character ()							      <
+DIV							      <
+STAR							      <
+ID(Comentario)						      <
+illegal character ( )					      <
+ID(sem)							      <
+illegal character ( )					      <
+ID(fim)							      <
+illegal character ()							      <
+================== tests/meta1/SRTLIT_AND_ERRORS.java DIFF OUTPUT ==================
+illegal character (")					      |	STRLIT("jnjksdkjnded")
+ID(jnjksdkjnded)					      <
+illegal character (")					      <
+illegal character ( )					      <
+INTLIT(1)							INTLIT(1)
+illegal character (")					      |	STRLIT("cdjhb  dhh a")
+ID(cdjhb)						      |	Line 1, col 32: illegal character (.)
+illegal character ( )					      |	STRLIT("rrrr")
+illegal character ( )					      <
+ID(dhh)							      <
+illegal character ( )					      <
+ID(a)							      <
+illegal character (")					      <
+illegal character ( )					      <
+illegal character (.)					      <
+illegal character (")					      <
+ID(rrrr)						      <
+illegal character (")					      <
+INTLIT(2)							INTLIT(2)
+illegal character ( )					      |	Line 1, col 45: invalid escape sequence (\u)
+illegal character (")					      |	Line 2, col 7: invalid escape sequence (\g)
+ID(mig)							      |	STRLIT("rrrr")
+illegal character (\)					      |	STRLIT("	")
+ID(uel)							      |	STRLIT("\r       ")
+illegal character (")					      |	STRLIT("\f")
+illegal character (")					      |	STRLIT("\n")
+ID(cdjhb)						      |	STRLIT("\t")
+illegal character (\)					      |	STRLIT("\\")
+ID(g)							      |	STRLIT("\"")
+illegal character ( )					      |	Line 14, col 2: invalid escape sequence (\+)
+illegal character ( )					      |	Line 15, col 2: invalid escape sequence (\.)
+ID(dhh)							      |	STRLIT("\n\n")
+illegal character ( )					      |	Line 17, col 2: invalid escape sequence (\<)
+ID(a)							      |	Line 18, col 2: invalid escape sequence (\h)
+illegal character (")					      |	Line 19, col 2: invalid escape sequence (\p)
+illegal character ( )					      |	STRLIT("\"\"")
+illegal character (")					      |	STRLIT("\r \f \n \t \\ \"")
+ID(rrrr)						      |	Line 22, col 2: invalid escape sequence (\()
+illegal character (")					      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(r)							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(f)							      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(n)							      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(a)							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(u)							      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(d)							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (	)				      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(r)							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(f)							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(n)							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(t)							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+PLUS							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character (.)					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(n)							      <
+illegal character (\)					      <
+ID(n)							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+LT							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(h)							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(p)							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(r)							      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(f)							      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(n)							      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(t)							      <
+illegal character ( )					      <
+illegal character (\)					      <
+illegal character (\)					      <
+illegal character ( )					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+LPAR							      <
+illegal character (")					      <
+================== tests/meta1/Comments1.juc DIFF OUTPUT ==================
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+ID(TESTE)						      <
+illegal character ( )					      <
+ID(main)						      <
+illegal character ( )					      <
+ID(teste)						      <
+illegal character ( )					      <
+DIV							      <
+STAR							      <
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+ID(spam)						      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+ID(spam)						      <
+illegal character ( )					      <
+ID(main)						      <
+illegal character ( )					      <
+PUBLIC							      <
+illegal character ( )					      <
+INTLIT(12313)						      <
+illegal character ( )					      <
+illegal character (")					      <
+ID(spam)						      <
+illegal character (")					      <
+DIV							      <
+DIV							      <
+CLASS							      <
+illegal character ( )					      <
+CLASS							      <
+illegal character ( )					      <
+CLASS							      <
+illegal character ( )					      <
+CLASS							      <
+================== tests/meta1/Comments3.juc DIFF OUTPUT ==================
+RESERVED(--)							RESERVED(--)
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+ID(cenas)						      <
+illegal character ( )					      <
+illegal character ()							      <
+illegal character ( )					      <
+STAR								STAR
+STAR								STAR
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+ID(coisas)						      <
+illegal character ( )					      <
+illegal character ( )					      <
+MOD								MOD
+MOD								MOD
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+ID(test)						      <
+================== tests/meta1/literals.juc DIFF OUTPUT ==================
+INTLIT(0)							INTLIT(0)
+INTLIT(2115)							INTLIT(2115)
+INTLIT(1215)							INTLIT(1215)
+INTLIT(125_251)							INTLIT(125_251)
+INTLIT(0)							INTLIT(0)
+ID(_1515_0)							ID(_1515_0)
+INTLIT(0)							INTLIT(0)
+INTLIT(0)							INTLIT(0)
+INTLIT(1_15151_2)						INTLIT(1_15151_2)
+REALLIT(12.12)							REALLIT(12.12)
+ID(E)								ID(E)
+PLUS								PLUS
+INTLIT(2)							INTLIT(2)
+REALLIT(0.124)							REALLIT(0.124)
+INTLIT(24)							INTLIT(24)
+ID(_)								ID(_)
+REALLIT(.52)							REALLIT(.52)
+INTLIT(0)						      |	REALLIT(024.)
+REALLIT(24.)						      <
+ID(E)								ID(E)
+INTLIT(24)							INTLIT(24)
+ID(_E)								ID(_E)
+INTLIT(0)						      |	REALLIT(02.14)
+REALLIT(2.14)						      |	REALLIT(0.02)
+REALLIT(0.0)						      |	REALLIT(.01)
+INTLIT(2)						      <
+REALLIT(.0)						      <
+INTLIT(1)						      <
+REALLIT(.999)							REALLIT(.999)
+REALLIT(423e-3)							REALLIT(423e-3)
+REALLIT(0E+4)							REALLIT(0E+4)
+INTLIT(0)						      |	REALLIT(05e2)
+REALLIT(5e2)						      |	REALLIT(09.5e+1)
+INTLIT(0)						      <
+REALLIT(9.5e+1)						      <
+REALLIT(0.4e2)							REALLIT(0.4e2)
+REALLIT(64.8E-2)						REALLIT(64.8E-2)
+REALLIT(64.)							REALLIT(64.)
+ID(E)								ID(E)
+illegal character (.)					      |	Line 24, col 1: illegal character (.)
+ID(e)								ID(e)
+MINUS								MINUS
+INTLIT(1)							INTLIT(1)
+ID(e2)								ID(e2)
+illegal character (.)					      |	Line 27, col 1: illegal character (.)
+ID(e2)								ID(e2)
+illegal character (")					      |	STRLIT("string")
+ID(string)						      |	STRLIT("varios escapes \n \f \r")
+illegal character (")					      |	Line 31, col 1: unterminated string literal
+illegal character (")					      |	Line 32, col 2: invalid escape sequence (\)
+ID(varios)						      |	Line 32, col 1: unterminated string literal
+illegal character ( )					      |	STRLIT("newline")
+ID(escapes)						      |	STRLIT("\"\"")
+illegal character ( )					      |	STRLIT("")
+illegal character (\)					      |	STRLIT("")
+ID(n)							      |	STRLIT("\n")
+illegal character ( )					      |	Line 37, col 1: unterminated string literal
+illegal character (\)					      |	Line 38, col 1: unterminated string literal
+ID(f)							      |	STRLIT("")
+illegal character ( )					      <
+illegal character (\)					      <
+ID(r)							      <
+illegal character (")					      <
+illegal character (")					      <
+ID(nao)							      <
+illegal character ( )					      <
+ID(acabei)						      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character (")					      <
+ID(newline)						      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(n)							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (")					      <
+ID(carriage)						      <
+illegal character ( )					      <
+RETURN							      <
+illegal character (")					      <
+illegal character (")					      <
+ID(aaaaa)							ID(aaaaa)
+illegal character (")					      |	Line 41, col 1: unterminated string literal
+illegal character (	)				      |	STRLIT("   ")
+ID(a)							      |	Line 42, col 29: invalid escape sequence (\h)
+illegal character (")					      |	Line 42, col 7: unterminated string literal
+illegal character ( )					      |	Line 43, col 1: unterminated string literal
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character (")					      <
+illegal character ( )					      <
+illegal character (")					      <
+ID(nao)							      <
+illegal character ( )					      <
+ID(acabo)						      <
+illegal character ( )					      <
+ID(e)							      <
+illegal character ( )					      <
+ID(dou)							      <
+illegal character ( )					      <
+ID(erro)						      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(h)							      <
+illegal character (")					      <
+ID(eof)							      <
+================== tests/meta1/REALLIT_2.juc DIFF OUTPUT ==================
+REALLIT(.0)							REALLIT(.0)
+REALLIT(.1)							REALLIT(.1)
+REALLIT(.0)						      |	REALLIT(.09)
+INTLIT(9)						      <
+REALLIT(.19)							REALLIT(.19)
+REALLIT(.0)						      |	REALLIT(.09)
+INTLIT(9)						      |	REALLIT(.019)
+REALLIT(.0)						      |	REALLIT(.0_9)
+INTLIT(19)						      |	REALLIT(.1__9)
+REALLIT(.0)						      |	REALLIT(.09)
+ID(_9)							      |	REALLIT(.0__1_9)
+REALLIT(.1)						      <
+ID(__9)							      <
+REALLIT(.0)						      <
+INTLIT(9)						      <
+REALLIT(.0)						      <
+ID(__1_9)						      <
+REALLIT(0.)							REALLIT(0.)
+REALLIT(1.)							REALLIT(1.)
+REALLIT(10.)							REALLIT(10.)
+INTLIT(1)						      |	REALLIT(1__0.)
+ID(__0)							      |	REALLIT(1_9_0.)
+illegal character (.)					      <
+INTLIT(1_9)						      <
+ID(_0)							      <
+illegal character (.)					      <
+REALLIT(0.0)							REALLIT(0.0)
+REALLIT(0.1)							REALLIT(0.1)
+REALLIT(1.0)							REALLIT(1.0)
+REALLIT(1.1)							REALLIT(1.1)
+REALLIT(10.0)							REALLIT(10.0)
+REALLIT(10.0)						      |	REALLIT(10.01)
+INTLIT(1)						      |	REALLIT(1_0.0)
+INTLIT(1)						      |	REALLIT(1_0__9.01)
+ID(_0)							      <
+REALLIT(.0)						      <
+INTLIT(1)						      <
+ID(_0__9)						      <
+REALLIT(.0)						      <
+INTLIT(1)						      <
+REALLIT(0e0)							REALLIT(0e0)
+REALLIT(0e+0)							REALLIT(0e+0)
+REALLIT(0e-0)							REALLIT(0e-0)
+REALLIT(0E0)							REALLIT(0E0)
+REALLIT(0E+0)							REALLIT(0E+0)
+REALLIT(0E-0)							REALLIT(0E-0)
+REALLIT(0E-0)						      |	REALLIT(0E-0___0_1)
+ID(___0_1)						      <
+REALLIT(1e0)							REALLIT(1e0)
+REALLIT(1e+0)							REALLIT(1e+0)
+REALLIT(1e-0)							REALLIT(1e-0)
+REALLIT(1E0)							REALLIT(1E0)
+REALLIT(1E+0)							REALLIT(1E+0)
+REALLIT(1E-0)							REALLIT(1E-0)
+REALLIT(1e9)							REALLIT(1e9)
+REALLIT(1e+9)							REALLIT(1e+9)
+REALLIT(1e-9)							REALLIT(1e-9)
+REALLIT(1E9)							REALLIT(1E9)
+REALLIT(1E+9)							REALLIT(1E+9)
+REALLIT(1E-9)							REALLIT(1E-9)
+REALLIT(1e0)						      |	REALLIT(1e01)
+INTLIT(1)						      |	REALLIT(1e+01)
+REALLIT(1e+0)						      |	REALLIT(1e-01)
+INTLIT(1)						      |	REALLIT(1E01)
+REALLIT(1e-0)						      |	REALLIT(1E+01)
+INTLIT(1)						      |	REALLIT(1E-01)
+REALLIT(1E0)						      <
+INTLIT(1)						      <
+REALLIT(1E+0)						      <
+INTLIT(1)						      <
+REALLIT(1E-0)						      <
+INTLIT(1)						      <
+REALLIT(1e91)							REALLIT(1e91)
+REALLIT(1e+91)							REALLIT(1e+91)
+REALLIT(1e-91)							REALLIT(1e-91)
+REALLIT(1E91)							REALLIT(1E91)
+REALLIT(1E+91)							REALLIT(1E+91)
+REALLIT(1E-91)							REALLIT(1E-91)
+REALLIT(0.0e10)							REALLIT(0.0e10)
+REALLIT(0.1e10)							REALLIT(0.1e10)
+REALLIT(0.1)						      |	REALLIT(0.1_0e10)
+ID(_0e10)						      <
+REALLIT(1.0e10)							REALLIT(1.0e10)
+REALLIT(1.1e10)							REALLIT(1.1e10)
+REALLIT(10.0e10)						REALLIT(10.0e10)
+REALLIT(10.0)						      |	REALLIT(10.01e10)
+REALLIT(1e10)						      <
+REALLIT(.0e10)							REALLIT(.0e10)
+REALLIT(.1e10)							REALLIT(.1e10)
+REALLIT(.0e10)							REALLIT(.0e10)
+REALLIT(.0e1)						      |	REALLIT(.0e1_0_9)
+ID(_0_9)						      <
+REALLIT(.1e10)							REALLIT(.1e10)
+REALLIT(.0e10)							REALLIT(.0e10)
+REALLIT(.0)						      |	REALLIT(.01e10)
+REALLIT(1e10)						      <
+================== tests/meta1/Factorial.java DIFF OUTPUT ==================
+CLASS								CLASS
+illegal character ( )					      <
+ID(Factorial)							ID(Factorial)
+illegal character ( )					      <
+LBRACE								LBRACE
+illegal character ()							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+PUBLIC								PUBLIC
+illegal character ( )					      <
+STATIC								STATIC
+illegal character ( )					      <
+INT								INT
+illegal character ( )					      <
+ID(factorial)							ID(factorial)
+LPAR								LPAR
+INT								INT
+illegal character ( )					      <
+ID(n)								ID(n)
+RPAR								RPAR
+illegal character ( )					      <
+LBRACE								LBRACE
+illegal character ()							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+IF								IF
+illegal character ( )					      <
+LPAR								LPAR
+ID(n)								ID(n)
+illegal character ( )					      <
+EQ								EQ
+illegal character ( )					      <
+INTLIT(0)							INTLIT(0)
+RPAR								RPAR
+illegal character ()							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RETURN								RETURN
+illegal character ( )					      <
+INTLIT(1)							INTLIT(1)
+SEMICOLON							SEMICOLON
+illegal character ()							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RETURN								RETURN
+illegal character ( )					      <
+ID(n)								ID(n)
+illegal character ( )					      <
+STAR								STAR
+illegal character ( )					      <
+ID(factorial)							ID(factorial)
+LPAR								LPAR
+ID(n)								ID(n)
+MINUS								MINUS
+INTLIT(1)							INTLIT(1)
+RPAR								RPAR
+SEMICOLON							SEMICOLON
+illegal character ()							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RBRACE								RBRACE
+illegal character ()							      <
+illegal character ()							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+PUBLIC								PUBLIC
+illegal character ( )					      <
+STATIC								STATIC
+illegal character ( )					      <
+VOID								VOID
+illegal character ( )					      <
+ID(main)							ID(main)
+LPAR								LPAR
+STRING								STRING
+LSQ								LSQ
+RSQ								RSQ
+illegal character ( )					      <
+ID(args)							ID(args)
+RPAR								RPAR
+illegal character ( )					      <
+LBRACE								LBRACE
+illegal character ()							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+INT								INT
+illegal character ( )					      <
+ID(argument)							ID(argument)
+SEMICOLON							SEMICOLON
+illegal character ()							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+ID(argument)							ID(argument)
+illegal character ( )					      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+PARSEINT							PARSEINT
+LPAR								LPAR
+ID(args)							ID(args)
+LSQ								LSQ
+INTLIT(0)							INTLIT(0)
+RSQ								RSQ
+RPAR								RPAR
+SEMICOLON							SEMICOLON
+illegal character ()							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+PRINT								PRINT
+LPAR								LPAR
+ID(factorial)							ID(factorial)
+LPAR								LPAR
+ID(argument)							ID(argument)
+RPAR								RPAR
+RPAR								RPAR
+SEMICOLON							SEMICOLON
+illegal character ()							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RBRACE								RBRACE
+illegal character ()							      <
+RBRACE								RBRACE
+illegal character ()							      <
+================== tests/meta1/PoucoDeTudo.juc DIFF OUTPUT ==================
+CLASS								CLASS
+illegal character ( )					      <
+ID(Compiladores2020)						ID(Compiladores2020)
+DIV								DIV
+INTLIT(2019)							INTLIT(2019)
+DIV							      <
+STAR								STAR
+illegal character ( )					      <
+ID(Nao)							      <
+illegal character ( )					      <
+ID(esta)						      <
+illegal character ( )					      <
+ID(nada)						      <
+illegal character ( )					      <
+ID(facil)						      <
+illegal character ( )					      <
+ID(fazer)						      <
+illegal character ( )					      <
+ID(comp)						      <
+illegal character (	)				      <
+ID(O)							      <
+illegal character ( )					      <
+ID(valor)						      <
+illegal character ( )					      <
+RESERVED(do)						      <
+illegal character ( )					      <
+ID(pi)							      <
+illegal character ( )					      <
+REALLIT(3.14)						      <
+illegal character ( )					      <
+ID(nao)							      <
+illegal character ( )					      <
+ID(e)							      <
+illegal character ( )					      <
+ID(igual)						      <
+illegal character (	)				      <
+ID(a)							      <
+illegal character ( )					      <
+REALLIT(34.34E-3)					      <
+STAR							      <
+DIV							      <
+STAR							      <
+illegal character ( )					      <
+STAR								STAR
+DIV								DIV
+WHILE								WHILE
+illegal character ( )					      <
+ID(e)								ID(e)
+MINUS								MINUS
+INTLIT(1)							INTLIT(1)
+RESERVED(++)							RESERVED(++)
+PRINT								PRINT
+LPAR								LPAR
+illegal character (")					      |	Line 8, col 36: invalid escape sequence (\)
+illegal character ( )					      |	Line 8, col 18: unterminated string literal
+ID(Nao)							      |	STRLIT(" \\ ")
+illegal character ( )					      <
+ID(deu)							      <
+illegal character ( )					      <
+ID(em)							      <
+illegal character ( )					      <
+ID(nada)						      <
+illegal character ( )					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character ( )					      <
+illegal character (\)					      <
+illegal character (\)					      <
+illegal character ( )					      <
+illegal character (")					      <
+RPAR								RPAR
+illegal character (")					      |	Line 10, col 26: invalid escape sequence (\	)
+illegal character ( )					      |	Line 10, col 1: unterminated string literal
+ID(no)							      <
+illegal character ( )					      <
+ID(token)						      <
+illegal character ( )					      <
+DOTLENGTH						      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(n)							      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(f)							      <
+illegal character ( )					      <
+illegal character (\)					      <
+illegal character (	)				      <
+DIV							      <
+DIV							      <
+ID(IMPORTANTE)						      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(n)							      <
+illegal character ( )					      <
+illegal character (Ã)					      <
+illegal character (©)					      <
+illegal character ( )					      <
+ID(suposto)						      <
+illegal character ( )					      <
+ID(ser)							      <
+illegal character ( )					      <
+ID(ignorado)						      <
+REALLIT(0.0e0)							REALLIT(0.0e0)
+REALLIT(.0e0)							REALLIT(.0e0)
+REALLIT(.0)							REALLIT(.0)
+REALLIT(123.123e123)						REALLIT(123.123e123)
+ID(e)								ID(e)
+RESERVED(--)							RESERVED(--)
+INTLIT(123)							INTLIT(123)
+illegal character ( )					      <
+ARROW								ARROW
+illegal character ( )					      <
+ID(reallit)							ID(reallit)
+illegal character (?)					      |	Line 13, col 29: illegal character (?)
+illegal character ( )					      |	STRLIT(" \\\\\n 	")
+illegal character (")					      <
+illegal character ( )					      <
+illegal character (\)					      <
+illegal character (\)					      <
+illegal character (\)					      <
+illegal character (\)					      <
+illegal character (\)					      <
+ID(n)							      <
+illegal character ( )					      <
+illegal character (	)				      <
+illegal character (")					      <
+================== tests/meta1/7271 DIFF OUTPUT ==================
+Binary files /tmp/COMP.OYOKZNd2ar and tests/meta1/7271.out differ
+================== tests/meta1/EsteEPuxado.java DIFF OUTPUT ==================
+DIV							      |	STRLIT("")
+DIV							      |	STRLIT("\\")
+illegal character ( )					      |	STRLIT("\"")
+ID(jucompiler)						      |	STRLIT("This is a string")
+illegal character ( )					      |	STRLIT("This is a ")
+MINUS							      <
+ID(e1)							      <
+illegal character ( )					      <
+LT							      <
+illegal character ( )					      <
+ID(errors)						      <
+illegal character (.)					      <
+ID(java)						      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+ID(the)							      <
+illegal character ( )					      <
+ID(standard)						      <
+illegal character ( )					      <
+ID(Java)						      <
+illegal character ( )					      <
+ID(compiler)						      <
+illegal character ( )					      <
+ID(also)						      <
+illegal character ( )					      <
+ID(shows)						      <
+illegal character ( )					      <
+ID(these)						      <
+illegal character ( )					      <
+ID(lexical)						      <
+illegal character ( )					      <
+ID(errors)						      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+ID(the)							      <
+illegal character ( )					      <
+ID(empty)						      <
+illegal character ( )					      <
+ID(string)						      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+ID(the)							      <
+illegal character ( )					      <
+ID(empty)						      <
+illegal character ( )					      <
+ID(string)						      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+ID(a)							      <
+illegal character ( )					      <
+ID(string)						      <
+illegal character ( )					      <
+ID(containing)						      <
+illegal character ( )					      <
+illegal character (")					      <
+illegal character ( )					      <
+ID(alone)						      <
+illegal character (")					      <
+ID(This)						      <
+illegal character ( )					      <
+ID(is)							      <
+illegal character ( )					      <
+ID(a)							      <
+illegal character ( )					      <
+ID(string)						      <
+illegal character (")					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+ID(a)							      <
+illegal character ( )					      <
+ID(string)						      <
+illegal character ( )					      <
+ID(containing)						      <
+illegal character ( )					      <
+INTLIT(16)						      <
+illegal character ( )					      <
+ID(characters)						      <
+illegal character (")					      <
+ID(This)						      <
+illegal character ( )					      <
+ID(is)							      <
+illegal character ( )					      <
+ID(a)							      <
+illegal character ( )					      <
+illegal character (")					      <
+illegal character ( )					      <
+PLUS								PLUS
+illegal character ( )					      |	Line 8, col 20: invalid escape sequence (\g)
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+ID(actually)						      <
+illegal character ( )					      <
+ID(a)							      <
+illegal character ( )					      <
+ID(string)						      <
+MINUS							      <
+ID(valued)						      <
+illegal character ( )					      <
+ID(constant)						      <
+illegal character ( )					      <
+ID(expression)						      <
+COMMA							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character (")					      <
+ID(two)							      <
+MINUS							      <
+ID(line)						      <
+illegal character ( )					      <
+ID(strin)						      <
+illegal character (\)					      <
+ID(g)							      <
+illegal character (")					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+ID(formed)						      <
+illegal character ( )					      <
+ID(from)						      <
+illegal character ( )					      <
+ID(two)							      <
+illegal character ( )					      <
+ID(string)						      <
+illegal character ( )					      <
+ID(literals)						      <
+CLASS								CLASS
+illegal character ( )					      <
+ID(Small)							ID(Small)
+illegal character ( )					      |	Line 9, col 13: illegal character (#)
+illegal character (#)					      <
+illegal character (	)				      <
+PUBLIC								PUBLIC
+illegal character ( )					      <
+STATIC								STATIC
+illegal character ( )					      <
+VOID								VOID
+illegal character ( )					      <
+ID(main)							ID(main)
+LPAR								LPAR
+STRING								STRING
+LSQ								LSQ
+RSQ								RSQ
+illegal character ( )					      <
+ID(args)							ID(args)
+RPAR								RPAR
+illegal character ( )					      <
+LBRACE								LBRACE
+illegal character (	)				      <
+RBRACE								RBRACE
+illegal character (#)					      |	Line 12, col 1: illegal character (#)
+illegal character (")					      |	STRLIT("Hello /\\\\**/ boyyyy")
+ID(Hello)						      <
+illegal character ( )					      <
+DIV							      <
+illegal character (\)					      <
+illegal character (\)					      <
+illegal character (\)					      <
+illegal character (\)					      <
+STAR							      <
+STAR							      <
+DIV							      <
+illegal character ( )					      <
+ID(boyyyy)						      <
+illegal character (")					      <
+ID(vari)							ID(vari)
+illegal character (.)					      |	Line 16, col 5: illegal character (.)
+ID(able)							ID(able)
+INTLIT(0)							INTLIT(0)
+INTLIT(2)							INTLIT(2)
+REALLIT(1.e0)						      |	REALLIT(1.e0_0)
+ID(_0)							      |	Line 19, col 2: invalid escape sequence (\)
+illegal character (")					      |	Line 19, col 1: unterminated string literal
+illegal character (\)					      |	STRLIT("\\")
+illegal character (")					      |	Line 21, col 5: invalid escape sequence (\)
+illegal character (\)					      |	Line 21, col 1: unterminated string literal
+illegal character (\)					      |	STRLIT("\\")
+illegal character (")					      <
+illegal character (")					      <
+ID(hey)							      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character (\)					      <
+illegal character (")					      <
+ID(asd3)							ID(asd3)
+REALLIT(.3)							REALLIT(.3)
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+ID(Mooshak)						      <
+illegal character ( )					      <
+illegal character ( )					      <
+ID(Spamar)						      <
+illegal character ( )					      <
+ID(mais)						      <
+illegal character ( )					      <
+ID(deste)						      <
+illegal character ( )					      <
+ID(genero)						      <
+ID(a)								ID(a)
+MINUS								MINUS
+REALLIT(1.0)							REALLIT(1.0)
+ID(e)								ID(e)
+MINUS								MINUS
+INTLIT(1)							INTLIT(1)
+REALLIT(1.E+0)						      |	REALLIT(1.E+09)
+INTLIT(9)						      |	Line 30, col 1: unterminated comment
+DIV							      <
+STAR							      <
+ID(printf)						      <
+illegal character ( )					      <
+ID(is)							      <
+illegal character ( )					      <
+ID(used)						      <
+illegal character ( )					      <
+ID(to)							      <
+illegal character ( )					      <
+ID(print)						      <
+illegal character ( )					      <
+ID(a)							      <
+illegal character ( )					      <
+ID(message)						      <
+illegal character ( )					      <
+illegal character (\)					      <
+STAR							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+ID(printf)						      <
+LPAR							      <
+illegal character (")					      <
+ID(Hello)						      <
+illegal character ( )					      <
+ID(world)						      <
+illegal character (")					      <
+RPAR							      <
+SEMICOLON						      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+RETURN							      <
+illegal character ( )					      <
+INTLIT(0)						      <
+SEMICOLON						      <
+================== tests/meta1/UnterminatedComment.juc DIFF OUTPUT ==================
+DIV							      |	Line 2, col 1: unterminated comment
+DIV							      <
+illegal character ( )					      <
+ID(terminated)						      <
+illegal character ( )					      <
+DIV							      <
+STAR							      <
+illegal character ( )					      <
+ID(comment)						      <
+illegal character ( )					      <
+ID(does)						      <
+illegal character ( )					      <
+ID(not)							      <
+illegal character ( )					      <
+ID(end)							      <
+STAR							      <
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+ID(what)						      <
+================== tests/meta1/Comments2.juc DIFF OUTPUT ==================
+DIV							      <
+STAR							      <
+illegal character ( )					      <
+ID(main)						      <
+illegal character ( )					      <
+PUBLIC							      <
+illegal character ( )					      <
+ID(test)						      <
+illegal character ( )					      <
+STAR							      <
+DIV							      <
+DIV							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+illegal character ( )					      <
+PUBLIC							      <
+illegal character ( )					      <
+STAR							      <
+STAR							      <
+illegal character ( )					      <
+PUBLIC							      <
+illegal character ( )					      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+DIV							      <
+DIV							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+illegal character ( )					      <
+PUBLIC							      <
+illegal character ( )					      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+DIV							      <
+DIV							      <
+STAR							      <
+STAR							      <
+DIV							      <
+DIV							      <
+STAR							      <
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+STAR							      <
+DIV							      <
+illegal character ( )					      <
+DIV							      <
+STAR							      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+PUBLIC							      <
+DIV							      <
+STAR							      <
+illegal character ( )					      <
+PUBLIC							      <
+PUBLIC							      <
+STAR							      <
+illegal character ( )					      <
+DIV							      <
+illegal character ( )					      <
+PUBLIC							      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+PUBLIC							      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+STAR							      <
+DIV							      <
+================== tests/meta1/Comments4.java DIFF OUTPUT ==================
+BOOL								BOOL
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+ID(one)							      <
+illegal character ( )					      <
+ID(line)						      <
+illegal character ( )					      <
+ID(comment)						      <
+DOUBLE								DOUBLE
+DIV							      <
+STAR							      <
+illegal character ( )					      <
+illegal character (	)				      <
+ID(multi)						      <
+illegal character (	)				      <
+ID(line)						      <
+illegal character (	)				      <
+ID(comment)						      <
+STAR							      <
+DIV							      <
+AND								AND
+DIV							      <
+STAR							      <
+illegal character ( )					      <
+INTLIT(123)						      <
+illegal character ( )					      <
+NOT							      <
+illegal character (?)					      <
+EQ							      <
+illegal character ( )					      <
+STATIC							      <
+STAR							      <
+DIV							      <
+================== tests/meta1/TestesExtra.juc DIFF OUTPUT ==================
+DIV							      <
+DIV							      <
+ID(compilar)						      <
+illegal character ( )					      <
+ID(com)							      <
+illegal character ( )					      <
+ID(flag)						      <
+illegal character ( )					      <
+MINUS							      <
+ID(l)							      <
+ID(loop)							ID(loop)
+illegal character (:)					      |	Line 2, col 5: illegal character (:)
+illegal character ( )					      <
+ID(cmp)								ID(cmp)
+illegal character ( )					      <
+INTLIT(0)							INTLIT(0)
+INTLIT(51)							INTLIT(51)
+illegal character (:)					      |	Line 2, col 14: illegal character (:)
+COMMA								COMMA
+illegal character ( )					      <
+INTLIT(0)							INTLIT(0)
+ID(xcd10xba)							ID(xcd10xba)
+illegal character (:)					      |	Line 3, col 1: illegal character (:)
+ID(ab)								ID(ab)
+illegal character ( )					      <
+INTLIT(0)							INTLIT(0)
+ID(x123)							ID(x123)
+illegal character ( )					      <
+ID(ret)								ID(ret)
+PUBLIC								PUBLIC
+illegal character ( )					      <
+RESERVED(this)							RESERVED(this)
+illegal character ( )					      <
+RESERVED(++)							RESERVED(++)
+illegal character ( )					      <
+RESERVED(protected)						RESERVED(protected)
+PRINT								PRINT
+LPAR								LPAR
+illegal character (")					      |	Line 7, col 18: unterminated string literal
+ID(esta)						      |	Line 8, col 11: invalid escape sequence (\h)
+illegal character ( )					      |	Line 8, col 1: unterminated string literal
+ID(string)						      |	Line 12, col 1: unterminated comment
+illegal character ( )					      <
+ID(da)							      <
+illegal character ( )					      <
+ID(erro)						      <
+RPAR							      <
+illegal character (")					      <
+ID(esta)						      <
+illegal character ( )					      <
+ID(tbm)							      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(h)							      <
+DIV							      <
+DIV							      <
+ID(este)						      <
+illegal character ( )					      <
+ID(cometario)						      <
+illegal character ( )					      <
+ID(e)							      <
+illegal character ( )					      <
+ID(valido)						      <
+DIV							      <
+STAR							      <
+STAR							      <
+ID(comentario)						      <
+illegal character ( )					      <
+ID(nao)							      <
+illegal character ( )					      <
+ID(acaba)						      <
+================== tests/meta1/HyperSuperMegaTest.juc DIFF OUTPUT ==================
+MOD								MOD
+NE								NE
+NOT								NOT
+OR								OR
+PLUS								PLUS
+RBRACE								RBRACE
+RPAR								RPAR
+RSQ								RSQ
+SEMICOLON							SEMICOLON
+ARROW								ARROW
+LSHIFT								LSHIFT
+RSHIFT								RSHIFT
+XOR								XOR
+BOOL								BOOL
+CLASS								CLASS
+DOTLENGTH							DOTLENGTH
+ID(Xlength)							ID(Xlength)
+DOUBLE								DOUBLE
+ELSE								ELSE
+IF								IF
+INT								INT
+PRINT								PRINT
+ID(SystemXout)							ID(SystemXout)
+illegal character (.)					      |	Line 25, col 11: illegal character (.)
+ID(print)							ID(print)
+RESERVED(System)						RESERVED(System)
+illegal character (.)					      |	Line 26, col 7: illegal character (.)
+ID(outXprint)							ID(outXprint)
+ID(SystemXoutXprint)						ID(SystemXoutXprint)
+PARSEINT							PARSEINT
+ID(IntegerXparseInt)						ID(IntegerXparseInt)
+PUBLIC								PUBLIC
+RETURN								RETURN
+STATIC								STATIC
+STRING								STRING
+VOID								VOID
+WHILE								WHILE
+RESERVED(++)							RESERVED(++)
+RESERVED(--)							RESERVED(--)
+RESERVED(null)							RESERVED(null)
+RESERVED(Integer)						RESERVED(Integer)
+RESERVED(System)						RESERVED(System)
+RESERVED(abstract)						RESERVED(abstract)
+RESERVED(assert)						RESERVED(assert)
+RESERVED(break)							RESERVED(break)
+RESERVED(byte)							RESERVED(byte)
+RESERVED(case)							RESERVED(case)
+RESERVED(catch)							RESERVED(catch)
+RESERVED(char)							RESERVED(char)
+RESERVED(const)							RESERVED(const)
+RESERVED(default)						RESERVED(default)
+RESERVED(do)							RESERVED(do)
+RESERVED(enum)							RESERVED(enum)
+RESERVED(extends)						RESERVED(extends)
+RESERVED(final)							RESERVED(final)
+RESERVED(finally)						RESERVED(finally)
+RESERVED(float)							RESERVED(float)
+RESERVED(for)							RESERVED(for)
+RESERVED(goto)							RESERVED(goto)
+RESERVED(implements)						RESERVED(implements)
+RESERVED(import)						RESERVED(import)
+RESERVED(instanceof)						RESERVED(instanceof)
+RESERVED(interface)						RESERVED(interface)
+RESERVED(long)							RESERVED(long)
+RESERVED(native)						RESERVED(native)
+RESERVED(new)							RESERVED(new)
+RESERVED(package)						RESERVED(package)
+RESERVED(private)						RESERVED(private)
+RESERVED(protected)						RESERVED(protected)
+PUBLIC								PUBLIC
+RESERVED(short)							RESERVED(short)
+RESERVED(strictfp)						RESERVED(strictfp)
+RESERVED(super)							RESERVED(super)
+RESERVED(switch)						RESERVED(switch)
+RESERVED(synchronized)						RESERVED(synchronized)
+RESERVED(this)							RESERVED(this)
+RESERVED(throw)							RESERVED(throw)
+RESERVED(throws)						RESERVED(throws)
+RESERVED(transient)						RESERVED(transient)
+RESERVED(try)							RESERVED(try)
+RESERVED(volatile)						RESERVED(volatile)
+RESERVED(continue)						RESERVED(continue)
+BOOLLIT(true)							BOOLLIT(true)
+BOOLLIT(false)							BOOLLIT(false)
+ID(tru)								ID(tru)
+ID(fals)							ID(fals)
+ID(truee)							ID(truee)
+ID(falsee)							ID(falsee)
+ID(sa9dyas9_ya9sydas$0as_0)					ID(sa9dyas9_ya9sydas$0as_0)
+INTLIT(9)							INTLIT(9)
+ID(dyas9_ya9sydas$0as_0)					ID(dyas9_ya9sydas$0as_0)
+INTLIT(0)							INTLIT(0)
+INTLIT(1039123)						      |	INTLIT(1039123_897123___8931271)
+ID(_897123___8931271)					      <
+ID(_1039123_897123___8931271)					ID(_1039123_897123___8931271)
+ID(booleane)							ID(booleane)
+ID(classe)							ID(classe)
+DOTLENGTH							DOTLENGTH
+ID(e)								ID(e)
+ID(Xlengthe)							ID(Xlengthe)
+ID(doublee)							ID(doublee)
+ID(elsee)							ID(elsee)
+ID(ife)								ID(ife)
+ID(inte)							ID(inte)
+PRINT								PRINT
+ID(e)								ID(e)
+ID(SystemXout)							ID(SystemXout)
+illegal character (.)					      |	Line 101, col 11: illegal character (.)
+ID(printe)							ID(printe)
+RESERVED(System)						RESERVED(System)
+illegal character (.)					      |	Line 102, col 7: illegal character (.)
+ID(outXprinte)							ID(outXprinte)
+ID(SystemXoutXprinte)						ID(SystemXoutXprinte)
+PARSEINT							PARSEINT
+ID(e)								ID(e)
+ID(IntegerXparseInte)						ID(IntegerXparseInte)
+ID(publice)							ID(publice)
+ID(returne)							ID(returne)
+ID(statice)							ID(statice)
+ID(Stringe)							ID(Stringe)
+ID(voide)							ID(voide)
+ID(whilee)							ID(whilee)
+RESERVED(++)							RESERVED(++)
+ID(e)								ID(e)
+RESERVED(--)							RESERVED(--)
+ID(e)								ID(e)
+ID(nulle)							ID(nulle)
+ID(Integere)							ID(Integere)
+ID(Systeme)							ID(Systeme)
+ID(abstracte)							ID(abstracte)
+ID(asserte)							ID(asserte)
+ID(breake)							ID(breake)
+RESERVED(byte)							RESERVED(byte)
+illegal character (\)					      |	Line 120, col 5: illegal character (\)
+RESERVED(case)							RESERVED(case)
+illegal character (\)					      |	Line 121, col 5: illegal character (\)
+RESERVED(catch)							RESERVED(catch)
+illegal character (\)					      |	Line 122, col 6: illegal character (\)
+RESERVED(char)							RESERVED(char)
+illegal character (\)					      |	Line 123, col 5: illegal character (\)
+RESERVED(const)							RESERVED(const)
+illegal character (\)					      |	Line 124, col 6: illegal character (\)
+RESERVED(default)						RESERVED(default)
+illegal character (\)					      |	Line 125, col 8: illegal character (\)
+RESERVED(do)							RESERVED(do)
+illegal character (\)					      |	Line 126, col 3: illegal character (\)
+RESERVED(enum)							RESERVED(enum)
+illegal character (\)					      |	Line 127, col 5: illegal character (\)
+RESERVED(extends)						RESERVED(extends)
+illegal character (.)					      |	Line 128, col 8: illegal character (.)
+RESERVED(final)							RESERVED(final)
+illegal character (.)					      |	Line 129, col 6: illegal character (.)
+RESERVED(finally)						RESERVED(finally)
+illegal character (.)					      |	Line 130, col 8: illegal character (.)
+RESERVED(float)							RESERVED(float)
+illegal character (.)					      |	Line 131, col 6: illegal character (.)
+RESERVED(for)							RESERVED(for)
+illegal character (.)					      |	Line 133, col 4: illegal character (.)
+RESERVED(goto)							RESERVED(goto)
+illegal character (.)					      |	Line 134, col 5: illegal character (.)
+RESERVED(implements)						RESERVED(implements)
+COMMA								COMMA
+RESERVED(import)						RESERVED(import)
+COMMA								COMMA
+RESERVED(instanceof)						RESERVED(instanceof)
+COMMA								COMMA
+RESERVED(interface)						RESERVED(interface)
+COMMA								COMMA
+RESERVED(long)							RESERVED(long)
+COMMA								COMMA
+RESERVED(native)						RESERVED(native)
+COMMA								COMMA
+RESERVED(new)							RESERVED(new)
+COMMA								COMMA
+ID(packagee)							ID(packagee)
+ID(privatee)							ID(privatee)
+ID(protectede)							ID(protectede)
+ID(publice)							ID(publice)
+ID(shorte)							ID(shorte)
+ID(strictfpe)							ID(strictfpe)
+ID(supere)							ID(supere)
+ID(switche)							ID(switche)
+ID(esynchronizede)						ID(esynchronizede)
+ID(thise)							ID(thise)
+ID(throwe)							ID(throwe)
+RESERVED(throws)						RESERVED(throws)
+ID(transiente)							ID(transiente)
+ID(tryr)							ID(tryr)
+ID(volatilee)							ID(volatilee)
+RESERVED(continue)						RESERVED(continue)
+illegal character (\)					      |	Line 159, col 9: illegal character (\)
+illegal character (	)				      <
+AND								AND
+illegal character ( )					      <
+MOD								MOD
+illegal character (&)					      |	Line 161, col 5: illegal character (&)
+illegal character ( )					      <
+MOD								MOD
+illegal character ( )					      <
+illegal character (	)				      <
+AND								AND
+OR								OR
+illegal character ( )					      |	Line 161, col 15: illegal character (&)
+illegal character (&)					      |	Line 161, col 16: illegal character (|)
+illegal character (|)					      <
+illegal character ( )					      <
+AND								AND
+illegal character (&)					      |	Line 161, col 20: illegal character (&)
+illegal character ( )					      <
+MOD								MOD
+MOD								MOD
+MOD								MOD
+illegal character ( )					      <
+OR								OR
+illegal character (|)					      |	Line 161, col 28: illegal character (|)
+illegal character (	)				      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+EQ								EQ
+illegal character ( )					      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+ID(e)								ID(e)
+illegal character (	)				      <
+ID(fefa)							ID(fefa)
+STAR								STAR
+STAR								STAR
+STAR								STAR
+STAR								STAR
+STAR								STAR
+STAR								STAR
+MOD								MOD
+STAR								STAR
+illegal character (	)				      <
+DIV							      <
+DIV							      <
+DIV							      <
+STAR							      <
+STAR							      <
+STAR							      <
+illegal character ( )					      <
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+DIV							      <
+DIV							      <
+STAR							      <
+STAR							      <
+DIV							      <
+STAR							      <
+DIV							      <
+STAR							      <
+DIV							      <
+STAR							      <
+DIV							      <
+STAR							      <
+DIV							      <
+STAR							      <
+DIV							      <
+STAR							      <
+DIV							      <
+DIV							      <
+STAR							      <
+DIV							      <
+STAR							      <
+STAR							      <
+STAR							      <
+STAR							      <
+DIV							      <
+STAR							      <
+DIV							      <
+STAR							      <
+DIV							      <
+STAR							      <
+DIV							      <
+STAR							      <
+DIV							      <
+STAR							      <
+DIV							      <
+STAR							      <
+DIV							      <
+STAR							      <
+DIV							      <
+COMMA								COMMA
+illegal character ( )					      <
+COMMA								COMMA
+illegal character ( )					      <
+COMMA								COMMA
+illegal character ( )					      <
+COMMA								COMMA
+illegal character ( )					      <
+illegal character (	)				      <
+COMMA								COMMA
+illegal character ( )					      <
+COMMA								COMMA
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+COMMA								COMMA
+COMMA								COMMA
+illegal character ( )					      <
+COMMA								COMMA
+illegal character ( )					      <
+COMMA								COMMA
+illegal character ( )					      <
+COMMA								COMMA
+COMMA								COMMA
+illegal character ( )					      <
+COMMA								COMMA
+illegal character ( )					      <
+COMMA								COMMA
+COMMA								COMMA
+COMMA								COMMA
+illegal character ( )					      <
+COMMA								COMMA
+COMMA								COMMA
+illegal character ( )					      <
+COMMA								COMMA
+illegal character ( )					      <
+COMMA								COMMA
+illegal character ( )					      <
+COMMA								COMMA
+illegal character ( )					      <
+COMMA								COMMA
+illegal character (	)				      <
+DIV							      <
+DIV							      <
+DIV								DIV
+DIV							      |	Line 170, col 5: illegal character (&)
+DIV							      |	Line 172, col 1: illegal character (&)
+DIV							      <
+DIV							      <
+DIV							      <
+illegal character (	)				      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+DIV							      <
+illegal character ( )					      <
+DIV							      <
+illegal character ( )					      <
+DIV							      <
+illegal character ( )					      <
+DIV							      <
+illegal character ( )					      <
+DIV							      <
+illegal character ( )					      <
+DIV							      <
+illegal character ( )					      <
+DIV							      <
+illegal character ( )					      <
+DIV							      <
+illegal character ( )					      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+DIV							      <
+illegal character ( )					      <
+DIV							      <
+illegal character ( )					      <
+DIV							      <
+illegal character ( )					      <
+illegal character (	)				      <
+illegal character (	)				      <
+illegal character ( )					      <
+DIV							      <
+illegal character (&)					      <
+illegal character ( )					      <
+illegal character (	)				      <
+illegal character (&)					      <
+illegal character ( )					      <
+INTLIT(6)							INTLIT(6)
+illegal character ( )					      <
+INTLIT(6)							INTLIT(6)
+illegal character ( )					      <
+INTLIT(66)							INTLIT(66)
+illegal character (	)				      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+INTLIT(66)							INTLIT(66)
+illegal character ( )					      <
+INTLIT(7)							INTLIT(7)
+illegal character ( )					      <
+illegal character ( )					      <
+AND								AND
+AND								AND
+illegal character ( )					      <
+INTLIT(6)							INTLIT(6)
+illegal character (&)					      |	Line 172, col 25: illegal character (&)
+illegal character ( )					      |	Line 172, col 27: illegal character (&)
+illegal character (&)					      <
+illegal character ( )					      <
+DIV								DIV
+INTLIT(6)							INTLIT(6)
+illegal character (&)					      |	Line 172, col 31: illegal character (&)
+illegal character (	)				      |	Line 172, col 34: illegal character (&)
+illegal character (	)				      <
+illegal character (&)					      <
+illegal character (	)				      <
+illegal character (	)				      <
+illegal character ( )					      <
+illegal character (	)				      <
+illegal character (	)				      <
+EQ								EQ
+illegal character ( )					      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+EQ								EQ
+INTLIT(0)							INTLIT(0)
+illegal character ( )					      <
+EQ								EQ
+illegal character ( )					      <
+EQ								EQ
+ASSIGN								ASSIGN
+illegal character ( )					      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+INTLIT(0)							INTLIT(0)
+illegal character ( )					      <
+INTLIT(0)							INTLIT(0)
+EQ								EQ
+ASSIGN								ASSIGN
+illegal character (	)				      <
+illegal character ( )					      <
+illegal character ( )					      <
+INTLIT(0)							INTLIT(0)
+INTLIT(0)							INTLIT(0)
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+LE								LE
+illegal character ( )					      <
+EQ								EQ
+illegal character ( )					      <
+ASSIGN								ASSIGN
+GT								GT
+illegal character (	)				      <
+GE								GE
+illegal character ( )					      <
+GE								GE
+illegal character ( )					      <
+GT								GT
+illegal character ( )					      <
+ASSIGN								ASSIGN
+GE								GE
+illegal character ( )					      <
+GE								GE
+illegal character ( )					      <
+illegal character ( )					      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+illegal character (	)				      <
+illegal character (	)				      <
+illegal character ( )					      <
+GE								GE
+RSHIFT								RSHIFT
+LT								LT
+illegal character ( )					      <
+GT								GT
+illegal character ( )					      <
+GT								GT
+illegal character ( )					      <
+LT								LT
+illegal character ( )					      <
+LT								LT
+INTLIT(0)							INTLIT(0)
+illegal character ( )					      <
+ASSIGN								ASSIGN
+illegal character ( )					      <
+LE								LE
+illegal character ( )					      <
+LT								LT
+INTLIT(0)							INTLIT(0)
+ASSIGN								ASSIGN
+illegal character ( )					      <
+LE								LE
+LBRACE								LBRACE
+illegal character ( )					      <
+illegal character (	)				      <
+LBRACE								LBRACE
+RBRACE								RBRACE
+LBRACE								LBRACE
+LSQ								LSQ
+RSQ								RSQ
+LSQ								LSQ
+RSQ								RSQ
+LBRACE								LBRACE
+RBRACE								RBRACE
+LPAR								LPAR
+RPAR								RPAR
+LPAR								LPAR
+RPAR								RPAR
+DIV								DIV
+LBRACE								LBRACE
+RBRACE								RBRACE
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+ID($)								ID($)
+illegal character ( )					      <
+illegal character ( )					      <
+RSQ								RSQ
+illegal character ( )					      <
+illegal character ( )					      <
+RPAR								RPAR
+LPAR								LPAR
+RPAR								RPAR
+illegal character ( )					      <
+illegal character (	)				      <
+RESERVED(--)							RESERVED(--)
+illegal character ( )					      <
+MINUS								MINUS
+illegal character ( )					      <
+RESERVED(--)							RESERVED(--)
+illegal character ( )					      <
+MINUS								MINUS
+illegal character ( )					      <
+MINUS								MINUS
+illegal character ( )					      <
+MINUS								MINUS
+illegal character ( )					      <
+MINUS								MINUS
+illegal character ( )					      <
+MINUS								MINUS
+DIV								DIV
+DIV							      <
+illegal character ( )					      <
+ID(ajskdnasld)						      <
+illegal character ( )					      <
+ID(naosdjaiopdj)					      <
+illegal character ( )					      <
+ID(ao0d)						      <
+illegal character ( )					      <
+ID(jad9asy)						      <
+RPAR							      <
+LPAR							      <
+ID(S)							      <
+LPAR							      <
+ID(Uy)							      <
+ASSIGN							      <
+ID(DASU0DUA)						      <
+illegal character (?)					      <
+ID(AS)							      <
+LPAR							      <
+RPAR							      <
+ID(DAS)							      <
+ASSIGN							      <
+illegal character (?)					      <
+ID(D)							      <
+ASSIGN							      <
+DIV							      <
+ID(AS)							      <
+illegal character (?)					      <
+ID(DGHASDSA)						      <
+ASSIGN							      <
+LPAR							      <
+DIV							      <
+ID(DASU)						      <
+RPAR							      <
+illegal character ( )					      <
+INTLIT(0)						      <
+ID(ysaS)						      <
+ASSIGN							      <
+RPAR							      <
+ID(H)							      <
+RPAR							      <
+ID(ASH)							      <
+illegal character (?)					      <
+illegal character ( )					      <
+ASSIGN							      <
+DIV							      <
+ID(aso)								ID(aso)
+illegal character ( )					      <
+ID(dijaj)							ID(dijaj)
+STAR								STAR
+STAR								STAR
+DIV								DIV
+DIV							      |	STRLIT("sui ghasuidhasui dhiash ")
+STAR							      |	STRLIT("")
+INTLIT(89)						      <
+illegal character ( )					      <
+ID(asud)						      <
+illegal character (')					      <
+ID(as8dyua9)						      <
+illegal character (')					      <
+ID(shd)							      <
+illegal character ( )					      <
+ID(as98hd)						      <
+illegal character ( )					      <
+ID(pashhd)						      <
+illegal character ( )					      <
+ID(as789d)						      <
+illegal character ( )					      <
+ID(hapda)						      <
+illegal character ( )					      <
+ID(sdasuih)						      <
+illegal character ( )					      <
+ID(uopn)						      <
+illegal character ( )					      <
+STAR							      <
+DIV							      <
+illegal character (")					      <
+ID(sui)							      <
+illegal character ( )					      <
+ID(ghasuidhasui)					      <
+illegal character ( )					      <
+ID(dhiash)						      <
+illegal character ( )					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (")					      <
+ID(sapdj)							ID(sapdj)
+illegal character ( )					      <
+ID(a)							      <
+illegal character (")					      <
+ID(jan)							      <
+illegal character ( )					      <
+ID(adn)							      <
+illegal character ( )					      <
+ID(s)							      <
+illegal character (Ã)					      <
+illegal character (§)					      <
+ID(jso)							      <
+illegal character ( )					      <
+ID(aso)							      <
+illegal character (\)					      <
+illegal character (")					      <
+ID(oashdao)						      <
+illegal character ( )					      <
+ID(saosdjasodj)						      <
+illegal character ( )					      <
+ID(a)								ID(a)
+illegal character (\)					      |	Line 190, col 29: invalid escape sequence (\)
+ID(U)							      |	Line 190, col 10: unterminated string literal
+illegal character (")					      |	Line 191, col 23: invalid escape sequence (\U)
+illegal character (")					      |	Line 192, col 18: invalid escape sequence (\)
+ID(asiod)						      |	Line 192, col 1: unterminated string literal
+illegal character ( )					      |	Line 193, col 1: unterminated string literal
+ID(oa)							      |	STRLIT("aspj dpas !")
+illegal character ( )					      |	STRLIT("")
+ID(das)							      |
+illegal character ( )					      <
+ID(jas)							      <
+illegal character (\)					      <
+illegal character (")					      <
+ID(asidj)						      <
+illegal character ( )					      <
+ID(aspjdas)						      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(f)							      <
+illegal character (")					      <
+ID(aspj)						      <
+illegal character ( )					      <
+ID(dpas)						      <
+illegal character ( )					      <
+NOT							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (")					      <
+================== tests/meta1/escape_sequences.juc DIFF OUTPUT ==================
+illegal character (")					      |	STRLIT("\n")
+illegal character (\)					      |	STRLIT("\\")
+ID(n)							      |	Line 3, col 2: invalid escape sequence (\ )
+illegal character (")					      |	STRLIT("\"")
+illegal character (")					      |	Line 5, col 1: unterminated string literal
+illegal character (\)					      |	Line 6, col 3: invalid escape sequence (\ )
+illegal character (\)					      |	Line 6, col 7: invalid escape sequence (\*)
+illegal character (")					      |	Line 7, col 2: invalid escape sequence (\ )
+illegal character (")					      |	Line 7, col 4: invalid escape sequence (\ )
+illegal character (\)					      |	Line 7, col 6: invalid escape sequence (\ )
+illegal character ( )					      |	Line 7, col 8: invalid escape sequence (\ )
+illegal character (")					      |	Line 7, col 10: invalid escape sequence (\ )
+illegal character (")					      |	Line 8, col 2: invalid escape sequence (\s)
+illegal character (\)					      |	Line 8, col 10: invalid escape sequence (\s)
+illegal character (")					      |	Line 9, col 3: invalid escape sequence (\c)
+illegal character (")					      |	Line 10, col 2: invalid escape sequence (\%)
+illegal character (")					      |	STRLIT("\f")
+illegal character (\)					      |	Line 12, col 2: invalid escape sequence (\a)
+illegal character (")					      <
+illegal character (")					      <
+illegal character ( )					      <
+illegal character (\)					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character (\)					      <
+STAR							      <
+illegal character ( )					      <
+illegal character (\)					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character ( )					      <
+illegal character (\)					      <
+illegal character ( )					      <
+illegal character (\)					      <
+illegal character ( )					      <
+illegal character (\)					      <
+illegal character ( )					      <
+illegal character (\)					      <
+illegal character ( )					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(string)						      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(string2)						      <
+illegal character (?)					      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character ( )					      <
+illegal character (\)					      <
+ID(c)							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+MOD							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(f)							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(a)							      <
+illegal character (")					      <
+================== tests/meta1/errors.java DIFF OUTPUT ==================
+DIV							      |	Line 4, col 13: illegal character (#)
+DIV							      |	Line 7, col 1: illegal character (#)
+illegal character ( )					      <
+ID(jucompiler)						      <
+illegal character ( )					      <
+MINUS							      <
+ID(e1)							      <
+illegal character ( )					      <
+LT							      <
+illegal character ( )					      <
+ID(errors)						      <
+illegal character (.)					      <
+ID(java)						      <
+DIV							      <
+DIV							      <
+illegal character ( )					      <
+ID(the)							      <
+illegal character ( )					      <
+ID(standard)						      <
+illegal character ( )					      <
+ID(Java)						      <
+illegal character ( )					      <
+ID(compiler)						      <
+illegal character ( )					      <
+ID(also)						      <
+illegal character ( )					      <
+ID(shows)						      <
+illegal character ( )					      <
+ID(these)						      <
+illegal character ( )					      <
+ID(lexical)						      <
+illegal character ( )					      <
+ID(errors)						      <
+CLASS							      <
+illegal character ( )					      <
+ID(Small)						      <
+illegal character ( )					      <
+illegal character (#)					      <
+illegal character (	)				      <
+PUBLIC							      <
+illegal character ( )					      <
+STATIC							      <
+illegal character ( )					      <
+VOID							      <
+illegal character ( )					      <
+ID(main)						      <
+LPAR							      <
+STRING							      <
+LSQ							      <
+RSQ							      <
+illegal character ( )					      <
+ID(args)						      <
+RPAR							      <
+illegal character ( )					      <
+LBRACE							      <
+illegal character (	)				      <
+RBRACE							      <
+illegal character (#)					      <
+================== tests/meta1/INTLIT2.juc DIFF OUTPUT ==================
+INTLIT(11)							INTLIT(11)
+ID(_)								ID(_)
+INTLIT(5_6)							INTLIT(5_6)
+INTLIT(38)						      |	INTLIT(38_0)
+ID(_0___)						      |	ID(___)
+================== tests/meta1/jucompiler DIFF OUTPUT ==================
+Binary files /tmp/COMP.OYOKZNd2ar and tests/meta1/jucompiler.out differ
+================== tests/meta1/newlines.juc DIFF OUTPUT ==================
+illegal character (")					      |	Line 1, col 2: invalid escape sequence (\)
+illegal character (\)					      |	Line 1, col 1: unterminated string literal
+illegal character (")					      |	Line 2, col 2: invalid escape sequence (\)
+illegal character (\)					      |	Line 2, col 1: unterminated string literal
+illegal character ()							      |	Line 3, col 1: unterminated string literal
+illegal character (")					      |	Line 6, col 1: illegal character (î)
+illegal character (\)					      |	STRLIT("n")
+illegal character (")					      |	Line 7, col 1: unterminated string literal
+illegal character ()							      |	Line 8, col 1: illegal character (î)
+illegal character ()							      |	Line 9, col 2: invalid escape sequence (\î)
+illegal character ()							      |	Line 9, col 1: unterminated string literal
+illegal character (î)					      |	ID(nn)
+illegal character (")					      |	Line 11, col 3: illegal character (\)
+ID(n)							      |	Line 12, col 1: illegal character (\)
+illegal character (")					      |	Line 12, col 2: illegal character (î)
+illegal character (")					      |	ID(n)
+illegal character (î)					      |	Line 12, col 4: illegal character (\)
+illegal character ()							      |	Line 12, col 5: illegal character (\)
+illegal character (î)					      |	Line 13, col 1: unterminated string literal
+illegal character (")					      |	STRLIT("")
+illegal character (\)					      |	Line 16, col 2: invalid escape sequence (\)
+illegal character (î)					      |	Line 16, col 1: unterminated string literal
+illegal character ()							      |	Line 18, col 1: illegal character (\)
+illegal character ()							      |	Line 18, col 2: illegal character (\)
+ID(nn)							      |	Line 19, col 1: unterminated string literal
+illegal character (\)					      |	Line 20, col 1: illegal character (î)
+illegal character ()							      |	Line 20, col 2: illegal character (î)
+illegal character (\)					      |	Line 20, col 3: unterminated string literal
+illegal character (î)					      |	Line 22, col 1: illegal character (î)
+ID(n)							      |	Line 22, col 2: illegal character (î)
+illegal character (\)					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character ()							      <
+illegal character ()							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character ()							      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character ()							      <
+illegal character ()							      <
+illegal character (\)					      <
+illegal character (\)					      <
+illegal character ()							      <
+illegal character (")					      <
+illegal character ()							      <
+illegal character (î)					      <
+illegal character (î)					      <
+illegal character (")					      <
+illegal character ()							      <
+illegal character ()							      <
+illegal character (î)					      <
+illegal character (î)					      <
+ID(nnn)								ID(nnn)
+illegal character (")					      |	Line 22, col 6: unterminated string literal
+illegal character (")					      |	Line 23, col 1: unterminated string literal
+illegal character ()							      <
+ID(nn)							      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (î)					      <
+illegal character ()							      <
+illegal character (\)					      <
+illegal character ()							      <
+ID(n)							      <
+illegal character ()							      <
+illegal character ()							      <
+illegal character ()							      <
+illegal character (\)					      <
+ID(n)							      <
+illegal character (î)					      <
+illegal character (î)					      <
+illegal character (î)					      <
+illegal character (\)					      <
+ID(n)							      <
+illegal character (\)					      <
+illegal character ()							      <
+illegal character (î)					      <
+illegal character (î)					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character (î)					      <
+illegal character (î)					      <
+ID(n)							      <
+illegal character (")					      <
+ID(n)							      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character (\)					      <
+illegal character (î)					      <
+illegal character (")					      <
+illegal character (î)					      <
+illegal character (")					      <
+illegal character ()							      <
+illegal character (\)					      <
+illegal character (î)					      <
+illegal character (î)					      <
+illegal character (î)					      <
+illegal character (\)					      <
+illegal character (\)					      <
+illegal character (")					      <
+ID(n)							      <
+illegal character ()							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character ()							      <
+ID(n)							      <
+illegal character ()							      <
+illegal character (î)					      <
+ID(nn)							      <
+ID(n)							      <
+illegal character ()							      <
+ID(nn)							      <
+illegal character ()							      <
+illegal character (\)					      <
+illegal character (\)					      <
+ID(n)							      <
+illegal character (\)					      <
+illegal character (î)					      <
+illegal character (")					      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (\)					      <
+ID(n)							      <
+illegal character (")					      <
+illegal character (")					      <
+illegal character ()							      <
+illegal character (î)					      <
+ID(n)							      <
+illegal character (")					      <
+ID(n)							      <
+illegal character (\)					      <
+illegal character (\)					      <
+illegal character (î)					      <
+illegal character ()							      <
+illegal character (")					      <
+illegal character ()							      <
+illegal character (\)					      <
+illegal character (")					      <
+illegal character (î)					      <
+illegal character (")					      <
+ID(n)							      <
+illegal character (")					      <
+ID(nn)							      <
+illegal character (")					      <
+illegal character ()							      <
+ID(nn)								ID(nn)
+illegal character (")					      |	Line 25, col 3: illegal character (\)
+illegal character (\)					      |	Line 25, col 4: unterminated string literal
+illegal character ()							      |	Line 26, col 1: illegal character (\)
+illegal character (\)					      |	ID(n)
+illegal character ()							      |	Line 32, col 1: illegal character (\)
+illegal character ()							      |	ID(n)
+illegal character (")					      |	Line 32, col 3: illegal character (î)
+illegal character (\)					      |	Line 33, col 1: illegal character (î)
+illegal character (î)					      |	Line 33, col 2: illegal character (î)
+illegal character (\)					      |	Line 33, col 3: illegal character (\)
+ID(n)							      |	ID(n)
+illegal character ()							      |	Line 33, col 5: illegal character (\)
+illegal character ()							      |	Line 34, col 1: illegal character (î)
+ID(n)							      |	Line 34, col 2: illegal character (î)
+illegal character (")					      |	Line 34, col 3: illegal character (\)
+illegal character (\)					      |	Line 34, col 5: invalid escape sequence (\)
+illegal character ()					      |	Line 34, col 4: unterminated string literal
+illegal character (")					      |	Line 36, col 1: illegal character (î)
+illegal character (")					      |	Line 36, col 2: illegal character (î)
+illegal character (\)					      |	ID(n)
+illegal character ()					      |	Line 37, col 1: unterminated string literal
+illegal character (")					      |	Line 38, col 1: illegal character (\)
+							      >	Line 38, col 2: illegal character (\)
+							      >	Line 38, col 3: illegal character (î)
+							      >	STRLIT("î")
+							      >	Line 39, col 1: illegal character (\)
+							      >	Line 41, col 1: illegal character (î)
+							      >	Line 41, col 2: illegal character (î)
+							      >	Line 41, col 3: illegal character (î)
+							      >	Line 41, col 4: illegal character (\)
+							      >	Line 41, col 5: illegal character (\)
+							      >	Line 41, col 6: unterminated string literal
+							      >	STRLIT("")
+							      >	ID(n)
+							      >	Line 45, col 1: illegal character (î)
+							      >	ID(nn)
+							      >	ID(n)
+							      >	ID(nn)
+							      >	Line 48, col 1: illegal character (\)
+							      >	Line 48, col 2: illegal character (\)
+							      >	ID(n)
+							      >	Line 48, col 4: illegal character (\)
+							      >	Line 48, col 5: illegal character (î)
+							      >	STRLIT("\"\n")
+							      >	Line 48, col 12: unterminated string literal
+							      >	Line 49, col 1: illegal character (î)
+							      >	ID(n)
+							      >	Line 49, col 3: unterminated string literal
+							      >	Line 50, col 1: illegal character (î)
+							      >	Line 51, col 1: unterminated string literal
+							      >	Line 52, col 1: illegal character (\)
+							      >	STRLIT("î")
+							      >	ID(n)
+							      >	STRLIT("nn")
+							      >	ID(nn)
+							      >	Line 56, col 4: invalid escape sequence (\)
+							      >	Line 56, col 3: unterminated string literal
+							      >	Line 57, col 1: illegal character (\)
+							      >	Line 59, col 2: invalid escape sequence (\î)
+							      >	Line 59, col 1: unterminated string literal
+							      >	ID(n)
+							      >	Line 61, col 3: invalid escape sequence (\)
+							      >	Line 62, col 2: invalid escape sequence (\)
+							      >	Line 62, col 1: unterminated string literal
+							      >	Line 63, col 1: unterminated string literal
+================== tests/meta1/Reserved_Blank.java DIFF OUTPUT ==================
+RESERVED(++)							RESERVED(++)
+RESERVED(--)							RESERVED(--)
+RESERVED(Integer)						RESERVED(Integer)
+RESERVED(null)							RESERVED(null)
+RESERVED(System)						RESERVED(System)
+RESERVED(abstract)						RESERVED(abstract)
+RESERVED(continue)						RESERVED(continue)
+ID(fornew)							ID(fornew)
+RESERVED(switch)						RESERVED(switch)
+RESERVED(assert)						RESERVED(assert)
+RESERVED(default)						RESERVED(default)
+RESERVED(package)						RESERVED(package)
+RESERVED(synchronized)						RESERVED(synchronized)
+RESERVED(do)							RESERVED(do)
+RESERVED(goto)							RESERVED(goto)
+RESERVED(private)						RESERVED(private)
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character (	)				      <
+illegal character ( )					      <
+illegal character ()					      <
+illegal character ()					      <
+illegal character ()					      <
+illegal character ()					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ()					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character (	)				      <
+illegal character (	)				      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ()					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character (	)				      <
+illegal character (	)				      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ()					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character (	)				      <
+illegal character (	)				      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ( )					      <
+illegal character ()					      <

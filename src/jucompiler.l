@@ -1,6 +1,6 @@
 
 %{
-    #define print(...) printf(__VA_ARGS__);printf("\n")
+    #define PRINT(...) printf(__VA_ARGS__);printf("\n")
     
 %}
 
@@ -56,6 +56,7 @@ reserved        ("Integer"|"System"|"--"|"++"|"abstract"|"assert"|"break"|"byte"
 LETTER          [a-z]|[A-Z]
 NUMBER          [1-9]
 NUMBER0         [0-9]
+END_LINE        (\n|\r\n|\r)
 
 ID              ({LETTER}|"_"|"$")({LETTER}|{NUMBER0}|"_"|"$")*
 INTLIT          0|{NUMBER}({NUMBER0}|"_"+{NUMBER0})*
@@ -66,60 +67,60 @@ REALLIT         (({INTLIT}"."{INTLIT0}?|"."({INTLIT0}))([eE][-+]?{INTLIT0})?)|({
 
 %%
 
-{and}                                  {print("AND");}
-{assign}                               {print("ASSIGN");}
-{star}                                 {print("STAR");}
-{comma}                                {print("COMMA");}
-{div}                                  {print("DIV");}
-{eq}                                   {print("EQ");}
-{ge}                                   {print("GE");}
-{gt}                                   {print("GT");}
-{lbrace}                               {print("LBRACE");}
-{le}                                   {print("LE");}
-{lpar}                                 {print("LPAR");}
-{lsq}                                  {print("LSQ");}
-{lt}                                   {print("LT");}
-{minus}                                {print("MINUS");}
-{mod}                                  {print("MOD");}
-{ne}                                   {print("NE");}
-{not}                                  {print("NOT");}
-{or}                                   {print("OR");}
-{plus}                                 {print("PLUS");}
-{rbrace}                               {print("RBRACE");}
-{rpar}                                 {print("RPAR");}
-{rsq}                                  {print("RSQ");}
-{semicolon}                            {print("SEMICOLON");}
-{arrow}                                {print("ARROW");}
-{lshift}                               {print("LSHIFT");}
-{rshift}                               {print("RSHIFT");}
-{xor}                                  {print("XOR");}
-{bool}                                 {print("BOOL");}
-{class}                                {print("CLASS");}
-{dotlength}                            {print("DOTLENGTH");}
-{double}                               {print("DOUBLE");}
-{else}                                 {print("ELSE");}
-{if}                                   {print("IF");}
-{int}                                  {print("INT");}
-{print}                                {print("PRINT");}
-{parseint}                             {print("PARSEINT");}
-{public}                               {print("PUBLIC");}
-{return}                               {print("RETURN");}
-{static}                               {print("STATIC");}
-{string}                               {print("STRING");}
-{void}                                 {print("VOID");}
-{while}                                {print("WHILE");}
-{reserved}                             {print("RESERVED(%s)", yytext);}
-{boollit}                              {print("BOOLLIT(%s)", yytext);}
+{and}                                  {PRINT("AND");}
+{assign}                               {PRINT("ASSIGN");}
+{star}                                 {PRINT("STAR");}
+{comma}                                {PRINT("COMMA");}
+{div}                                  {PRINT("DIV");}
+{eq}                                   {PRINT("EQ");}
+{ge}                                   {PRINT("GE");}
+{gt}                                   {PRINT("GT");}
+{lbrace}                               {PRINT("LBRACE");}
+{le}                                   {PRINT("LE");}
+{lpar}                                 {PRINT("LPAR");}
+{lsq}                                  {PRINT("LSQ");}
+{lt}                                   {PRINT("LT");}
+{minus}                                {PRINT("MINUS");}
+{mod}                                  {PRINT("MOD");}
+{ne}                                   {PRINT("NE");}
+{not}                                  {PRINT("NOT");}
+{or}                                   {PRINT("OR");}
+{plus}                                 {PRINT("PLUS");}
+{rbrace}                               {PRINT("RBRACE");}
+{rpar}                                 {PRINT("RPAR");}
+{rsq}                                  {PRINT("RSQ");}
+{semicolon}                            {PRINT("SEMICOLON");}
+{arrow}                                {PRINT("ARROW");}
+{lshift}                               {PRINT("LSHIFT");}
+{rshift}                               {PRINT("RSHIFT");}
+{xor}                                  {PRINT("XOR");}
+{bool}                                 {PRINT("BOOL");}
+{class}                                {PRINT("CLASS");}
+{dotlength}                            {PRINT("DOTLENGTH");}
+{double}                               {PRINT("DOUBLE");}
+{else}                                 {PRINT("ELSE");}
+{if}                                   {PRINT("IF");}
+{int}                                  {PRINT("INT");}
+{print}                                {PRINT("PRINT");}
+{parseint}                             {PRINT("PARSEINT");}
+{public}                               {PRINT("PUBLIC");}
+{return}                               {PRINT("RETURN");}
+{static}                               {PRINT("STATIC");}
+{string}                               {PRINT("STRING");}
+{void}                                 {PRINT("VOID");}
+{while}                                {PRINT("WHILE");}
+{reserved}                             {PRINT("RESERVED(%s)", yytext);}
+{boollit}                              {PRINT("BOOLLIT(%s)", yytext);}
 
 
-{ID}                                   {print("ID(%s)", yytext);}
-{INTLIT}                               {print("INTLIT(%s)", yytext);}
-{REALLIT}                              {print("REALLIT(%s)", yytext);}
+{ID}                                   {PRINT("ID(%s)", yytext);}
+{INTLIT}                               {PRINT("INTLIT(%s)", yytext);}
+{REALLIT}                              {PRINT("REALLIT(%s)", yytext);}
 
 
-[\n]                                   {;}
-.                                      {print("illegal character (%c)", *yytext);}
-
+{END_LINE}                                   {;}
+[ \t]                                  {;}
+.                                       {;}
 
 
 %%

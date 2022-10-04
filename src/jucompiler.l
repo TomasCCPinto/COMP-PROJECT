@@ -58,7 +58,7 @@ NUMBER          [1-9]
 NUMBER0         [0-9]
 
 ID              ({LETTER}|"_"|"$")({LETTER}|{NUMBER0}|"_"|"$")*
-INTLIT          0|{NUMBER}{NUMBER0}*|({NUMBER}+_{NUMBER}+)+
+INTLIT          0|{NUMBER}({NUMBER0}|"_"+{NUMBER0})*
 REALLIT         (({INTLIT}"."{INTLIT}?|"."({INTLIT}))([eE][-+]?{INTLIT})?)|({INTLIT}([eE][-+]?{INTLIT}))
 
 

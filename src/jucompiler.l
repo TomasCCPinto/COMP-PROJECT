@@ -135,9 +135,8 @@ REALLIT         (({INTLIT}"."{INTLIT0}?|"."({INTLIT0}))([eE][-+]?{INTLIT0})?)|({
 
 
 {END_LINE}                             {line++; col=1;}
-[ \t]                                  {col+= yyleng;}
-.                                      {col+=yyleng;}
-
+[ \t]+                                 {col+= yyleng;}
+.                                      {PRINT("Line %d, col %d: illegal character(%c)", line, col, *yytext); col+=yyleng;}
 
 %%
 int main() {

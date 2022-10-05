@@ -72,7 +72,7 @@ ID              ({LETTER}|"_"|"$")({LETTER}|{NUMBER0}|"_"|"$")*
 INTLIT          0|{NUMBER}({NUMBER0}|"_"+{NUMBER0})*
 INTLIT0         {NUMBER0}({NUMBER0}|"_"+{NUMBER0})*
 REALLIT         (({INTLIT}"."{INTLIT0}?|"."({INTLIT0}))([eE][-+]?{INTLIT0})?)|({INTLIT0}([eE][-+]?{INTLIT0}))
-STRLIT          .+
+STRLIT          ([^\n\r\"]|"\\n"|"\\f"|"\\r"|"\\t"|"\\\\"|"\\\"")
 
 
 %%
@@ -138,7 +138,7 @@ STRLIT          .+
 
 
 {quote}                                 {savecol = col; saveline = line; col+= yyleng; BEGIN STR;}
-<STR>{STRLIT}{quote}                    {col+= yyleng; PRINT("STRLIT(\"%s)", yytext); BEGIN 0;}
+<STR>{STRLIT}+{quote}                    {col+= yyleng; PRINT("STRLIT(\"%s)", yytext); BEGIN 0;}
 <STR>.                                  {;}
 <STR>{END_LINE}                         {PRINT("Line %d, col %d: unterminated string literal", saveline, savecol); line++; col = 1; BEGIN 0;}
 

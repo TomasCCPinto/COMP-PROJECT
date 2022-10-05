@@ -2,11 +2,12 @@
 %{
     #define PRINT(...) printf(__VA_ARGS__);printf("\n")
     
-    int col=1, line=1,linecom=1;
+    int col=1, line=1,linecom=0, colcom;
+    int savecol, saveline;
 %}
 
 
-%X COMMENT 
+%X COMMENT STR
 
 
 boollit         "true"|"false"
@@ -37,6 +38,7 @@ arrow           "->"
 lshift          "<<"
 rshift          ">>"
 xor             "^"
+quote           \"
 bool            "boolean"
 class           "class"
 dotlength       ".length"
@@ -70,6 +72,7 @@ ID              ({LETTER}|"_"|"$")({LETTER}|{NUMBER0}|"_"|"$")*
 INTLIT          0|{NUMBER}({NUMBER0}|"_"+{NUMBER0})*
 INTLIT0         {NUMBER0}({NUMBER0}|"_"+{NUMBER0})*
 REALLIT         (({INTLIT}"."{INTLIT0}?|"."({INTLIT0}))([eE][-+]?{INTLIT0})?)|({INTLIT0}([eE][-+]?{INTLIT0}))
+STRLIT          .+
 
 
 %%
@@ -127,16 +130,22 @@ REALLIT         (({INTLIT}"."{INTLIT0}?|"."({INTLIT0}))([eE][-+]?{INTLIT0})?)|({
 
 {comment}                               {;}
 
-{begin_comment}                         {BEGIN COMMENT;}
-<COMMENT>.                              {col+= yyleng;}
-<COMMENT>{end_comment}                  {col+= yyleng;line+=linecom ;BEGIN 0;}
+{begin_comment}                         {colcom = col; col+= yyleng; BEGIN COMMENT;}
 <COMMENT>{END_LINE}                     {col=1;linecom++;}
-<COMMENT><<EOF>>                        {PRINT("Line %d, col %d: unterminated comment", line, col); BEGIN 0;}
+<COMMENT>.                              {col+= yyleng;}
+<COMMENT>{end_comment}                  {col+= yyleng;line+=linecom; linecom = 0;BEGIN 0;}
+<COMMENT><<EOF>>                        {PRINT("Line %d, col %d: unterminated comment", line, colcom); BEGIN 0;}
+
+
+{quote}                                 {savecol = col; saveline = line; col+= yyleng; BEGIN STR;}
+<STR>{STRLIT}{quote}                    {col+= yyleng; PRINT("STRLIT(\"%s)", yytext); BEGIN 0;}
+<STR>.                                  {;}
+<STR>{END_LINE}                         {PRINT("Line %d, col %d: unterminated string literal", saveline, savecol); line++; col = 1; BEGIN 0;}
 
 
 {END_LINE}                             {line++; col=1;}
 [ \t]+                                 {col+= yyleng;}
-.                                      {PRINT("Line %d, col %d: illegal character(%c)", line, col, *yytext); col+=yyleng;}
+.                                      {PRINT("Line %d, col %d: illegal character (%c)", line, col, *yytext); col+=yyleng;}
 
 %%
 int main() {
@@ -147,3 +156,11 @@ int main() {
 int yywrap() {
     return 1;
 }
+
+
+
+
+//  "nfkaewfh"
+//  "afpo"odijw" -> "afpo"   odijw   "
+//                  str       id      erro
+//

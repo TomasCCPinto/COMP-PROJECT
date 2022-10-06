@@ -76,7 +76,7 @@ end_comment                             "*/"
 ID                                      ({LETTER}|"_"|"$")({LETTER}|{NUMBER0}|"_"|"$")*
 INTLIT                                  0|{NUMBER}({NUMBER0}|"_"+{NUMBER0})*
 INTLIT0                                 {NUMBER0}({NUMBER0}|"_"+{NUMBER0})*
-REALLIT                                 (({INTLIT}"."{INTLIT0}?|"."({INTLIT0}))([eE][-+]?{INTLIT0})?)|({INTLIT0}([eE][-+]?{INTLIT0}))
+REALLIT                                 (({INTLIT0}"."{INTLIT0}?|"."({INTLIT0}))([eE][-+]?{INTLIT0})?)|({INTLIT0}([eE][-+]?{INTLIT0}))
 STRLIT                                  ([^\n\r\"\\.?]|"\\n"|"\\f"|"\\r"|"\\t"|"\\\\"|"\\\"")
 
 
@@ -143,7 +143,7 @@ STRLIT                                  ([^\n\r\"\\.?]|"\\n"|"\\f"|"\\r"|"\\t"|"
 
 
 {quote}                                 {savecol = col; saveline = line; col+= yyleng; BEGIN STR;}
-<STR>{STRLIT}+{quote}                   {col += yyleng; TOKEN(l, "STRLIT(\"%s)", yytext); BEGIN 0;}
+<STR>{STRLIT}*{quote}                   {TOKEN(l, "STRLIT(\"%s)", yytext); col += yyleng; BEGIN 0;}
 <STR>"\\"[^\n\f\r\t]?                   {ERROR("Line %d, col %d: invalid escape sequence (%s)", line, col, yytext);col += yyleng;}
 <STR>.                                  {col += yyleng;}
 <STR>{END_LINE}                         {ERROR("Line %d, col %d: unterminated string literal", saveline, savecol); line++; col = 1; BEGIN 0;}
@@ -158,7 +158,7 @@ STRLIT                                  ([^\n\r\"\\.?]|"\\n"|"\\f"|"\\r"|"\\t"|"
 int main(int argc, char *argv[]) {
 
     for (int i = 0; i < argc; ++i) {
-        if (!strcmp(argv[1], "-l"))
+        if (!strcmp(argv[i], "-l"))
             l = true;
         else l = false;
     }

@@ -11,7 +11,6 @@ recurso"\
 #"\"
 #linha#
 `'
-
 "outraLinha"
 #"recurso''"?//
 xD ?\n|''

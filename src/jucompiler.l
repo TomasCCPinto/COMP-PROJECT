@@ -1,9 +1,14 @@
 
 %{
-    #define PRINT(...) printf(__VA_ARGS__);printf("\n")
+    #include <string.h>
+    #include <stdbool.h>
+
+    #define TOKEN(flag, ...) if (flag) printf(__VA_ARGS__); if (flag) printf("\n")
+    #define ERROR(...) printf(__VA_ARGS__);printf("\n")
     
     int col=1, line=1,linecom=0, colcom;
     int savecol, saveline;
+    bool l;
 %}
 
 
@@ -77,55 +82,55 @@ STRLIT                                  ([^\n\r\"\\.?]|"\\n"|"\\f"|"\\r"|"\\t"|"
 
 %%
 
-{and}                                   {PRINT("AND");                    col+=yyleng;}
-{assign}                                {PRINT("ASSIGN");                 col+=yyleng;}
-{star}                                  {PRINT("STAR");                   col+=yyleng;}
-{comma}                                 {PRINT("COMMA");                  col+=yyleng;}
-{div}                                   {PRINT("DIV");                    col+=yyleng;}
-{eq}                                    {PRINT("EQ");                     col+=yyleng;}
-{ge}                                    {PRINT("GE");                     col+=yyleng;}
-{gt}                                    {PRINT("GT");                     col+=yyleng;}
-{lbrace}                                {PRINT("LBRACE");                 col+=yyleng;}
-{le}                                    {PRINT("LE");                     col+=yyleng;}
-{lpar}                                  {PRINT("LPAR");                   col+=yyleng;}
-{lsq}                                   {PRINT("LSQ");                    col+=yyleng;}
-{lt}                                    {PRINT("LT");                     col+=yyleng;}
-{minus}                                 {PRINT("MINUS");                  col+=yyleng;}
-{mod}                                   {PRINT("MOD");                    col+=yyleng;}
-{ne}                                    {PRINT("NE");                     col+=yyleng;}
-{not}                                   {PRINT("NOT");                    col+=yyleng;}
-{or}                                    {PRINT("OR");                     col+=yyleng;}
-{plus}                                  {PRINT("PLUS");                   col+=yyleng;}
-{rbrace}                                {PRINT("RBRACE");                 col+=yyleng;}
-{rpar}                                  {PRINT("RPAR");                   col+=yyleng;}
-{rsq}                                   {PRINT("RSQ");                    col+=yyleng;}
-{semicolon}                             {PRINT("SEMICOLON");              col+=yyleng;}
-{arrow}                                 {PRINT("ARROW");                  col+=yyleng;}
-{lshift}                                {PRINT("LSHIFT");                 col+=yyleng;}
-{rshift}                                {PRINT("RSHIFT");                 col+=yyleng;}
-{xor}                                   {PRINT("XOR");                    col+=yyleng;}
-{bool}                                  {PRINT("BOOL");                   col+=yyleng;}
-{class}                                 {PRINT("CLASS");                  col+=yyleng;}
-{dotlength}                             {PRINT("DOTLENGTH");              col+=yyleng;}
-{double}                                {PRINT("DOUBLE");                 col+=yyleng;}
-{else}                                  {PRINT("ELSE");                   col+=yyleng;}
-{if}                                    {PRINT("IF");                     col+=yyleng;}
-{int}                                   {PRINT("INT");                    col+=yyleng;}
-{print}                                 {PRINT("PRINT");                  col+=yyleng;}
-{parseint}                              {PRINT("PARSEINT");               col+=yyleng;}
-{public}                                {PRINT("PUBLIC");                 col+=yyleng;}
-{return}                                {PRINT("RETURN");                 col+=yyleng;}
-{static}                                {PRINT("STATIC");                 col+=yyleng;}
-{string}                                {PRINT("STRING");                 col+=yyleng;}
-{void}                                  {PRINT("VOID");                   col+=yyleng;}
-{while}                                 {PRINT("WHILE");                  col+=yyleng;}
-{reserved}                              {PRINT("RESERVED(%s)", yytext);   col+=yyleng;}
-{boollit}                               {PRINT("BOOLLIT(%s)", yytext);    col+=yyleng;}
+{and}                                   {TOKEN(l, "AND");                    col+=yyleng;}
+{assign}                                {TOKEN(l, "ASSIGN");                 col+=yyleng;}
+{star}                                  {TOKEN(l, "STAR");                   col+=yyleng;}
+{comma}                                 {TOKEN(l, "COMMA");                  col+=yyleng;}
+{div}                                   {TOKEN(l, "DIV");                    col+=yyleng;}
+{eq}                                    {TOKEN(l, "EQ");                     col+=yyleng;}
+{ge}                                    {TOKEN(l, "GE");                     col+=yyleng;}
+{gt}                                    {TOKEN(l, "GT");                     col+=yyleng;}
+{lbrace}                                {TOKEN(l, "LBRACE");                 col+=yyleng;}
+{le}                                    {TOKEN(l, "LE");                     col+=yyleng;}
+{lpar}                                  {TOKEN(l, "LPAR");                   col+=yyleng;}
+{lsq}                                   {TOKEN(l, "LSQ");                    col+=yyleng;}
+{lt}                                    {TOKEN(l, "LT");                     col+=yyleng;}
+{minus}                                 {TOKEN(l, "MINUS");                  col+=yyleng;}
+{mod}                                   {TOKEN(l, "MOD");                    col+=yyleng;}
+{ne}                                    {TOKEN(l, "NE");                     col+=yyleng;}
+{not}                                   {TOKEN(l, "NOT");                    col+=yyleng;}
+{or}                                    {TOKEN(l, "OR");                     col+=yyleng;}
+{plus}                                  {TOKEN(l, "PLUS");                   col+=yyleng;}
+{rbrace}                                {TOKEN(l, "RBRACE");                 col+=yyleng;}
+{rpar}                                  {TOKEN(l, "RPAR");                   col+=yyleng;}
+{rsq}                                   {TOKEN(l, "RSQ");                    col+=yyleng;}
+{semicolon}                             {TOKEN(l, "SEMICOLON");              col+=yyleng;}
+{arrow}                                 {TOKEN(l, "ARROW");                  col+=yyleng;}
+{lshift}                                {TOKEN(l, "LSHIFT");                 col+=yyleng;}
+{rshift}                                {TOKEN(l, "RSHIFT");                 col+=yyleng;}
+{xor}                                   {TOKEN(l, "XOR");                    col+=yyleng;}
+{bool}                                  {TOKEN(l, "BOOL");                   col+=yyleng;}
+{class}                                 {TOKEN(l, "CLASS");                  col+=yyleng;}
+{dotlength}                             {TOKEN(l, "DOTLENGTH");              col+=yyleng;}
+{double}                                {TOKEN(l, "DOUBLE");                 col+=yyleng;}
+{else}                                  {TOKEN(l, "ELSE");                   col+=yyleng;}
+{if}                                    {TOKEN(l, "IF");                     col+=yyleng;}
+{int}                                   {TOKEN(l, "INT");                    col+=yyleng;}
+{print}                                 {TOKEN(l, "PRINT");                  col+=yyleng;}
+{parseint}                              {TOKEN(l, "PARSEINT");               col+=yyleng;}
+{public}                                {TOKEN(l, "PUBLIC");                 col+=yyleng;}
+{return}                                {TOKEN(l, "RETURN");                 col+=yyleng;}
+{static}                                {TOKEN(l, "STATIC");                 col+=yyleng;}
+{string}                                {TOKEN(l, "STRING");                 col+=yyleng;}
+{void}                                  {TOKEN(l, "VOID");                   col+=yyleng;}
+{while}                                 {TOKEN(l, "WHILE");                  col+=yyleng;}
+{reserved}                              {TOKEN(l, "RESERVED(%s)", yytext);   col+=yyleng;}
+{boollit}                               {TOKEN(l, "BOOLLIT(%s)", yytext);    col+=yyleng;}
 
 
-{ID}                                    {PRINT("ID(%s)", yytext);         col+=yyleng;}
-{INTLIT}                                {PRINT("INTLIT(%s)", yytext);     col+=yyleng;}
-{REALLIT}                               {PRINT("REALLIT(%s)", yytext);    col+=yyleng;}
+{ID}                                    {TOKEN(l, "ID(%s)", yytext);         col+=yyleng;}
+{INTLIT}                                {TOKEN(l, "INTLIT(%s)", yytext);     col+=yyleng;}
+{REALLIT}                               {TOKEN(l, "REALLIT(%s)", yytext);    col+=yyleng;}
 
 
 {comment}                               {;}
@@ -134,23 +139,30 @@ STRLIT                                  ([^\n\r\"\\.?]|"\\n"|"\\f"|"\\r"|"\\t"|"
 <COMMENT>{END_LINE}                     {col=1;linecom++;}
 <COMMENT>.                              {col+= yyleng;}
 <COMMENT>{end_comment}                  {col+= yyleng;line+=linecom; linecom = 0;BEGIN 0;}
-<COMMENT><<EOF>>                        {PRINT("Line %d, col %d: unterminated comment", line, colcom); BEGIN 0;}
+<COMMENT><<EOF>>                        {ERROR("Line %d, col %d: unterminated comment", line, colcom); BEGIN 0;}
 
 
 {quote}                                 {savecol = col; saveline = line; col+= yyleng; BEGIN STR;}
-<STR>{STRLIT}+{quote}                   {col += yyleng; PRINT("STRLIT(\"%s)", yytext); BEGIN 0;}
-<STR>"\\"[^\n\f\r\t]?                   {PRINT("Line %d, col %d: invalid escape sequence (%s)", line, col, yytext);col += yyleng;}
+<STR>{STRLIT}+{quote}                   {col += yyleng; TOKEN(l, "STRLIT(\"%s)", yytext); BEGIN 0;}
+<STR>"\\"[^\n\f\r\t]?                   {ERROR("Line %d, col %d: invalid escape sequence (%s)", line, col, yytext);col += yyleng;}
 <STR>.                                  {col += yyleng;}
-<STR>{END_LINE}                         {PRINT("Line %d, col %d: unterminated string literal", saveline, savecol); line++; col = 1; BEGIN 0;}
+<STR>{END_LINE}                         {ERROR("Line %d, col %d: unterminated string literal", saveline, savecol); line++; col = 1; BEGIN 0;}
 
 
 {END_LINE}                              {line++; col=1;}
 [ \t]                                   {col+= 1;}
-.                                       {PRINT("Line %d, col %d: illegal character (%c)", line, col, *yytext); col+=yyleng;}
+.                                       {ERROR("Line %d, col %d: illegal character (%c)", line, col, *yytext); col+=yyleng;}
 
 
 %%
-int main() {
+int main(int argc, char *argv[]) {
+
+    for (int i = 0; i < argc; ++i) {
+        if (!strcmp(argv[1], "-l"))
+            l = true;
+        else l = false;
+    }
+
     yylex();
     return 0;
 }

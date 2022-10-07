@@ -12,6 +12,7 @@ recurso"\
 #linha#
 `'
 "outraLinha"
+
 #"recurso''"?//
 xD ?\n|''
 int a =x?00123321

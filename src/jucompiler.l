@@ -6,7 +6,7 @@
     #define TOKEN(flag, ...) if (flag) printf(__VA_ARGS__); if (flag) printf("\n")
     #define ERROR(...) printf(__VA_ARGS__);printf("\n")
 
-    int col=1, line=1,linecom=0, colcom;
+    int col=1, line=1;
     int savecol, saveline;
     bool l;
 
@@ -71,7 +71,7 @@ LETTER                                                     [a-z]|[A-Z]
 NUMBER                                                     [1-9]
 NUMBER0                                                    [0-9]
 END_LINE                                                   (\n|\r\n|\r)
-comment                                                    "//".*
+comment                                                    "//".*({END_LINE}$)?
 begin_comment                                              "/*"
 end_comment                                                "*/"
 
@@ -138,11 +138,11 @@ STRLIT                                                     ([^\n\r\"\\]|"\\n"|"\
 
 {comment}                                                  {;}
 
-{begin_comment}                                            {colcom = col; col+= yyleng; BEGIN COMMENT;}
-<COMMENT>{END_LINE}                                        {col=1;linecom++;}
-<COMMENT>.                                                 {col+= yyleng;}
-<COMMENT>{end_comment}                                     {col+= yyleng;line+=linecom; linecom = 0;BEGIN 0;}
-<COMMENT><<EOF>>                                           {ERROR("Line %d, col %d: unterminated comment", line, colcom); BEGIN 0;}
+{begin_comment}                                            {savecol = col; saveline = line; col+= yyleng; BEGIN COMMENT;}
+<COMMENT>{END_LINE}                                        {col = 1; line++;}
+<COMMENT>.                                                 {col += yyleng;}
+<COMMENT>{end_comment}                                     {col += yyleng; BEGIN 0;}
+<COMMENT><<EOF>>                                           {ERROR("Line %d, col %d: unterminated comment", saveline, savecol); BEGIN 0;}
 
 
 {quote}                                                    {savecol = col; saveline = line; col+= yyleng; BEGIN STR;}
@@ -165,6 +165,7 @@ STRLIT                                                     ([^\n\r\"\\]|"\\n"|"\
 {END_LINE}                                                 {line++; col=1;}
 [ \t]                                                      {col+= 1;}
 .                                                          {findAsciiChars(*yytext, line, col) col+=yyleng;}
+<<EOF>>                                                    {return 0;}
 
 
 %%

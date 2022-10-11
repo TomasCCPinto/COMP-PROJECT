@@ -15,7 +15,7 @@
 %}
 
 
-%X COMMENT STR INVALID_STR
+%X COMMENT STR INVALID_STR COM
 
 
 boollit                                                    "true"|"false"
@@ -71,7 +71,7 @@ LETTER                                                     [a-z]|[A-Z]
 NUMBER                                                     [1-9]
 NUMBER0                                                    [0-9]
 END_LINE                                                   (\n|\r\n|\r)
-comment                                                    "//".*({END_LINE}$)?
+comment                                                    "//"
 begin_comment                                              "/*"
 end_comment                                                "*/"
 
@@ -136,7 +136,10 @@ STRLIT                                                     ([^\n\r\"\\]|"\\n"|"\
 {REALLIT}                                                  {TOKEN(l, "REALLIT(%s)", yytext);    col+=yyleng;}
 
 
-{comment}                                                  {;}
+{comment}                                                  {BEGIN COM;}
+<COM>{END_LINE}                                            {BEGIN 0; line++; col = 1;}
+<COM><<EOF>>                                               {BEGIN 0;}
+<COM>.                                                     {;}
 
 {begin_comment}                                            {savecol = col; saveline = line; col+= yyleng; BEGIN COMMENT;}
 <COMMENT>{END_LINE}                                        {col = 1; line++;}

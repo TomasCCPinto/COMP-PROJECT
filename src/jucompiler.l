@@ -152,9 +152,9 @@ STRLIT                                                     ([^\n\r\"\\]|"\\n"|"\
 <STR>{STRLIT}*{quote}                                      {TOKEN(l, "STRLIT(\"%s)", yytext); col += yyleng; BEGIN 0;}
 <STR>"\\n"|"\\f"|"\\r"|"\\t"|"\\\\"|"\\\""                 {col += yyleng;}
 <STR>"\\"|("\\"[^\n\r])                                    {ERROR("Line %d, col %d: invalid escape sequence (%s)", line, col, yytext); col += yyleng; BEGIN INVALID_STR;}
-<STR>.                                                     {col += yyleng;}
-<STR>{END_LINE}                                            {ERROR("Line %d, col %d: unterminated string literal", saveline, savecol); line++; col = 1; BEGIN 0;}
 <STR><<EOF>>                                               {ERROR("Line %d, col %d: unterminated string literal", saveline, savecol); line++; col = 1; BEGIN 0;}
+<STR>{END_LINE}                                            {ERROR("Line %d, col %d: unterminated string literal", saveline, savecol); line++; col = 1; BEGIN 0;}
+<STR>.                                                     {col += yyleng;}
 
 <INVALID_STR>{quote}                                       {BEGIN 0; col+= yyleng;}
 <INVALID_STR>"\\n"|"\\f"|"\\r"|"\\t"|"\\\\"|"\\\""         {col += yyleng;}

@@ -1,4 +1,6 @@
 
+    // Joao Emanuel Sousa Moreira 2020230563
+    // Tomas Cerveira da Cruz Pinto 2020224069
 %{
     #include <string.h>
     #include <stdbool.h>
@@ -67,20 +69,20 @@ reserved                                                   ("Integer"|"System"|"
 
 
 
-LETTER                                                     [a-z]|[A-Z]
-NUMBER                                                     [1-9]
-NUMBER0                                                    [0-9]
-END_LINE                                                   (\n|\r\n|\r)
+letter                                                     [a-z]|[A-Z]
+number                                                     [1-9]
+number0                                                    [0-9]
+end_line                                                   (\n|\r\n|\r)
 comment                                                    "//"
 begin_comment                                              "/*"
 end_comment                                                "*/"
 
 
-ID                                                         ({LETTER}|"_"|"$")({LETTER}|{NUMBER0}|"_"|"$")*
-INTLIT                                                     0|{NUMBER}({NUMBER0}|"_"+{NUMBER0})*
-INTLIT0                                                    {NUMBER0}({NUMBER0}|"_"+{NUMBER0})*
-REALLIT                                                    (({INTLIT0}"."{INTLIT0}?|"."({INTLIT0}))([eE][-+]?{INTLIT0})?)|({INTLIT0}([eE][-+]?{INTLIT0}))
-STRLIT                                                     ([^\n\r\"\\]|"\\n"|"\\f"|"\\r"|"\\t"|"\\\\"|"\\\"")
+id                                                         ({letter}|"_"|"$")({letter}|{number0}|"_"|"$")*
+intlit                                                     0|{number}({number0}|"_"+{number0})*
+intlit0                                                    {number0}({number0}|"_"+{number0})*
+reallit                                                    (({intlit0}"."{intlit0}?|"."({intlit0}))([Ee][-+]?{intlit0})?)|({intlit0}([Ee][-+]?{intlit0}))
+strlit                                                     ([^\n\r\"\\]|"\\n"|"\\f"|"\\r"|"\\t"|"\\\\"|"\\\"")
 
 
 %%
@@ -131,41 +133,41 @@ STRLIT                                                     ([^\n\r\"\\]|"\\n"|"\
 {boollit}                                                  {TOKEN(l, "BOOLLIT(%s)", yytext);    col+=yyleng;}
 
 
-{ID}                                                       {TOKEN(l, "ID(%s)", yytext);         col+=yyleng;}
-{INTLIT}                                                   {TOKEN(l, "INTLIT(%s)", yytext);     col+=yyleng;}
-{REALLIT}                                                  {TOKEN(l, "REALLIT(%s)", yytext);    col+=yyleng;}
+{id}                                                       {TOKEN(l, "ID(%s)", yytext);         col+=yyleng;}
+{intlit}                                                   {TOKEN(l, "INTLIT(%s)", yytext);     col+=yyleng;}
+{reallit}                                                  {TOKEN(l, "REALLIT(%s)", yytext);    col+=yyleng;}
 
 
 {comment}                                                  {BEGIN COM;}
-<COM>{END_LINE}                                            {BEGIN 0; line++; col = 1;}
+<COM>{end_line}                                            {BEGIN 0; line++; col = 1;}
 <COM><<EOF>>                                               {BEGIN 0;}
 <COM>.                                                     {;}
 
 {begin_comment}                                            {savecol = col; saveline = line; col+= yyleng; BEGIN COMMENT;}
-<COMMENT>{END_LINE}                                        {col = 1; line++;}
+<COMMENT>{end_line}                                        {col = 1; line++;}
 <COMMENT>.                                                 {col += yyleng;}
 <COMMENT>{end_comment}                                     {col += yyleng; BEGIN 0;}
 <COMMENT><<EOF>>                                           {ERROR("Line %d, col %d: unterminated comment", saveline, savecol); BEGIN 0;}
 
 
 {quote}                                                    {savecol = col; saveline = line; col+= yyleng; BEGIN STR;}
-<STR>{STRLIT}*{quote}                                      {TOKEN(l, "STRLIT(\"%s)", yytext); col += yyleng; BEGIN 0;}
+<STR>{strlit}*{quote}                                      {TOKEN(l, "STRLIT(\"%s)", yytext); col += yyleng; BEGIN 0;}
 <STR>"\\n"|"\\f"|"\\r"|"\\t"|"\\\\"|"\\\""                 {col += yyleng;}
 <STR>"\\"|("\\"[^\n\r])                                    {ERROR("Line %d, col %d: invalid escape sequence (%s)", line, col, yytext); col += yyleng; BEGIN INVALID_STR;}
 <STR><<EOF>>                                               {ERROR("Line %d, col %d: unterminated string literal", saveline, savecol); line++; col = 1; BEGIN 0;}
-<STR>{END_LINE}                                            {ERROR("Line %d, col %d: unterminated string literal", saveline, savecol); line++; col = 1; BEGIN 0;}
+<STR>{end_line}                                            {ERROR("Line %d, col %d: unterminated string literal", saveline, savecol); line++; col = 1; BEGIN 0;}
 <STR>.                                                     {col += yyleng;}
 
 <INVALID_STR>{quote}                                       {BEGIN 0; col+= yyleng;}
 <INVALID_STR>"\\n"|"\\f"|"\\r"|"\\t"|"\\\\"|"\\\""         {col += yyleng;}
 <INVALID_STR>"\\"|("\\"[^\n\r])                            {ERROR("Line %d, col %d: invalid escape sequence (%s)", line, col, yytext);col += yyleng;}
 <INVALID_STR>.                                             {col += yyleng;}
-<INVALID_STR>{END_LINE}                                    {ERROR("Line %d, col %d: unterminated string literal", saveline, savecol); line++; col = 1; BEGIN 0;}
+<INVALID_STR>{end_line}                                    {ERROR("Line %d, col %d: unterminated string literal", saveline, savecol); line++; col = 1; BEGIN 0;}
 <INVALID_STR><<EOF>>                                       {ERROR("Line %d, col %d: unterminated string literal", saveline, savecol); line++; col = 1; BEGIN 0;}
 
 
 
-{END_LINE}                                                 {line++; col=1;}
+{end_line}                                                 {line++; col=1;}
 [ \t]                                                      {col+= 1;}
 .                                                          {findAsciiChars(*yytext, line, col) col+=yyleng;}
 <<EOF>>                                                    {return 0;}

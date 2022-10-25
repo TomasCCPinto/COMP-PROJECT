@@ -37,13 +37,25 @@
 %token  <token>  QUOTE ASSIGN COMMA LBRACE LPAR LSQ RBRACE RPAR RSQ SEMICOLON
 %token  <token>  ARROW LSHIFT RSHIFT
 
-%type  <node>  StartSymbol Program 
-%type  <node>  MethodDecl MethodInvocation FieldDecl MethodHeader MethodBody
-%type  <node>  Type Expr VarDecl
+%type  <node>  StartSymbol Program Program2
+%type  <node>  MethodDecl MethodInvocation MethodInvocation2 FieldDecl FieldDecl2 MethodHeader MethodBody MethodBody2
+%type  <node>  Type Expr VarDecl VarDecl2
 %type  <node>  Assignment Statement ParseArgs
+%type  <node>  FormalParams FormalParams2 
 
-%type  <node>  Program2
-%type  <node>  FieldDecl2
+
+%right ASSIGN
+%left  OR
+%left  AND
+%left  XOR
+%left  EQ NE
+%left  LT GT LE GE
+%left  LSHIFT RSHIFT 
+%left  PLUS MINUS
+%left  STAR DIV MOD
+%right  NOT
+%left  LPAR RPAR 
+
 
 
    
@@ -57,7 +69,7 @@ Program: CLASS ID LBRACE Program2 RBRACE
 Program2: Program2 MethodDecl
         | Program2 FieldDecl
         | Program2 SEMICOLON
-        | /*empty*/
+        | 
         ;
 
 
@@ -67,7 +79,7 @@ MethodDecl: PUBLIC STATIC MethodHeader MethodBody
 FieldDecl: PUBLIC STATIC Type ID FieldDecl2 SEMICOLON
 
 FieldDecl2: FieldDecl2 COMMA ID
-          | /*empty*/
+          | 
           ;
 
 
@@ -77,35 +89,56 @@ Type: BOOL
     ;
 
 
-MethodHeader: ( Type | VOID ) ID LPAR [ FormalParams ] RPAR
+MethodHeader: Type ID LPAR FormalParams RPAR
+            | Type ID LPAR RPAR
+            | VOID ID LPAR FormalParams RPAR
+            | VOID ID LPAR RPAR
 
-Formalparams: Type ID MethodHeader2
+FormalParams: Type ID FormalParams2
             | STRING LSQ RSQ ID
             ;
 
-MethodHeader2: COMMA
-             | Type
-             | ID
+FormalParams2: FormalParams2 COMMA Type ID
              | 
              ;
 
-MethodBody: LBRACE { Statement | VarDecl } RBRACE
+
+MethodBody: LBRACE MethodBody2 RBRACE
+
+MethodBody2: MethodBody2 Statement 
+           | MethodBody2 VarDecl
+           | 
+           ;
 
 
-VarDecl: Type ID { COMMA ID } SEMICOLON
+VarDecl: Type ID VarDecl2 SEMICOLON
 
+VarDecl2: VarDecl2 COMMA ID
+        | 
+        ;
 
-Statement: LBRACE { Statement } RBRACE
-         | IF LPAR Expr RPAR Statement [ ELSE Statement ]
+Statement: LBRACE Statement RBRACE
+         | IF LPAR Expr RPAR Statement ELSE Statement 
+         | IF LPAR Expr RPAR Statement
          | WHILE LPAR Expr RPAR Statement
-         | RETURN [ Expr ] SEMICOLON
-         | [ ( MethodInvocation | Assignment | ParseArgs ) ] SEMICOLON
-         | PRINT LPAR ( Expr | STRLIT ) RPAR SEMICOLON
+         | RETURN Expr  SEMICOLON
+         | RETURN SEMICOLON
+         | MethodInvocation SEMICOLON
+         | Assignment SEMICOLON
+         | ParseArgs SEMICOLON
+         | SEMICOLON
+         | PRINT LPAR Expr RPAR SEMICOLON
+         | PRINT LPAR STRLIT RPAR SEMICOLON
+         | Statement Statement
+         | 
          ;
 
-Statement2:    
 
-MethodInvocation: ID LPAR [ Expr { COMMA Expr } ] RPAR
+MethodInvocation: ID LPAR RPAR
+                | ID LPAR Expr RPAR
+                ;
+            
+MethodInvocation2: MethodInvocation2 COMMA Expr
 
 
 Assignment: ID ASSIGN Expr

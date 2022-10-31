@@ -44,7 +44,7 @@ BUILD_DIR := bin
 TESTS_DIR := tests
 
 # `make test` rule default flag values
-DIR  := meta1
+DIR  := meta2
 FLAG := l
 
 # File Extensions

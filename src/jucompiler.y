@@ -21,27 +21,25 @@
 %}
 
 // Token types
-%union {
-    token_t token;
-    ast_node_t *node;
-}
 
 
-%token  <token>  INTLIT STRLIT REALLIT ID
-%token  <token>  IF ELSE WHILE RETURN  
-%token  <token>  BOOL CLASS DOUBLE INT PUBLIC STATIC STRING VOID
-%token  <token>  EQ GE GT LT LE NE
-%token  <token>  DOTLENGTH PRINT PARSEINT
-%token  <token>  BOOLLIT AND NOT OR XOR
-%token  <token>  MOD DIV STAR MINUS PLUS
-%token  <token>  QUOTE ASSIGN COMMA LBRACE LPAR LSQ RBRACE RPAR RSQ SEMICOLON
-%token  <token>  ARROW LSHIFT RSHIFT
+%token  INTLIT STRLIT REALLIT ID
+%token  IF ELSE WHILE RETURN  
+%token  BOOL CLASS DOUBLE INT PUBLIC STATIC STRING VOID
+%token  EQ GE GT LT LE NE
+%token  DOTLENGTH PRINT PARSEINT
+%token  BOOLLIT AND NOT OR XOR
+%token  MOD DIV STAR MINUS PLUS
+%token  ASSIGN COMMA LBRACE LPAR LSQ RBRACE RPAR RSQ SEMICOLON
+%token  LSHIFT RSHIFT
+//ARROw QUOTE
 
-%type  <node>  StartSymbol Program Program2
-%type  <node>  MethodDecl MethodInvocation MethodInvocation2 FieldDecl FieldDecl2 MethodHeader MethodBody MethodBody2
-%type  <node>  Type Expr VarDecl VarDecl2
-%type  <node>  Assignment Statement ParseArgs
-%type  <node>  FormalParams FormalParams2 
+
+%type  Program Program2
+%type  MethodDecl MethodInvocation MethodInvocation2 FieldDecl FieldDecl2 MethodHeader MethodBody MethodBody2
+%type  Type Expr VarDecl VarDecl2
+%type  Assignment Statement ParseArgs
+%type  FormalParams FormalParams2 
 
 
 %right ASSIGN
@@ -57,12 +55,10 @@
 %left  LPAR RPAR 
 
 
+%nonassoc ELSE
 
    
 %% 
-
-StartSymbol: Program
-
 
 Program: CLASS ID LBRACE Program2 RBRACE
 
@@ -98,7 +94,7 @@ FormalParams: Type ID FormalParams2
             | STRING LSQ RSQ ID
             ;
 
-FormalParams2: FormalParams2 COMMA Type ID
+FormalParams2: COMMA Type ID FormalParams2 
              | 
              ;
 
@@ -129,16 +125,17 @@ Statement: LBRACE Statement RBRACE
          | SEMICOLON
          | PRINT LPAR Expr RPAR SEMICOLON
          | PRINT LPAR STRLIT RPAR SEMICOLON
-         | Statement Statement
-         | 
          ;
 
 
+
 MethodInvocation: ID LPAR RPAR
-                | ID LPAR Expr RPAR
+                | ID LPAR Expr MethodInvocation2 RPAR
                 ;
             
 MethodInvocation2: MethodInvocation2 COMMA Expr
+                 |
+                 ;
 
 
 Assignment: ID ASSIGN Expr
@@ -177,3 +174,14 @@ Expr: Expr PLUS Expr
     | BOOLLIT
     ;
     
+%%
+
+
+int main() {
+  yyparse();
+  return 0;
+}
+
+void yyerror (const char *s) {
+  printf("Sintax Error\n");
+}

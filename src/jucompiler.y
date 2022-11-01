@@ -4,10 +4,6 @@
     // Tomas Cerveira da Cruz Pinto 2020224069
 
     // C Standard library Includes
-  #include <stdio.h>
-  #include <stdlib.h>
-  #include <string.h>
-  #include <stdbool.h>
    
   // Yacc and other Includes...
   #include "ast.h"
@@ -19,7 +15,6 @@
   // Compiler Flags TODO
     
 
-  // o que sao os formalparams????
 %}
 
 // Token types

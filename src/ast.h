@@ -9,15 +9,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 typedef char *token_t;
 
-typedef struct ASTNode ast_node_t;
-struct ASTNode {
+typedef struct ASTNode {
     char *id;
-    token_t value;
-    ast_node_t *first_child;
-    ast_node_t *next_sibling;
-};
+}ast_node_t;
 
 
 

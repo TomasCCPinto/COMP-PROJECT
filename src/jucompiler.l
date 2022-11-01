@@ -2,9 +2,6 @@
     // Joao Emanuel Sousa Moreira 2020230563
     // Tomas Cerveira da Cruz Pinto 2020224069
 %{
-    #include <string.h>
-    #include <stdbool.h>
-    #include <stdlib.h>
 
     // Yacc includes
     #include "ast.h"

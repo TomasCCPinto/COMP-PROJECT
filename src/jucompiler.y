@@ -11,6 +11,10 @@
   // Functions
   extern int yylex();
   extern void yyerror(const char *str);
+  extern char *yytext;
+  // extern int yylineno;
+  extern int line;
+  extern int col;
 
   // Compiler Flags TODO
     
@@ -75,7 +79,7 @@ Program2: Program2 MethodDecl                                                   
 MethodDecl: PUBLIC STATIC MethodHeader MethodBody                               { ; }
 
 
-FieldDecl: PUBLIC STATIC Type ID FieldDecl2 SEMICOLON                           { ; }
+FieldDecl: PUBLIC STATIC Type ID FieldDecl2 error SEMICOLON                           { ; }
 
 FieldDecl2: FieldDecl2 COMMA ID                                                 { ; }
           |                                                                     { ; }
@@ -120,14 +124,14 @@ Statement: LBRACE Statement RBRACE                                              
          | IF LPAR Expr RPAR Statement ELSE Statement                           { ; }
          | IF LPAR Expr RPAR Statement                                          { ; }
          | WHILE LPAR Expr RPAR Statement                                       { ; }
-         | RETURN Expr  SEMICOLON                                               { ; }
-         | RETURN SEMICOLON                                                     { ; }
-         | MethodInvocation SEMICOLON                                           { ; }
-         | Assignment SEMICOLON                                                 { ; }
-         | ParseArgs SEMICOLON                                                  { ; }
-         | SEMICOLON                                                            { ; }
-         | PRINT LPAR Expr RPAR SEMICOLON                                       { ; }
-         | PRINT LPAR STRLIT RPAR SEMICOLON                                     { ; }
+         | RETURN Expr error SEMICOLON                                               { ; }
+         | RETURN error SEMICOLON                                                     { ; }
+         | MethodInvocation error SEMICOLON                                           { ; }
+         | Assignment error SEMICOLON                                                 { ; }
+         | ParseArgs error SEMICOLON                                                  { ; }
+         | error SEMICOLON                                                            { ; }
+         | PRINT LPAR Expr RPAR error SEMICOLON                                       { ; }
+         | PRINT LPAR STRLIT RPAR error SEMICOLON                                     { ; }
          ;
 
 
@@ -143,7 +147,7 @@ MethodInvocation2: MethodInvocation2 COMMA Expr                                 
 Assignment: ID ASSIGN Expr                                                      { ; }
 
 
-ParseArgs: PARSEINT LPAR ID LSQ Expr RSQ RPAR                                   { ; }
+ParseArgs: PARSEINT LPAR ID LSQ Expr RSQ error RPAR                                   { ; }
 
 
 Expr: Expr PLUS Expr                                                            { ; }
@@ -165,7 +169,7 @@ Expr: Expr PLUS Expr                                                            
     | MINUS Expr                                                                { ; }
     | NOT Expr                                                                  { ; }
     | PLUS Expr                                                                 { ; }
-    | LPAR Expr RPAR                                                            { ; }
+    | LPAR Expr error RPAR                                                            { ; }
     | MethodInvocation                                                          { ; }
     | Assignment                                                                { ; }
     | ParseArgs                                                                 { ; }
@@ -184,6 +188,7 @@ int main() {
   return 0;
 }
 
-void yyerror (const char *s) {
-  printf("Sintax Error %s\n", s);
+
+extern void yyerror (const char *s ) {
+  printf ("line %d, col %d: %s: %s\n", line, col, s , yytext );
 }

@@ -16,6 +16,8 @@
   extern int line;
   extern int col;
 
+  extern ast_node_t *my_program;
+
   // Compiler Flags TODO
     
 
@@ -46,7 +48,7 @@
 %type <node> MethodDecl MethodInvocation MethodInvocation2 FieldDecl FieldDecl2 MethodHeader MethodBody MethodBody2
 %type <node> Type Expr VarDecl VarDecl2
 %type <node> Assignment Statement ParseArgs
-%type <node> FormalParams FormalParams2 
+%type <node> FormalParams FormalParams2 Main
 
 
 %right ASSIGN
@@ -66,6 +68,7 @@
 
    
 %% 
+Main: Program                                                                   { $$ = program = ast_node("Program"); add_children($$, $1); }
 
 Program: CLASS ID LBRACE Program2 RBRACE                                        { ; }
 
@@ -79,7 +82,7 @@ Program2: Program2 MethodDecl                                                   
 MethodDecl: PUBLIC STATIC MethodHeader MethodBody                               { ; }
 
 
-FieldDecl: PUBLIC STATIC Type ID FieldDecl2 error SEMICOLON                           { ; }
+FieldDecl: PUBLIC STATIC Type ID FieldDecl2 SEMICOLON                           { ; }
 
 FieldDecl2: FieldDecl2 COMMA ID                                                 { ; }
           |                                                                     { ; }
@@ -124,14 +127,14 @@ Statement: LBRACE Statement RBRACE                                              
          | IF LPAR Expr RPAR Statement ELSE Statement                           { ; }
          | IF LPAR Expr RPAR Statement                                          { ; }
          | WHILE LPAR Expr RPAR Statement                                       { ; }
-         | RETURN Expr error SEMICOLON                                               { ; }
-         | RETURN error SEMICOLON                                                     { ; }
-         | MethodInvocation error SEMICOLON                                           { ; }
-         | Assignment error SEMICOLON                                                 { ; }
-         | ParseArgs error SEMICOLON                                                  { ; }
-         | error SEMICOLON                                                            { ; }
-         | PRINT LPAR Expr RPAR error SEMICOLON                                       { ; }
-         | PRINT LPAR STRLIT RPAR error SEMICOLON                                     { ; }
+         | RETURN Expr SEMICOLON                                                { ; }
+         | RETURN SEMICOLON                                                     { ; }
+         | MethodInvocation SEMICOLON                                           { ; }
+         | Assignment SEMICOLON                                                 { ; }
+         | ParseArgs SEMICOLON                                                  { ; }
+         | SEMICOLON                                                            { ; }
+         | PRINT LPAR Expr RPAR SEMICOLON                                       { ; }
+         | PRINT LPAR STRLIT RPAR SEMICOLON                                     { ; }
          ;
 
 
@@ -147,7 +150,7 @@ MethodInvocation2: MethodInvocation2 COMMA Expr                                 
 Assignment: ID ASSIGN Expr                                                      { ; }
 
 
-ParseArgs: PARSEINT LPAR ID LSQ Expr RSQ error RPAR                                   { ; }
+ParseArgs: PARSEINT LPAR ID LSQ Expr RSQ RPAR                                   { ; }
 
 
 Expr: Expr PLUS Expr                                                            { ; }
@@ -169,7 +172,7 @@ Expr: Expr PLUS Expr                                                            
     | MINUS Expr                                                                { ; }
     | NOT Expr                                                                  { ; }
     | PLUS Expr                                                                 { ; }
-    | LPAR Expr error RPAR                                                            { ; }
+    | LPAR Expr RPAR                                                            { ; }
     | MethodInvocation                                                          { ; }
     | Assignment                                                                { ; }
     | ParseArgs                                                                 { ; }
@@ -184,6 +187,7 @@ Expr: Expr PLUS Expr                                                            
 
 
 int main() {
+  // yylex();
   yyparse();
   return 0;
 }

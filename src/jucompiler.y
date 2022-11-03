@@ -16,7 +16,7 @@
   extern int line;
   extern int col;
 
-  extern ast_node_t *my_program;
+  ast_node_t *my_program;
 
   // Compiler Flags TODO
     
@@ -68,18 +68,18 @@
 
    
 %% 
-Main: Program                                                                   { $$ = program = ast_node("Program"); add_children($$, $1); }
+Main: Program                                                                   { $$ = my_program = ast_node("Program", NULL); add_children($$, $1); }
 
-Program: CLASS ID LBRACE Program2 RBRACE                                        { ; }
+Program: CLASS ID LBRACE Program2 RBRACE                                        { $$ = ast_node("ID", $2); add_brother($$, $4);}
 
-Program2: Program2 MethodDecl                                                   { ; }
-        | Program2 FieldDecl                                                    { ; }
-        | Program2 SEMICOLON                                                    { ; }
-        |                                                                       { ; }
+Program2: Program2 MethodDecl                                                   { $$ = ast_node("MethodDecl", NULL); add_children($$, $2); }
+        | Program2 FieldDecl                                                    { $$ = ast_node("FieldDecl", NULL); add_children($$, $2); }
+        | Program2 SEMICOLON                                                    { $$ = $1; }
+        |  /*empty*/                                                            { $$ = NULL; }
         ;
 
 
-MethodDecl: PUBLIC STATIC MethodHeader MethodBody                               { ; }
+MethodDecl: PUBLIC STATIC MethodHeader MethodBody                               { $$ = ast_node("MethodHeader", NULL); $4 = ast_node("MethodBody", NULL); add_brother($$, $4); }
 
 
 FieldDecl: PUBLIC STATIC Type ID FieldDecl2 SEMICOLON                           { ; }
@@ -89,9 +89,9 @@ FieldDecl2: FieldDecl2 COMMA ID                                                 
           ;
 
 
-Type: BOOL                                                                      { ; }
-    | INT                                                                       { ; }
-    | DOUBLE                                                                    { ; }
+Type: BOOL                                                                      { $$ = ast_node("Bool", NULL); }
+    | INT                                                                       { $$ = ast_node("Int", NULL); }
+    | DOUBLE                                                                    { $$ = ast_node("Double", NULL); }
     ;
 
 
@@ -189,6 +189,7 @@ Expr: Expr PLUS Expr                                                            
 int main() {
   // yylex();
   yyparse();
+  print_ast(my_program);
   return 0;
 }
 

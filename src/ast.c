@@ -2,6 +2,7 @@
 
 #include "ast.h"
 #include "y.tab.h"
+#include <stdio.h>
 
 
 static int types[] = {
@@ -21,7 +22,7 @@ token_t token(char *value, int type) {
     return NULL;
 }
 
-ast_node_t *ast_node(char *id) {
+ast_node_t *ast_node(char *id, char *value) {
     /**
      * Create a AST node
      * 
@@ -33,14 +34,41 @@ ast_node_t *ast_node(char *id) {
         node->id = id;
         node->brother = NULL;
         node->child = NULL;
+        node->value = value;
     }
 
     return node;
 }
 
+void _print_ast(ast_node_t *node, int level) {
+    if (node != NULL) {
+        for (int i = 0; i < level; ++i) {
+            printf("..");
+        }
+        if (node->value) {
+            printf("%s(%s)\n", node->id, node->value);
+        } else {
+            printf("%s\n", node->id);
+        }
+        _print_ast(node->child, level + 1);
+        _print_ast(node->brother, level);
+    }
+}
+void print_ast(ast_node_t *node) {
+    _print_ast(node, 0);
+}
+
 void add_children(ast_node_t *parent, ast_node_t *child) {
     if (parent) {
         parent->child = child;
+    }
+}
+
+void print_node(ast_node_t *node) {
+    if (node) {
+        if (node->child)
+            printf("filho%s\n", node->child->id);
+
     }
 }
 

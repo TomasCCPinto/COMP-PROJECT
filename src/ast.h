@@ -32,5 +32,6 @@ void print_ast(ast_node_t *);
 
 
 void print_node(ast_node_t *node);
+void add_type(ast_node_t *type, ast_node_t *give_me_type);
 
 #endif // __AST_H

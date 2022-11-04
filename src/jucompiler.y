@@ -4,7 +4,7 @@
     // Tomas Cerveira da Cruz Pinto 2020224069
 
     // C Standard library Includes
-   
+    
   // Yacc and other Includes...
   #include "ast.h"
  
@@ -19,7 +19,7 @@
   ast_node_t *my_program;
 
   // Compiler Flags TODO
-    
+  int a = 0;
 
 %}
 
@@ -70,16 +70,21 @@
 %% 
 Main: Program                                                                   { $$ = my_program = ast_node("Program", NULL); add_children($$, $1); }
 
-Program: CLASS ID LBRACE Program2 RBRACE                                        { $$ = ast_node("ID", $2); add_brother($$, $4);}
+Program: CLASS ID LBRACE Program2 RBRACE                                        { $$ = ast_node("ID", $2); add_brother($$, $4); }
 
-Program2: Program2 MethodDecl                                                   { $$ = ast_node("MethodDecl", NULL); add_children($$, $2); }
-        | Program2 FieldDecl                                                    { $$ = ast_node("FieldDecl", NULL); add_children($$, $2); }
+Program2: Program2 MethodDecl                                                   { print_ast($2); $$ = $2; add_brother($$, $1); }
+        | Program2 FieldDecl                                                    { $$ = $2; add_brother($$, $1); }
         | Program2 SEMICOLON                                                    { $$ = $1; }
         |  /*empty*/                                                            { $$ = NULL; }
         ;
 
 
-MethodDecl: PUBLIC STATIC MethodHeader MethodBody                               { $$ = ast_node("MethodHeader", NULL); $4 = ast_node("MethodBody", NULL); add_brother($$, $4); }
+MethodDecl: PUBLIC STATIC MethodHeader MethodBody                               { $$ = ast_node("MethodDecl", NULL);
+                                                                                  add_children($$, $3);
+                                                                                  $4 = ast_node("MethodBody", NULL); /* ter atençao a isto */
+                                                                                  add_brother($3, $4);
+										                                                              /* print_ast($$); */
+                                                                                }
 
 
 FieldDecl: PUBLIC STATIC Type ID FieldDecl2 SEMICOLON                           { ; }
@@ -95,8 +100,8 @@ Type: BOOL                                                                      
     ;
 
 
-MethodHeader: Type ID LPAR FormalParams RPAR                                    { ; }
-            | Type ID LPAR RPAR                                                 { ; }
+MethodHeader: Type ID LPAR FormalParams RPAR                                    { $$ = ast_node("MethodHeader", NULL); add_children($$, $1); add_brother($1, ast_node("ID", $2)); }
+            | Type ID LPAR RPAR                                                 { $$ = ast_node("MethodHeader", NULL); add_children($$, $1); add_brother($1, ast_node("ID", $2)); }
             | VOID ID LPAR FormalParams RPAR                                    { ; }
             | VOID ID LPAR RPAR                                                 { ; }
 

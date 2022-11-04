@@ -76,4 +76,12 @@ void add_brother(ast_node_t *older_brother, ast_node_t *brother) {
     if (older_brother) {
         older_brother->brother = brother;
     }
+}                          //                   id
+void add_type(ast_node_t *type, ast_node_t *give_me_type) {
+    ast_node_t *new_type_node = NULL;
+    for (ast_node_t *current = give_me_type; current; current = current->brother) {
+        new_type_node = ast_node(type->id, NULL);                
+        new_type_node->brother = current->child;       
+        current->child = new_type_node;                     
+    }
 }

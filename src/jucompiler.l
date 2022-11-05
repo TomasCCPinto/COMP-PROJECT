@@ -13,7 +13,7 @@
 
     int col=1, line=1;
     int savecol, saveline;
-    bool l;
+    extern bool l;
 
     #define findAsciiChars(character, line, col) { if (character <= 126 && character >= 33) printf("Line %d, col %d: illegal character (%c)\n", line, col, character); }
     #define SEND_TOKEN(...) {  yylval.token = token(yytext, __VA_ARGS__); return __VA_ARGS__; }
@@ -196,9 +196,12 @@ int yywrap() {
 }
 
 
-
-
-//  "nfkaewfh"
-//  "afpo"odijw" -> "afpo"   odijw   "
-//                  str       id      erro
-//
+extern void yyerror (const char *s ) {
+    if (!yytext[0]) {
+        printf ("Line %d, col %d: %s: %s\n", line, col, s , yytext);
+    } else if (yytext[yyleng-1] == '"') {
+        printf ("Line %d, col %d: %s: \"%s\n", line, col - yyleng-1, s , yytext );
+    } else {
+        printf ("Line %d, col %d: %s: %s\n", line, col - yyleng, s , yytext );
+    }
+}

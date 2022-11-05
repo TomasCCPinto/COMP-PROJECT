@@ -45,7 +45,7 @@ TESTS_DIR := tests
 
 # `make test` rule default flag values
 DIR  := meta2
-FLAG := l
+FLAG := t
 
 # File Extensions
 TEST_LOG_FILE := $(TARGET_NAME)_tests.log

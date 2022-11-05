@@ -13,8 +13,8 @@
   extern void yyerror(const char *str);
   extern char *yytext;
   // extern int yylineno;
-  extern int line;
-  extern int col;
+  extern int num_line;
+  extern int num_col;
 
   ast_node_t *my_program;
   ast_node_t *aux;
@@ -22,6 +22,7 @@
 
   // Compiler Flags TODO
   int a = 0;
+  bool l = false, e1 = false, e2 = true, t = false; 
 
 %}
 
@@ -50,7 +51,7 @@
 %type <node> MethodDecl MethodInvocation MethodInvocation2 FieldDecl FieldDecl2 MethodHeader MethodBody MethodBody2
 %type <node> Type Expr VarDecl VarDecl2
 %type <node> Assignment Statement ParseArgs
-%type <node> FormalParams FormalParams2 Main
+%type <node> FormalParams FormalParams2 Main   VarDeclList
 
 
 %right ASSIGN
@@ -86,8 +87,8 @@ MethodDecl: PUBLIC STATIC MethodHeader MethodBody                               
 
 FieldDecl: PUBLIC STATIC Type ID FieldDecl2 SEMICOLON                           { $$ = ast_node("FieldDecl", NULL); add_children($$, $3); aux = ast_node("Id", $4);  add_brother($3, aux); add_brother(aux, $5); }
 
-FieldDecl2: COMMA ID FieldDecl2                                                 { $$ = ast_node("Id", $2); add_brother($$, $3); }
-          |                                                                     { $$ = ast_node("FieldDecl", NULL); }
+FieldDecl2: COMMA ID FieldDecl2                                                 { $$ = ast_node("FieldDecl", NULL); aux = ast_node("Id", $2); add_children($$, aux); add_brother($$, $3); }
+          |                                                                     { $$ = NULL; }
           ;
 
 
@@ -98,10 +99,10 @@ Type: BOOL                                                                      
 
 
 MethodHeader: Type ID LPAR FormalParams RPAR                                    { $$ = ast_node("MethodHeader", NULL); add_children($$, $1); aux = ast_node("Id", $2); add_brother($1, aux); add_brother(aux, $4); }
-            | Type ID LPAR RPAR                                                 { $$ = ast_node("MethodHeader", NULL); add_children($$, $1); add_brother($1, ast_node("Id", $2)); }
+            | Type ID LPAR RPAR                                                 { $$ = ast_node("MethodHeader", NULL); add_children($$, $1); aux = ast_node("Id", $2); add_brother($1, aux); add_brother(aux, ast_node("MethodParams", NULL)); }
             | VOID ID LPAR FormalParams RPAR                                    { $$ = ast_node("MethodHeader", NULL); aux = ast_node("Void", NULL); add_children($$, aux);  
                                                                                 aux2 = ast_node("Id", $2); add_brother(aux, aux2); add_brother(aux2, $4); }
-            | VOID ID LPAR RPAR                                                 { $$ = ast_node("MethodHeader", NULL); aux = ast_node("Void", NULL); add_children($$, aux); add_brother(aux, ast_node("Id", $2)); }
+            | VOID ID LPAR RPAR                                                 { $$ = ast_node("MethodHeader", NULL); aux = ast_node("Void", NULL); add_children($$, aux); aux2 = ast_node("Id", $2); add_brother(aux, aux2); add_brother(aux2, ast_node("MethodParams", NULL)); }
 
 FormalParams: Type ID FormalParams2                                             { $$ = ast_node("MethodParams", NULL); add_children($$, $3); add_children($3, $1); aux = ast_node("Id", $2); add_brother($1, aux); }
             | STRING LSQ RSQ ID                                                 { $$ = ast_node("MethodParams", NULL); aux2 = ast_node("ParamDecl", NULL); add_children($$, aux2);
@@ -119,18 +120,27 @@ FormalParams2: COMMA Type ID FormalParams2                                      
 MethodBody: LBRACE MethodBody2 RBRACE                                           { $$ = ast_node("MethodBody", NULL); add_children($$, $2); }
 
 MethodBody2:  Statement MethodBody2                                             { $$ = $1; add_brother($$, $2); }
-           |  VarDecl   MethodBody2                                             { $$ = $1; add_brother($$, $2); }
-           |                                                                    { $$ = NULL; }
+           |  VarDecl   MethodBody2                                             { $$ = ast_node("VarDecl", NULL); add_children($$, $1); add_brother($$, $2); }
+           |                                                                    { $$ = NULL;}
            ;
 
 
-VarDecl: Type ID VarDecl2 SEMICOLON                                             { $$ = ast_node("VarDecl", NULL); add_children($$, $1); aux = ast_node("Id", $2); add_brother($1, aux); add_brother(aux, $3); }
+/*
+VarDecl: Type ID VarDecl2 SEMICOLON                                             { $$ = $1; aux = ast_node("Id", $2); add_brother($1, aux); add_type($1, $3); aux2 = $3; add_brother(aux, $3); }
 
-VarDecl2: COMMA ID VarDecl2                                                     { $$ = ast_node("Id", $2); add_brother($$, $3); }
+VarDecl2: COMMA ID VarDecl2                                                     { $$ = ast_node("VarDecl", NULL); aux = ast_node("Id", $2); add_children($$, aux); add_brother($$, $3); }
         |                                                                       { $$ = NULL; }
         ; 
+*/
 
+VarDecl: Type VarDecl2 VarDeclList SEMICOLON                                    { $$ = $2; add_type($1, $$); add_type($1, $3); free($1); add_brother($$, $3); }
+       
 
+VarDecl2: ID                                                                    { $$ = ast_node("VarDecl", NULL); add_children($$, ast_node("Id", $1)); }
+
+VarDeclList: COMMA VarDecl2 VarDeclList                                         { $$ = $2; add_brother($$, $3); }
+           |                                                                    { $$ = NULL; }
+           ;
 
 
 Statement: LBRACE Statement RBRACE                                              { $$ = $2; }
@@ -196,14 +206,41 @@ Expr: Expr PLUS Expr                                                            
 %%
 
 
-int main() {
-  // yylex();
-  yyparse();
-  print_ast(my_program);
+void flags(int argc, char *argv[]) {
+}
+
+
+int main(int argc, char *argv[]) {
+  for (int i = 1; i < argc; ++i) {
+      if (!strcmp(argv[i], "-l")) {
+           e1 = t = e2 = false;
+           l = true;  
+      } else if (!strcmp(argv[i], "-e1")){
+          t = l = e2 = false;
+          e1 = true;
+      } else if (!strcmp(argv[i], "-e2")) {
+          e1 = t = l = false;
+          e2 = true;
+      } else if (!strcmp(argv[i], "-t")) {
+          l = e2 = e1 = false;
+          t = true; 
+      }
+  }
+
+  if (l || e1) {
+      return yylex();
+  } 
+ 
+  if (e2) {
+      yyparse(); 
+  } else if (t) {
+      yyparse();
+      print_ast(my_program);  
+  }
+  // yylex();kk
+  //yyparse();
+  //print_ast(my_program);
   return 0;
 }
 
 
-extern void yyerror (const char *s ) {
-  printf ("line %d, col %d: %s: %s\n", line, col, s , yytext );
-}

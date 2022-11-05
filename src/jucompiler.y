@@ -87,7 +87,7 @@ MethodDecl: PUBLIC STATIC MethodHeader MethodBody                               
 FieldDecl: PUBLIC STATIC Type ID FieldDecl2 SEMICOLON                           { $$ = ast_node("FieldDecl", NULL); add_children($$, $3); aux = ast_node("Id", $4);  add_brother($3, aux); add_brother(aux, $5); }
 
 FieldDecl2: COMMA ID FieldDecl2                                                 { $$ = ast_node("Id", $2); add_brother($$, $3); }
-          |                                                                     { $$ = NULL; }
+          |                                                                     { $$ = ast_node("FieldDecl", NULL); }
           ;
 
 

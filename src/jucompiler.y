@@ -72,19 +72,17 @@
 %% 
 Main: Program                                                                   { $$ = my_program = ast_node("Program", NULL); add_children($$, $1); }
 
-Program: CLASS ID LBRACE Program2 RBRACE                                        { $$ = ast_node("ID", $2); add_brother($$, $4); }
+Program: CLASS ID LBRACE Program2 RBRACE                                        { $$ = ast_node("Id", $2); add_brother($$, $4); }
 
-Program2: MethodDecl Program2                                                   { $$ = $1;  add_brother($$, $2); }
+Program2: MethodDecl Program2                                                   { $$ = $1; add_brother($$, $2); }
         | FieldDecl  Program2                                                   { $$ = $1; add_brother($$, $2); }
         | SEMICOLON  Program2                                                   { $$ = $2; }
         |  /*empty*/                                                            { $$ = NULL; }
         ;
 
 
-MethodDecl: PUBLIC STATIC MethodHeader MethodBody                               { $$ = ast_node("MethodDecl", NULL);
-                                                                                  add_children($$, $3);
-                                                                                  $4 = ast_node("MethodBody", NULL); /* ter atençao a isto */
-                                                                                  add_brother($3, $4);
+MethodDecl: PUBLIC STATIC MethodHeader MethodBody                               { $$ = ast_node("MethodDecl", NULL); add_children($$, $3); 
+                                                                                  /* ter atençao a isto */ add_brother($3, $4);
                                                                                 }
 
 
@@ -101,36 +99,37 @@ Type: BOOL                                                                      
     ;
 
 
-MethodHeader: Type ID LPAR FormalParams RPAR                                    { $$ = ast_node("MethodHeader", NULL); add_children($$, $1); aux = ast_node("ID", $2); add_brother($1, aux); add_brother(aux, $4); }
-            | Type ID LPAR RPAR                                                 { $$ = ast_node("MethodHeader", NULL); add_children($$, $1); add_brother($1, ast_node("ID", $2)); }
+MethodHeader: Type ID LPAR FormalParams RPAR                                    { $$ = ast_node("MethodHeader", NULL); add_children($$, $1); aux = ast_node("Id", $2); add_brother($1, aux); add_brother(aux, $4); }
+            | Type ID LPAR RPAR                                                 { $$ = ast_node("MethodHeader", NULL); add_children($$, $1); add_brother($1, ast_node("Id", $2)); }
             | VOID ID LPAR FormalParams RPAR                                    { $$ = ast_node("MethodHeader", NULL); aux = ast_node("Void", NULL); add_children($$, aux);  
-                                                                                aux2 = ast_node("ID", $2); add_brother(aux, aux2); add_brother(aux2, $4); }
-            | VOID ID LPAR RPAR                                                 { $$ = ast_node("MethodHeader", NULL); aux = ast_node("Void", NULL); add_children($$, aux); add_brother(aux, ast_node("ID", $2)); }
+                                                                                aux2 = ast_node("Id", $2); add_brother(aux, aux2); add_brother(aux2, $4); }
+            | VOID ID LPAR RPAR                                                 { $$ = ast_node("MethodHeader", NULL); aux = ast_node("Void", NULL); add_children($$, aux); add_brother(aux, ast_node("Id", $2)); }
 
-FormalParams: Type ID FormalParams2                                             { $$ = ast_node("MethodParams", NULL); add_children($$, $3); add_children($3, $1); aux = ast_node("ID", $2); add_brother($1, aux); /*add_brother(aux, $3);*/ }
-            | STRING LSQ RSQ ID                                                 { $$ = ast_node("MethodParams", NULL); aux = ast_node("StrLit", NULL); add_children($$, aux);
-                                                                                  add_brother(aux, ast_node("ID", $4));
+FormalParams: Type ID FormalParams2                                             { $$ = ast_node("MethodParams", NULL); add_children($$, $3); add_children($3, $1); aux = ast_node("Id", $2); add_brother($1, aux); }
+            | STRING LSQ RSQ ID                                                 { $$ = ast_node("MethodParams", NULL); aux2 = ast_node("ParamDecl", NULL); add_children($$, aux2);
+                                                                                 aux = ast_node("StringArray", NULL); add_children(aux2, aux);
+                                                                                  add_brother(aux, ast_node("Id", $4));
                                                                                   /* Ainda nao foi testado */
                                                                                   }
             ;
 
-FormalParams2: COMMA Type ID FormalParams2                                      { $$ = ast_node("ParamDecl", NULL); add_brother($$, $4); add_children($4, $2); aux = ast_node("ID", $3); add_brother($2, aux); /*add_brother($4, $4);*/ }
+FormalParams2: COMMA Type ID FormalParams2                                      { $$ = ast_node("ParamDecl", NULL); add_brother($$, $4); add_children($4, $2); aux = ast_node("Id", $3); add_brother($2, aux); }
              |                                                                  { $$ = ast_node("ParamDecl", NULL); }
              ;/*nada testado*/
 
 
 MethodBody: LBRACE MethodBody2 RBRACE                                           { $$ = ast_node("MethodBody", NULL); add_children($$, $2); }
 
-MethodBody2:  Statement MethodBody2                                             { ; }
-           |  VarDecl   MethodBody2                                             { ; }
-           |                                                                    { ; }
+MethodBody2:  Statement MethodBody2                                             { $$ = $1; add_brother($$, $2); }
+           |  VarDecl   MethodBody2                                             { $$ = $1; add_brother($$, $2); }
+           |                                                                    { $$ = NULL; }
            ;
 
 
-VarDecl: Type ID VarDecl2 SEMICOLON                                             { ; }
+VarDecl: Type ID VarDecl2 SEMICOLON                                             { $$ = ast_node("VarDecl", NULL); add_children($$, $1); aux = ast_node("Id", $2); add_brother($1, aux); add_brother(aux, $3); }
 
-VarDecl2: VarDecl2 COMMA ID                                                     { ; }
-        |                                                                       { ; }
+VarDecl2: COMMA ID VarDecl2                                                     { $$ = ast_node("Id", $2); add_brother($$, $3); }
+        |                                                                       { $$ = NULL; }
         ; 
 
 Statement: LBRACE Statement RBRACE                                              { ; }
@@ -140,7 +139,7 @@ Statement: LBRACE Statement RBRACE                                              
          | RETURN Expr SEMICOLON                                                { ; }
          | RETURN SEMICOLON                                                     { ; }
          | MethodInvocation SEMICOLON                                           { ; }
-         | Assignment SEMICOLON                                                 { ; }
+         | Assignment SEMICOLON                                                 { $$ = $1; }
          | ParseArgs SEMICOLON                                                  { ; }
          | SEMICOLON                                                            { ; }
          | PRINT LPAR Expr RPAR SEMICOLON                                       { ; }
@@ -157,7 +156,7 @@ MethodInvocation2: MethodInvocation2 COMMA Expr                                 
                  ;
 
 
-Assignment: ID ASSIGN Expr                                                      { ; }
+Assignment: ID ASSIGN Expr                                                      { $$ = ast_node("Assign", NULL); aux = ast_node("Id", $1); add_children($$, aux); add_brother(aux, $3); /*addicionar expr*/ }
 
 
 ParseArgs: PARSEINT LPAR ID LSQ Expr RSQ RPAR                                   { ; }
@@ -184,8 +183,8 @@ Expr: Expr PLUS Expr                                                            
     | PLUS Expr                                                                 { ; }
     | LPAR Expr RPAR                                                            { ; }
     | MethodInvocation                                                          { ; }
-    | Assignment                                                                { ; }
-    | ParseArgs                                                                 { ; }
+    | Assignment                                                                { $$ = $1; }
+    | ParseArgs                                                                 { $$ = $1; }
     | ID DOTLENGTH                                                              { ; }
     | ID                                                                        { ; }
     | INTLIT                                                                    { ; }

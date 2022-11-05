@@ -142,24 +142,24 @@ Statement: LBRACE Statement RBRACE                                              
          | Assignment SEMICOLON                                                 { $$ = $1; }
          | ParseArgs SEMICOLON                                                  { ; }
          | SEMICOLON                                                            { ; }
-         | PRINT LPAR Expr RPAR SEMICOLON                                       { ; }
-         | PRINT LPAR STRLIT RPAR SEMICOLON                                     { ; }
+         | PRINT LPAR Expr RPAR SEMICOLON                                       { $$ = ast_node("Print", NULL); add_children($$, $3);  }
+         | PRINT LPAR STRLIT RPAR SEMICOLON                                     { $$ = ast_node("Print", NULL); add_children($$, ast_node("StrLit", $3));  }
          ;
 
 
-MethodInvocation: ID LPAR RPAR                                                  { ; }
-                | ID LPAR Expr MethodInvocation2 RPAR                           { ; }
+MethodInvocation: ID LPAR RPAR                                                  {  $$ = ast_node("Call", NULL); aux = ast_node("Id", $1); add_children($$, aux);  }
+                | ID LPAR Expr MethodInvocation2 RPAR                           {  $$ = ast_node("Call", NULL); aux = ast_node("Id", $1); add_children($$, aux); add_brother(aux, $3); add_brother($3, $4);  }
                 ;
 
-MethodInvocation2: MethodInvocation2 COMMA Expr                                 { ; }
-                 |                                                              { ; }
+MethodInvocation2: MethodInvocation2 COMMA Expr                                 { $$ = NULL; }
+                 |                                                              { $$ = NULL; }
                  ;
 
 
 Assignment: ID ASSIGN Expr                                                      { $$ = ast_node("Assign", NULL); aux = ast_node("Id", $1); add_children($$, aux); add_brother(aux, $3); /*addicionar expr*/ }
 
 
-ParseArgs: PARSEINT LPAR ID LSQ Expr RSQ RPAR                                   { ; }
+ParseArgs: PARSEINT LPAR ID LSQ Expr RSQ RPAR                                   { $$ = ast_node("ParseArgs", NULL); aux = ast_node("Id", $3); add_children($$, aux); add_brother(aux, $5); }
 
 
 Expr: Expr PLUS Expr                                                            { ; }
@@ -182,14 +182,14 @@ Expr: Expr PLUS Expr                                                            
     | NOT Expr                                                                  { ; }
     | PLUS Expr                                                                 { ; }
     | LPAR Expr RPAR                                                            { ; }
-    | MethodInvocation                                                          { ; }
+    | MethodInvocation                                                          { $$ = $1; }
     | Assignment                                                                { $$ = $1; }
     | ParseArgs                                                                 { $$ = $1; }
-    | ID DOTLENGTH                                                              { ; }
-    | ID                                                                        { ; }
-    | INTLIT                                                                    { ; }
-    | REALLIT                                                                   { ; }
-    | BOOLLIT                                                                   { ; }
+    | ID DOTLENGTH                                                              { $$ = ast_node("Id", $1); }
+    | ID                                                                        { $$ = ast_node("Id", $1); }
+    | INTLIT                                                                    { $$ = ast_node("DecLit", $1); }
+    | REALLIT                                                                   { $$ = ast_node("RealLit", $1); }
+    | BOOLLIT                                                                   { $$ = ast_node("BoolLit", $1); }
     ;
     
 %%

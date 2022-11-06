@@ -75,7 +75,7 @@ void add_children(ast_node_t *parent, ast_node_t *child) {
 void print_node(ast_node_t *node) {
     if (node) {
         if (node->child)
-            printf("filho%s\n", node->child->id);
+            printf("filho%s\n", node->child->value);
 
     }
 }

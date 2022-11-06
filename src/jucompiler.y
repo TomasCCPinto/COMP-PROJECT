@@ -94,7 +94,7 @@ FieldDecl2: COMMA ID FieldDecl2                                                 
           |                                                                     { $$ = NULL; }
           ;*/
 FieldDecl: PUBLIC STATIC Type ID FieldDecl2 SEMICOLON                           { $$ = ast_node("FieldDecl", NULL); aux = ast_node("Id", $4); }
-         | error SEMICOLON        {$$ = NULL;}
+         | error SEMICOLON                                                      {$$ = NULL;}
 
 FieldDecl2: COMMA ID FieldDecl2                                                 { $$ = ast_node("FieldDecl", NULL); aux = ast_node("Id", $2); add_children($$, aux); add_brother($$, $3); }
           |                                                                     { $$ = NULL; }
@@ -129,13 +129,20 @@ FormalParams2: COMMA Type ID FormalParams2                                      
 MethodBody: LBRACE MethodBody2 RBRACE                                           { $$ = ast_node("MethodBody", NULL); add_children($$, $2); }
 
 MethodBody2:  Statement MethodBody2                                             { $$ = $1; add_brother($$, $2); }
-           |  VarDecl   MethodBody2                                             { $$ = $1; add_brother($$, $2);}
+           |  VarDecl   MethodBody2                                             { $$ = $1; 
+                                                                                    aux = $1;
+                                                                                    while(aux->brother) {
+                                                                                        aux = aux->brother;
+                                                                                    }
+
+
+                                                                                add_brother(aux, $2);}
            |                                                                    { $$ = NULL;}
            ;
 
 
 
-VarDecl: Type ID VarDecl2 SEMICOLON                                             { $$ = ast_node("VarDecl", NULL); aux = ast_node("Id", $2); add_children($$, aux); add_brother($$, $3);}
+VarDecl: Type ID VarDecl2 SEMICOLON                                             { $$ = ast_node("VarDecl", NULL); add_children($$, $1); add_type($1, $3); aux = ast_node("Id", $2); add_brother($1, aux); add_brother($$, $3);}
 
 VarDecl2: COMMA ID VarDecl2                                                     { $$ = ast_node("VarDecl", NULL); aux = ast_node("Id", $2); add_children($$, aux); add_brother($$, $3); }
         |                                                                       { $$ = NULL; }

@@ -4,6 +4,7 @@
 #include "y.tab.h"
 #include <stdio.h>
 
+bool syntax_error = false; 
 
 static int types[] = {
     ID,
@@ -15,6 +16,12 @@ static int types[] = {
 
 token_t token(char *value, int type) {
     for (int i = 0; i < 4; ++i) {
+        if (type == types[3]) {
+            //char aux[200];
+            char *aux = (char *) malloc(sizeof(char)*(strlen(value)+1));
+            sprintf(aux, "\"%s", value);
+            return (char *) strdup(aux);
+        }
         if (type == types[i]) {
             return (char *) strdup(value);
         }
@@ -55,7 +62,8 @@ void _print_ast(ast_node_t *node, int level) {
     }
 }
 void print_ast(ast_node_t *node) {
-    _print_ast(node, 0);
+    if(!syntax_error)
+        _print_ast(node, 0);
 }
 
 void add_children(ast_node_t *parent, ast_node_t *child) {
@@ -76,7 +84,24 @@ void add_brother(ast_node_t *older_brother, ast_node_t *brother) {
     if (older_brother) {
         older_brother->brother = brother;
     }
-}                          //                   id
+}
+
+void add_step_brother(ast_node_t *older_brother, ast_node_t *brother) {
+    printf("here\n");
+    if (older_brother != NULL) {
+        ast_node_t *current = older_brother;
+
+        while(current->brother) {
+            current = current->brother;
+            printf("\n\n");
+            print_node(current);
+            printf("\n\n");
+            printf("here333\n");
+        }
+        add_brother(current, brother);
+    }
+}
+
 void add_type(ast_node_t *type, ast_node_t *give_me_type) {
     ast_node_t *new_type_node = NULL;
     for (ast_node_t *current = give_me_type; current; current = current->brother) {
@@ -84,4 +109,57 @@ void add_type(ast_node_t *type, ast_node_t *give_me_type) {
         new_type_node->brother = current->child;       
         current->child = new_type_node;                     
     }
+}
+
+static void _free_ast(ast_node_t *node) {
+
+    if (node != NULL) {
+        _free_ast(node->child);
+        _free_ast(node->brother);
+        free(node);
+    }
+}
+void free_ast(ast_node_t *root) {
+
+    if (root != NULL) {
+        _free_ast(root);
+        root = NULL;
+    }
+}
+
+
+
+ast_node_t *split_vardecl(ast_node_t *node, token_t vardecl_tok) {
+    if (node == NULL)
+        return NULL;
+
+    int n_vars = 0;
+    ast_node_t *current = node, *first = NULL, *type, *vars = node, *new_id;
+
+    while (current->brother != NULL)
+    {
+        n_vars++;
+        current = current->brother;
+    }
+
+    for (int i = 0; i < n_vars; i++)
+    {
+        vars = vars->brother;
+        if (first == NULL)
+        {
+            first = ast_node("VarDecl", vardecl_tok);
+            current = first;
+        }
+        else
+        {
+            current->brother = ast_node("VarDecl", vardecl_tok);
+            current = current->brother;
+        }
+        /*type = create_node(node->type, node->token);
+        current->fChild = type;*/
+        new_id = ast_node("Id", vars->value);
+        add_brother(current->child, new_id);
+    }
+
+    return first;
 }

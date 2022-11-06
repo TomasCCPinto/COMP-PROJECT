@@ -18,6 +18,7 @@
     #define findAsciiChars(character, line, col) { if (character <= 126 && character >= 33) printf("Line %d, col %d: illegal character (%c)\n", line, col, character); }
     #define SEND_TOKEN(...) {  yylval.token = token(yytext, __VA_ARGS__); return __VA_ARGS__; }
     
+    extern bool syntax_error; 
 
 %}
 
@@ -204,4 +205,5 @@ extern void yyerror (const char *s ) {
     } else {
         printf ("Line %d, col %d: %s: %s\n", line, col - yyleng, s , yytext );
     }
+    syntax_error = true;
 }

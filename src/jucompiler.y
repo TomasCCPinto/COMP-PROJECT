@@ -67,7 +67,8 @@
 %left  LPAR RPAR 
 
 
-%nonassoc ELSE
+%nonassoc NO_ELSE
+%nonassoc ELSE 
 
    
 %% 
@@ -85,7 +86,7 @@ Program2: MethodDecl Program2                                                   
 MethodDecl: PUBLIC STATIC MethodHeader MethodBody                               { $$ = ast_node("MethodDecl", NULL); add_children($$, $3); add_brother($3, $4); }
 
 
-FieldDecl: PUBLIC STATIC Type ID FieldDecl2 SEMICOLON                           { $$ = ast_node("FieldDecl", NULL); add_children($$, $3); aux = ast_node("Id", $4);  add_brother($3, aux); add_brother(aux, $5); }
+FieldDecl: PUBLIC STATIC Type ID FieldDecl2 SEMICOLON                           { $$ = ast_node("FieldDecl", NULL); add_brother($$, $3); aux = ast_node("Id", $4);  add_brother($3, aux); add_brother(aux, $5); }
          | error SEMICOLON        {$$ = NULL;}
 
 FieldDecl2: COMMA ID FieldDecl2                                                 { $$ = ast_node("FieldDecl", NULL); aux = ast_node("Id", $2); add_children($$, aux); add_brother($$, $3); }
@@ -144,9 +145,9 @@ VarDeclList: COMMA VarDecl2 VarDeclList                                         
            ;
 
 
-Statement: LBRACE Statement2 RBRACE                                              { $$ = $2; }
+Statement: LBRACE Statement2 RBRACE                                             { $$ = $2; }
          | IF LPAR Expr RPAR Statement ELSE Statement                           { $$ = ast_node("If", NULL); add_children($$, $3); add_brother($3, $5); add_brother($5, $7); add_brother($7, ast_node("Block", NULL)); }
-         | IF LPAR Expr RPAR Statement                                          { $$ = ast_node("If", NULL); add_children($$, $3); add_brother($3, $5); add_brother($5, ast_node("Block", NULL)); }
+         | IF LPAR Expr RPAR Statement %prec NO_ELSE                                         { $$ = ast_node("If", NULL); add_children($$, $3); add_brother($3, $5); add_brother($5, ast_node("Block", NULL)); }
          | WHILE LPAR Expr RPAR Statement                                       { $$ = ast_node("While", NULL); add_children($$, $3); add_children($3, $5); }
          | RETURN Expr SEMICOLON                                                { $$ = ast_node("Return", NULL); add_children($$, $2); }
          | RETURN SEMICOLON                                                     { $$ = ast_node("Return", NULL); }
@@ -163,11 +164,12 @@ Statement2: Statement Statement2         { $$ = $1; add_brother($$, $2); }
           | { $$ = NULL;}
 
 MethodInvocation: ID LPAR RPAR                                                  {  $$ = ast_node("Call", NULL); aux = ast_node("Id", $1); add_children($$, aux);  }
-                | ID LPAR error RPAR         {$$ = NULL; free($1);}
+                | ID LPAR error RPAR                                            {  $$ = NULL; free($1);}
                 | ID LPAR Expr MethodInvocation2 RPAR                           {  $$ = ast_node("Call", NULL); aux = ast_node("Id", $1); add_children($$, aux); add_brother(aux, $3); add_brother($3, $4);  }
                 ;
 
 MethodInvocation2: COMMA Expr MethodInvocation2                                 { $$ = $2; add_brother($$, $3); }
+                 | error                                                        { $$ = NULL;}
                  |                                                              { $$ = NULL; }
                  ;
 
@@ -198,7 +200,7 @@ Expr: Expr PLUS Expr                                                            
     | NOT Expr                                                                  { $$ = ast_node("Not", NULL); add_children($$, $2); }
     | PLUS Expr                                                                 { $$ = ast_node("Plus", NULL); add_children($$, $2); }
     | LPAR Expr RPAR                                                            { $$ = $2; }
-    | LPAR error RPAR                                                            { $$ = NULL; }
+    | LPAR error RPAR                                                           { $$ = NULL; }
     | MethodInvocation                                                          { $$ = $1; }
     | Assignment                                                                { $$ = $1; }
     | ParseArgs                                                                 { $$ = $1; }
@@ -246,6 +248,7 @@ int main(int argc, char *argv[]) {
   // yylex();kk
   //yyparse();
   //print_ast(my_program);
+  free_ast(my_program);
   return 0;
 }
 

@@ -78,7 +78,17 @@ Main: Program                                                                   
 Program: CLASS ID LBRACE Program2 RBRACE                                        { $$ = ast_node("Id", $2); add_brother($$, $4); }
 
 Program2: MethodDecl Program2                                                   { $$ = $1; add_brother($$, $2); }
-        | FieldDecl  Program2                                                   { $$ = $1; add_brother($$, $2); }
+        | FieldDecl  Program2                                                   { $$ = $1; 
+                                                                                    if ($1) {
+                                                                                        aux3 = $1;
+                                                                                        while(aux3->brother) {
+                                                                                            aux3 = aux3->brother;
+                                                                                        }
+                                                                                        add_brother(aux3, $2);
+                                                                                    } else {
+                                                                                        add_brother($$, $2);
+                                                                                    }
+                                                                                }
         | SEMICOLON  Program2                                                   { $$ = $2; }
         |  /*empty*/                                                            { $$ = NULL; }
         ;
@@ -93,8 +103,12 @@ MethodDecl: PUBLIC STATIC MethodHeader MethodBody                               
 FieldDecl2: COMMA ID FieldDecl2                                                 { $$ = ast_node("FieldDecl", NULL); aux = ast_node("Id", $2); add_children($$, aux); add_brother($$, $3); }
           |                                                                     { $$ = NULL; }
           ;*/
-FieldDecl: PUBLIC STATIC Type ID FieldDecl2 SEMICOLON                           { $$ = ast_node("FieldDecl", NULL); aux = ast_node("Id", $4); }
-         | error SEMICOLON                                                      {$$ = NULL;}
+          
+FieldDecl: PUBLIC STATIC Type ID FieldDecl2 SEMICOLON                           { $$ = ast_node("FieldDecl", NULL); add_children($$, $3); add_type($3, $5); 
+                                                                                 aux = ast_node("Id", $4); add_brother($3, aux);  
+                                                                                    add_brother($$, $5);
+                                                                                } 
+         | error SEMICOLON                                                      { $$ = NULL; }
 
 FieldDecl2: COMMA ID FieldDecl2                                                 { $$ = ast_node("FieldDecl", NULL); aux = ast_node("Id", $2); add_children($$, aux); add_brother($$, $3); }
           |                                                                     { $$ = NULL; }

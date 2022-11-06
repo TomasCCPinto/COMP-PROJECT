@@ -30,6 +30,7 @@ ast_node_t *ast_node(char *id, char *);
 void add_children(ast_node_t *parent, ast_node_t *child);
 void add_brother(ast_node_t *older_bother, ast_node_t *brother);
 void add_step_brother(ast_node_t *older_brother, ast_node_t *brother);
+void add(ast_node_t *parent, int argc, ...);
 void print_ast(ast_node_t *);
 
 

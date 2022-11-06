@@ -81,10 +81,33 @@ void print_node(ast_node_t *node) {
 }
 
 void add_brother(ast_node_t *older_brother, ast_node_t *brother) {
-    if (older_brother) {
+    if (older_brother && brother) {
         older_brother->brother = brother;
     }
 }
+
+ void add(ast_node_t *parent, int argc, ...) {
+    va_list args;
+    ast_node_t *child = NULL;
+    va_start(args, argc);
+
+    assert(parent != NULL);
+    child = va_arg(args, ast_node_t *);
+
+    parent->child = child;
+    ast_node_t *current = parent->child;
+
+    for (int i = 0; i < argc - 1; ++i) {
+        child = va_arg(args, ast_node_t *);
+        for (ast_node_t *c = child; c; c = c->brother) {
+            current->brother = c;
+            current = current->brother;
+        }
+    }
+    va_end(args);
+}
+
+
 
 void add_step_brother(ast_node_t *older_brother, ast_node_t *brother) {
     printf("here\n");

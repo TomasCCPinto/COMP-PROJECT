@@ -6,8 +6,8 @@ class Factorial {
     }
 
     public static void main(String[] args) {
-        int argument,arg, b;
-        int a, c;
+        int a, b, c;
+        int d, e;
         argument = Integer.parseInt(args[0]);
         System.out.print(factorial(argument));
     }

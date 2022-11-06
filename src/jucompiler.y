@@ -19,6 +19,7 @@
   ast_node_t *my_program;
   ast_node_t *aux;
   ast_node_t *aux2;
+  ast_node_t *aux3;
 
   // Compiler Flags TODO
   int a = 0;
@@ -51,7 +52,7 @@
 %type <node> MethodDecl MethodInvocation MethodInvocation2 FieldDecl FieldDecl2 MethodHeader MethodBody MethodBody2
 %type <node> Type Expr VarDecl VarDecl2
 %type <node> Assignment Statement ParseArgs Statement2
-%type <node> FormalParams FormalParams2 Main VarDeclList
+%type <node> FormalParams FormalParams2 Main 
 
 
 %right ASSIGN
@@ -128,20 +129,56 @@ FormalParams2: COMMA Type ID FormalParams2                                      
 MethodBody: LBRACE MethodBody2 RBRACE                                           { $$ = ast_node("MethodBody", NULL); add_children($$, $2); }
 
 MethodBody2:  Statement MethodBody2                                             { $$ = $1; add_brother($$, $2); }
-           |  VarDecl   MethodBody2                                             { $$ = ast_node("VarDecl", NULL); add_children($$, $1); add_brother($$, $2); }
+           |  VarDecl   MethodBody2                                             { $$ = $1; add_brother($$, $2);}
            |                                                                    { $$ = NULL;}
            ;
 
 
+
+VarDecl: Type ID VarDecl2 SEMICOLON                                             { $$ = ast_node("VarDecl", NULL); aux = ast_node("Id", $2); add_children($$, aux); add_brother($$, $3);}
+
+VarDecl2: COMMA ID VarDecl2                                                     { $$ = ast_node("VarDecl", NULL); aux = ast_node("Id", $2); add_children($$, aux); add_brother($$, $3); }
+        |                                                                       { $$ = NULL; }
+        ; 
+
+
+/*
+VarDecl: Type ID VarDecl2 SEMICOLON               {$$ = ast_node("VarDecl", NULL);
+                                                        add_children($$,$1);
+                                                        add_brother($1,ast_node("Id", $2));
+                                                       
+                                                        if($3 != NULL){
+                                                            aux=$3;
+                                                            while(aux!=NULL){
+                                                                aux2= ast_node("VarDecl", NULL); 
+                                                                aux3=ast_node($1->value,$1->id); 
+                                                                add_children(aux2,aux3);
+                                                                add_brother(aux3,ast_node("Id",aux->value));
+                                                                add_brother($$,aux2);
+                                                                aux=aux->brother;
+                                                            }
+                                                        }
+                                                        //print_node($3); printf("\n\n");
+                                                    }
+							;
+
+VarDecl2: COMMA ID VarDecl2                         {$$ = aux = ast_node("Id", $2);                                                       
+                                                                add_brother($$,$3);
+                                                              
+                                                                }   
+	  |                                                       {$$= NULL;}
+;
+*/
+/*
 VarDecl: Type VarDecl2 VarDeclList SEMICOLON                                    { $$ = $2; add_type($1, $$); add_type($1, $3); free($1); add_brother($$, $3); }
-       
+
 
 VarDecl2: ID                                                                    { $$ = ast_node("VarDecl", NULL); add_children($$, ast_node("Id", $1)); }
 
 VarDeclList: COMMA VarDecl2 VarDeclList                                         { $$ = $2; add_brother($$, $3); print_ast($3); printf("\n\n"); }
            |                                                                    { $$ = NULL; }
            ;
-
+*/
 
 Statement: LBRACE Statement2 RBRACE                                             { $$ = $2; }
          | IF LPAR Expr RPAR Statement ELSE Statement                           { $$ = ast_node("If", NULL); add_children($$, $3); add_brother($3, $5); add_brother($5, $7); add_brother($7, ast_node("Block", NULL)); }

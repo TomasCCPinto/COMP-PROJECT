@@ -97,13 +97,6 @@ Program2: MethodDecl Program2                                                   
 MethodDecl: PUBLIC STATIC MethodHeader MethodBody                               { $$ = ast_node("MethodDecl", NULL); add_children($$, $3); add_brother($3, $4); }
 
 
-/*FieldDecl: PUBLIC STATIC Type ID FieldDecl2 SEMICOLON                           { $$ = ast_node("FieldDecl", NULL); add_brother($$, $3); aux = ast_node("Id", $4);  add_brother($3, aux); add_brother(aux, $5); }
-         | error SEMICOLON        {$$ = NULL;}
-
-FieldDecl2: COMMA ID FieldDecl2                                                 { $$ = ast_node("FieldDecl", NULL); aux = ast_node("Id", $2); add_children($$, aux); add_brother($$, $3); }
-          |                                                                     { $$ = NULL; }
-          ;*/
-          
 FieldDecl: PUBLIC STATIC Type ID FieldDecl2 SEMICOLON                           { $$ = ast_node("FieldDecl", NULL); add_children($$, $3); add_type($3, $5); 
                                                                                  aux = ast_node("Id", $4); add_brother($3, aux);  
                                                                                     add_brother($$, $5);
@@ -131,7 +124,6 @@ FormalParams: Type ID FormalParams2                                             
             | STRING LSQ RSQ ID                                                 { $$ = ast_node("MethodParams", NULL); aux2 = ast_node("ParamDecl", NULL); add_children($$, aux2);
                                                                                  aux = ast_node("StringArray", NULL); add_children(aux2, aux);
                                                                                   add_brother(aux, ast_node("Id", $4));
-                                                                                  /* Ainda nao foi testado */
                                                                                   }
             ;
 
@@ -140,7 +132,7 @@ FormalParams2: COMMA Type ID FormalParams2                                      
              ;/*nada testado*/
 
 
-MethodBody: LBRACE MethodBody2 RBRACE                                           { $$ = ast_node("MethodBody", NULL); add_children($$, $2); }
+MethodBody: LBRACE MethodBody2 RBRACE                                           { $$ = ast_node("MethodBody", NULL); if($2) {add_children($$, $2); }}
 
 MethodBody2:  Statement MethodBody2                                             { $$ = $1; add_brother($$, $2); }
            |  VarDecl   MethodBody2                                             { $$ = $1; 
@@ -148,8 +140,6 @@ MethodBody2:  Statement MethodBody2                                             
                                                                                     while(aux->brother) {
                                                                                         aux = aux->brother;
                                                                                     }
-
-
                                                                                 add_brother(aux, $2);}
            |                                                                    { $$ = NULL;}
            ;
@@ -163,60 +153,34 @@ VarDecl2: COMMA ID VarDecl2                                                     
         ; 
 
 
-/*
-VarDecl: Type ID VarDecl2 SEMICOLON               {$$ = ast_node("VarDecl", NULL);
-                                                        add_children($$,$1);
-                                                        add_brother($1,ast_node("Id", $2));
-                                                       
-                                                        if($3 != NULL){
-                                                            aux=$3;
-                                                            while(aux!=NULL){
-                                                                aux2= ast_node("VarDecl", NULL); 
-                                                                aux3=ast_node($1->value,$1->id); 
-                                                                add_children(aux2,aux3);
-                                                                add_brother(aux3,ast_node("Id",aux->value));
-                                                                add_brother($$,aux2);
-                                                                aux=aux->brother;
-                                                            }
-                                                        }
-                                                        //print_node($3); printf("\n\n");
-                                                    }
-							;
-
-VarDecl2: COMMA ID VarDecl2                         {$$ = aux = ast_node("Id", $2);                                                       
-                                                                add_brother($$,$3);
-                                                              
-                                                                }   
-	  |                                                       {$$= NULL;}
-;
-*/
-/*
-VarDecl: Type VarDecl2 VarDeclList SEMICOLON                                    { $$ = $2; add_type($1, $$); add_type($1, $3); free($1); add_brother($$, $3); }
-
-
-VarDecl2: ID                                                                    { $$ = ast_node("VarDecl", NULL); add_children($$, ast_node("Id", $1)); }
-
-VarDeclList: COMMA VarDecl2 VarDeclList                                         { $$ = $2; add_brother($$, $3); print_ast($3); printf("\n\n"); }
-           |                                                                    { $$ = NULL; }
-           ;
-*/
-
-Statement: LBRACE Statement2 RBRACE                                             { $$ = $2; }
-         | IF LPAR Expr RPAR Statement ELSE Statement                           { $$ = ast_node("If", NULL); add_children($$, $3); add_brother($3, $5); add_brother($5, $7); add_brother($7, ast_node("Block", NULL)); }
-         | IF LPAR Expr RPAR Statement %prec NO_ELSE                            { $$ = ast_node("If", NULL); add_children($$, $3); add_brother($3, $5); add_brother($5, ast_node("Block", NULL)); }
+Statement: LBRACE Statement2 RBRACE                                             { $$ = statement_list($2); print_ast($$); }
+         | IF LPAR Expr RPAR Statement ELSE Statement                           { $$ = ast_node("If", NULL); add_children($$, $3); add_brother($3, $5);
+                                                                                    if($5) {
+                                                                                        aux2 = statement_list($5); add_brother($3, aux2); aux = ast_node("Block", NULL); add_brother(aux2, aux); add_children(aux, $7);
+                                                                                    } else {
+                                                                                        aux = ast_node("Block", NULL); add_brother($3, aux); aux2 = ast_node("Block", NULL); add_brother(aux, aux2); add_children(aux2, $7); 
+                                                                                    }
+                                                                                }
+         | IF LPAR Expr RPAR Statement %prec NO_ELSE                            { $$ = ast_node("If", NULL); add_children($$, $3); add_brother($3, $5); 
+                                                                                    if($5) {
+                                                                                        aux2 = statement_list($5); add_brother($3, aux2); aux = ast_node("Block", NULL); add_brother(aux2, aux); 
+                                                                                    } else {
+                                                                                        aux = ast_node("Block", NULL); add_brother($3, aux); add_brother(aux, ast_node("Block", NULL));
+                                                                                    }
+                                                                                }
          | WHILE LPAR Expr RPAR Statement                                       { $$ = ast_node("While", NULL); add_children($$, $3); add_children($3, $5); }
          | RETURN Expr SEMICOLON                                                { $$ = ast_node("Return", NULL); add_children($$, $2); }
          | RETURN SEMICOLON                                                     { $$ = ast_node("Return", NULL); }
          | MethodInvocation SEMICOLON                                           { $$ = $1; }
          | Assignment SEMICOLON                                                 { $$ = $1; }
          | ParseArgs SEMICOLON                                                  { $$ = $1; }
-         | error SEMICOLON                                                            { $$ = NULL; }
+         | error SEMICOLON                                                      { $$ = NULL; }
          | SEMICOLON                                                            { $$ = NULL; }
          | PRINT LPAR Expr RPAR SEMICOLON                                       { $$ = ast_node("Print", NULL); add_children($$, $3);  }
          | PRINT LPAR STRLIT RPAR SEMICOLON                                     { $$ = ast_node("Print", NULL); add_children($$, ast_node("StrLit", $3));  }
          ;
 
-Statement2: Statement Statement2         { $$ = $1; add_brother($$, $2); }
+Statement2: Statement Statement2                                                { $$ = $1; add_brother($$, $2); }
           | { $$ = NULL;}
 
 MethodInvocation: ID LPAR RPAR                                                  {  $$ = ast_node("Call", NULL); aux = ast_node("Id", $1); add_children($$, aux);  }
@@ -304,9 +268,7 @@ int main(int argc, char *argv[]) {
       yyparse();
       print_ast(my_program);  
   }
-  // yylex();kk
-  //yyparse();
-  //print_ast(my_program);
+
   free_ast(my_program);
   return 0;
 }

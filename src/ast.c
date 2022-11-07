@@ -10,12 +10,13 @@ static int types[] = {
     ID,
     INTLIT,
     REALLIT,
-    STRLIT
+    STRLIT,
+    BOOLLIT
 };
 
 
 token_t token(char *value, int type) {
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 5; ++i) {
         if (type == types[3]) {
             //char aux[200];
             char *aux = (char *) malloc(sizeof(char)*(strlen(value)+1));
@@ -74,6 +75,7 @@ void add_children(ast_node_t *parent, ast_node_t *child) {
 
 void print_node(ast_node_t *node) {
     if (node) {
+        printf("%s\n", node->id);
         if (node->child)
             printf("filho%s\n", node->child->value);
 
@@ -185,4 +187,15 @@ ast_node_t *split_vardecl(ast_node_t *node, token_t vardecl_tok) {
     }
 
     return first;
+}
+ast_node_t *statement_list(ast_node_t *stat_list) {
+    ast_node_t *list = stat_list;
+    if (list && strcmp(list->id, "Block") == 0) {
+        return list;
+    }
+    if (list && list->brother) {
+        list = ast_node("Block", NULL);
+        list->child = stat_list;
+    }
+    return list;
 }

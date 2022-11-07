@@ -24,7 +24,6 @@
   // Compiler Flags TODO
   int a = 0;
   bool l = false, e1 = false, e2 = true, t = false; 
-  bool bool_else = false;
 
 %}
 
@@ -70,7 +69,7 @@
 
 
 %nonassoc NO_ELSE
-%nonassoc ELSE 
+%left ELSE 
 
    
 %% 
@@ -190,7 +189,6 @@ Statement: LBRACE Statement2 RBRACE                                            {
 										                                    				add_brother(aux, aux2);
 										                                    				add_children(aux2, $7);
 										                                    			}
-										                                    				add_children(aux, $7);
 										                                    		}
                                                                                 }
          | IF LPAR Expr RPAR Statement %prec NO_ELSE                            { $$ = ast_node("If", NULL); add_children($$, $3);
@@ -200,11 +198,8 @@ Statement: LBRACE Statement2 RBRACE                                            {
                                                                                         add_brother($5, aux);
                                                                                     } else {
                                                                                         add_brother($3, aux);
-                                                                                        add_brother(aux, $5);
-                                                                                        if ($5)
-                                                                                            add_brother($5, ast_node("Block", NULL));
-                                                                                        else
-                                                                                            add_brother(aux, ast_node("Block", NULL));
+                                                                                        add_children(aux, $5);
+                                                                                        add_brother(aux, ast_node("Block", NULL));
                                                                                     }
                                                                                 }
          | WHILE LPAR Expr RPAR Statement                                       { $$ = ast_node("While", NULL); add_children($$, $3);
@@ -245,11 +240,11 @@ Assignment: ID ASSIGN Expr                                                      
 
 
 ParseArgs: PARSEINT LPAR ID LSQ Expr RSQ RPAR                                   { $$ = ast_node("ParseArgs", NULL); aux = ast_node("Id", $3); add_children($$, aux); add_brother(aux, $5); }
-         | PARSEINT LPAR error RPAR                                              {$$= NULL;}
+         | PARSEINT LPAR error RPAR                                             { $$ = NULL;}
 
 
 Expr: Assignment                                                                { $$ = $1; }
-     | LPAR Assignment RPAR                                                     { $$ = $2;}
+     | LPAR Assignment RPAR                                                     { $$ = $2; }
      | Expr1                                                                    { $$ = $1; }
      ;
 
@@ -269,7 +264,7 @@ Expr1: Expr1 PLUS   Expr1                                                       
     | Expr1 LE     Expr1                                                        { $$ = ast_node("Le", NULL); add_children($$, $1); add_brother($1, $3); }
     | Expr1 LT     Expr1                                                        { $$ = ast_node("Lt", NULL); add_children($$, $1); add_brother($1, $3); }
     | Expr1 NE     Expr1                                                        { $$ = ast_node("Ne", NULL); add_children($$, $1); add_brother($1, $3); }
-    | MINUS       Expr1           %prec NO_ELSE                                 { $$ = ast_node("Minus", NULL); add_children($$, $2); }
+    | MINUS       Expr1           %prec NO_ELSE                                { $$ = ast_node("Minus", NULL); add_children($$, $2); }
     | NOT         Expr1                                                         { $$ = ast_node("Not", NULL); add_children($$, $2); }
     | PLUS        Expr1           %prec NO_ELSE                                 { $$ = ast_node("Plus", NULL); add_children($$, $2); }
     | LPAR        Expr1 RPAR                                                    { $$ = $2; }

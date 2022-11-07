@@ -21,7 +21,9 @@ token_t token(char *value, int type) {
             //char aux[200];
             char *aux = (char *) malloc(sizeof(char)*(strlen(value)+1));
             sprintf(aux, "\"%s", value);
-            return (char *) strdup(aux);
+            char * ret = (char *) strdup(aux);
+            free(aux);
+            return ret;
         }
         if (type == types[i]) {
             return (char *) strdup(value);
@@ -66,6 +68,13 @@ static void _print_ast(ast_node_t *node, int level) {
             printf("..");
         }
         if (node->value) {
+            if (node->value[0] == '"') {
+                int pos = strlen(node->value);
+                while(node->value[pos - 1] != '"') {
+                    node->value[pos - 1] = '\0';
+                    pos--;
+                }
+            } 
             printf("%s(%s)\n", node->id, node->value);
         } else {
             printf("%s\n", node->id);

@@ -35,6 +35,7 @@ void print_ast(ast_node_t *);
 
 
 ast_node_t *statement_list(ast_node_t *stat_list);
+int count(ast_node_t *start);
 
 void print_node(ast_node_t *node);
 void add_type(ast_node_t *type, ast_node_t *give_me_type);

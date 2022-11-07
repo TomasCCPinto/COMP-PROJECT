@@ -203,3 +203,16 @@ ast_node_t *statement_list(ast_node_t *stat_list) {
 
     return list;
 }
+
+int count(ast_node_t *start){
+    ast_node_t *list;
+    int count = 0;
+
+    list = start;
+    while(list){
+        list=list->brother;
+        count++;
+    }
+
+    return count;
+}

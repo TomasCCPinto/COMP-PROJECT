@@ -154,19 +154,67 @@ VarDecl2: COMMA ID VarDecl2                                                     
         ; 
 
 
-Statement: LBRACE Statement2 RBRACE                                             { $$ = $2; }
-         | IF LPAR Expr RPAR Statement ELSE Statement                           { $$ = ast_node("If", NULL); add_children($$, $3); add_brother($3, $5); 
-                                                                                    if($5) {
+
+
+Statement: LBRACE Statement2 RBRACE                                            {    
+                                                                                    if (count($2) > 1) {
+                                                                                        $$ = ast_node("Block", NULL);
+                                                                                        add_children($$, $2);
+                                                                                    } else {
+                                                                                        $$ = $2;
+                                                                                    }
+                                                                               }
+         | IF LPAR Expr RPAR Statement ELSE Statement                           { //$$ = ast_node("If", NULL); add_children($$, $3); add_brother($3, $5); 
+                                                                                    /*if($5) {
                                                                                         aux2 = statement_list($5); add_brother($3, aux2); aux = ast_node("Block", NULL); add_brother(aux2, aux); add_children(aux, $7);
                                                                                     } else {
                                                                                         aux = ast_node("Block", NULL); add_brother($3, aux); aux2 = ast_node("Block", NULL); add_brother(aux, aux2); add_children(aux2, $7); 
-                                                                                    }
+                                                                                    }*/
+
+                                                                                    $$ = ast_node("If",NULL);
+										                                    		add_children($$, $3);
+										                                    		aux = ast_node("Block", NULL);
+										                                    		if (count($5) == 1 && $5) {
+										                                    			add_brother($3, $5);
+										                                    			if (count($7) == 1 && $7) {
+										                                    				add_brother($5, $7);
+										                                    			} else {
+										                                    				add_brother($$, aux);
+										                                    				add_children(aux, $7);
+										                                    			}
+										                                    		} else {
+										                                    			add_brother($3, aux);
+										                                    			add_children(aux, $5);
+
+										                                    			if (count($7) == 1 && $7) {
+										                                    				add_brother(aux, $7);
+										                                    			} else {
+										                                    			    aux2 = ast_node("Block", NULL);
+										                                    				add_brother(aux, aux2);
+										                                    				add_children(aux2, $7);
+										                                    			}
+										                                    				add_children(aux, $7);
+
+										                                    		}
+
                                                                                 }
-         | IF LPAR Expr RPAR Statement %prec NO_ELSE                            { $$ = ast_node("If", NULL); add_children($$, $3); add_brother($3, $5); 
-                                                                                    if($5) {
+         | IF LPAR Expr RPAR Statement %prec NO_ELSE                            { $$ = ast_node("If", NULL); add_children($$, $3); // add_brother($3, $5); 
+                                                                                    /*if($5) {
                                                                                         aux2 = statement_list($5); add_brother($3, aux2); aux = ast_node("Block", NULL); add_brother(aux2, aux); 
                                                                                     } else {
                                                                                         aux = ast_node("Block", NULL); add_brother($3, aux); add_brother(aux, ast_node("Block", NULL));
+                                                                                    }*/
+                                                                                    aux = ast_node("Block",NULL);
+                                                                                    if($5  && count($5) == 1 ){
+                                                                                        add_brother($3, $5); 
+                                                                                        add_brother($5, aux);
+                                                                                    } else {
+                                                                                        add_brother($3, aux);
+                                                                                        add_brother(aux, $5);
+                                                                                        if ($5)
+                                                                                            add_brother($5, ast_node("Block", NULL));
+                                                                                        else
+                                                                                            add_brother(aux, ast_node("Block", NULL));
                                                                                     }
                                                                                 }
          | WHILE LPAR Expr RPAR Statement                                       { $$ = ast_node("While", NULL); add_children($$, $3); aux = statement_list($5); add_brother($3, aux); }
@@ -181,8 +229,8 @@ Statement: LBRACE Statement2 RBRACE                                             
          | PRINT LPAR STRLIT RPAR SEMICOLON                                     { $$ = ast_node("Print", NULL); add_children($$, ast_node("StrLit", $3));  }
          ;
 
-Statement2: Statement Statement2                                                { $$ = $1; add_brother($$, $2); }
-          | { $$ = NULL;}
+Statement2: Statement Statement2                                                { if($1) {$$ = $1; add_brother($$, $2); } else { $$ = $2; }}
+          |                                                                     { $$ = NULL;}
 
 MethodInvocation: ID LPAR RPAR                                                  {  $$ = ast_node("Call", NULL); aux = ast_node("Id", $1); add_children($$, aux);  }
                 | ID LPAR error RPAR                                            {  $$ = NULL; free($1);}

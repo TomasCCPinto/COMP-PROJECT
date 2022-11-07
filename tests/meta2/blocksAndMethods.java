@@ -14,8 +14,7 @@ class Main {
     	while(b);
     	if(a){
 
-    	} else
-    	{
+    	} else {
     		p = test1(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
     	}
     }

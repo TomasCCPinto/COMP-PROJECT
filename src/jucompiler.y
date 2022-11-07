@@ -169,9 +169,7 @@ Statement: LBRACE Statement2 RBRACE                                             
                                                                                         aux = ast_node("Block", NULL); add_brother($3, aux); add_brother(aux, ast_node("Block", NULL));
                                                                                     }
                                                                                 }
-         | WHILE LPAR Expr RPAR Statement                                       { $$ = ast_node("While", NULL); add_children($$, $3); aux = ast_node("Block", NULL);
-                                                                                    add_brother($3, aux); add_children(aux, $5);
-                                                                                }
+         | WHILE LPAR Expr RPAR Statement                                       { $$ = ast_node("While", NULL); add_children($$, $3); aux = statement_list($5); add_brother($3, aux); }
          | RETURN Expr SEMICOLON                                                { $$ = ast_node("Return", NULL); add_children($$, $2); }
          | RETURN SEMICOLON                                                     { $$ = ast_node("Return", NULL); }
          | MethodInvocation SEMICOLON                                           { $$ = $1; }

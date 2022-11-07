@@ -190,6 +190,9 @@ ast_node_t *split_vardecl(ast_node_t *node, token_t vardecl_tok) {
 }
 ast_node_t *statement_list(ast_node_t *stat_list) {
     ast_node_t *list = stat_list;
+    if (!stat_list) {
+        return ast_node("Block", NULL);
+    }
     if (list && strcmp(list->id, "Block") == 0) {
         return list;
     }
@@ -197,5 +200,6 @@ ast_node_t *statement_list(ast_node_t *stat_list) {
         list = ast_node("Block", NULL);
         list->child = stat_list;
     }
+
     return list;
 }

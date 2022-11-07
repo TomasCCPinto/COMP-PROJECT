@@ -3,15 +3,14 @@
     // Joao Emanuel Sousa Moreira 2020230563
     // Tomas Cerveira da Cruz Pinto 2020224069
 
-    // C Standard library Includes
     
-  // Yacc and other Includes...
   #include "ast.h"
  
   // Functions
   extern int yylex();
   extern void yyerror(const char *str);
   extern char *yytext;
+
   // extern int yylineno;
   extern int num_line;
   extern int num_col;
@@ -244,7 +243,6 @@ ParseArgs: PARSEINT LPAR ID LSQ Expr RSQ RPAR                                   
 
 
 Expr: Assignment                                                                { $$ = $1; }
-     | LPAR Assignment RPAR                                                     { $$ = $2; }
      | Expr1                                                                    { $$ = $1; }
      ;
 
@@ -267,7 +265,7 @@ Expr1: Expr1 PLUS   Expr1                                                       
     | MINUS       Expr1           %prec NO_ELSE                                { $$ = ast_node("Minus", NULL); add_children($$, $2); }
     | NOT         Expr1                                                         { $$ = ast_node("Not", NULL); add_children($$, $2); }
     | PLUS        Expr1           %prec NO_ELSE                                 { $$ = ast_node("Plus", NULL); add_children($$, $2); }
-    | LPAR        Expr1 RPAR                                                    { $$ = $2; }
+    | LPAR        Expr RPAR                                                    { $$ = $2; }
     | LPAR error RPAR                                                           { $$ = NULL; }
     | MethodInvocation                                                          { $$ = $1; }
     | ParseArgs                                                                 { $$ = $1; }

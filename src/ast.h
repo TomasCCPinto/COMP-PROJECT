@@ -22,7 +22,7 @@ typedef struct _ASTNode {
 
 
 
-extern bool syntax_error; 
+extern bool syntax_error, bool_else; 
 
 token_t token(char *value, int type);
 

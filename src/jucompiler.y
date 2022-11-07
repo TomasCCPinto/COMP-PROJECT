@@ -66,7 +66,7 @@
 %left  PLUS MINUS
 %left  STAR DIV MOD
 %right  NOT
-%left  LPAR RPAR 
+%left  LPAR RPAR LSQ RSQ
 
 
 %nonassoc NO_ELSE
@@ -99,9 +99,7 @@ MethodDecl: PUBLIC STATIC MethodHeader MethodBody                               
 
 
 FieldDecl: PUBLIC STATIC Type ID FieldDecl2 SEMICOLON                           { $$ = ast_node("FieldDecl", NULL); add_children($$, $3); add_type($3, $5); 
-                                                                                 aux = ast_node("Id", $4); add_brother($3, aux);  
-                                                                                    add_brother($$, $5);
-                                                                                } 
+                                                                                 aux = ast_node("Id", $4); add_brother($3, aux); add_brother($$, $5);} 
          | error SEMICOLON                                                      { $$ = NULL; }
 
 FieldDecl2: COMMA ID FieldDecl2                                                 { $$ = ast_node("FieldDecl", NULL); aux = ast_node("Id", $2); add_children($$, aux); add_brother($$, $3); }
@@ -135,13 +133,20 @@ FormalParams2: COMMA Type ID FormalParams2                                      
 
 MethodBody: LBRACE MethodBody2 RBRACE                                           { $$ = ast_node("MethodBody", NULL); if($2) {add_children($$, $2); }}
 
-MethodBody2:  Statement MethodBody2                                             { $$ = $1; add_brother($$, $2); }
+MethodBody2:  Statement MethodBody2                                             {   if($1) {
+                                                                                        $$ = $1; 
+                                                                                        add_brother($$, $2);
+                                                                                    } else {
+                                                                                        $$ = $2;
+                                                                                    }  
+                                                                                }
            |  VarDecl   MethodBody2                                             { $$ = $1; 
                                                                                     aux = $1;
                                                                                     while(aux->brother) {
                                                                                         aux = aux->brother;
                                                                                     }
-                                                                                add_brother(aux, $2);}
+                                                                                    add_brother(aux, $2);
+                                                                                }
            |                                                                    { $$ = NULL;}
            ;
 
@@ -164,15 +169,7 @@ Statement: LBRACE Statement2 RBRACE                                            {
                                                                                         $$ = $2;
                                                                                     }
                                                                                }
-         | IF LPAR Expr RPAR Statement ELSE Statement                           { //$$ = ast_node("If", NULL); add_children($$, $3); add_brother($3, $5); 
-                                                                                    /*if($5) {
-                                                                                        aux2 = statement_list($5); add_brother($3, aux2); aux = ast_node("Block", NULL); add_brother(aux2, aux); add_children(aux, $7);
-                                                                                    } else {
-                                                                                        aux = ast_node("Block", NULL); add_brother($3, aux); aux2 = ast_node("Block", NULL); add_brother(aux, aux2); add_children(aux2, $7); 
-                                                                                    }*/
-
-                                                                                    $$ = ast_node("If",NULL);
-										                                    		add_children($$, $3);
+         | IF LPAR Expr RPAR Statement ELSE Statement                           { $$ = ast_node("If", NULL); add_children($$, $3);
 										                                    		aux = ast_node("Block", NULL);
 										                                    		if (count($5) == 1 && $5) {
 										                                    			add_brother($3, $5);
@@ -194,16 +191,9 @@ Statement: LBRACE Statement2 RBRACE                                            {
 										                                    				add_children(aux2, $7);
 										                                    			}
 										                                    				add_children(aux, $7);
-
 										                                    		}
-
                                                                                 }
-         | IF LPAR Expr RPAR Statement %prec NO_ELSE                            { $$ = ast_node("If", NULL); add_children($$, $3); // add_brother($3, $5); 
-                                                                                    /*if($5) {
-                                                                                        aux2 = statement_list($5); add_brother($3, aux2); aux = ast_node("Block", NULL); add_brother(aux2, aux); 
-                                                                                    } else {
-                                                                                        aux = ast_node("Block", NULL); add_brother($3, aux); add_brother(aux, ast_node("Block", NULL));
-                                                                                    }*/
+         | IF LPAR Expr RPAR Statement %prec NO_ELSE                            { $$ = ast_node("If", NULL); add_children($$, $3);
                                                                                     aux = ast_node("Block",NULL);
                                                                                     if($5  && count($5) == 1 ){
                                                                                         add_brother($3, $5); 
@@ -217,7 +207,15 @@ Statement: LBRACE Statement2 RBRACE                                            {
                                                                                             add_brother(aux, ast_node("Block", NULL));
                                                                                     }
                                                                                 }
-         | WHILE LPAR Expr RPAR Statement                                       { $$ = ast_node("While", NULL); add_children($$, $3); aux = statement_list($5); add_brother($3, aux); }
+         | WHILE LPAR Expr RPAR Statement                                       { $$ = ast_node("While", NULL); add_children($$, $3);
+                                                                                    if (count($5) < 2 && $5) {
+                                                                                        add_brother($3, $5);
+                                                                                    } else {
+                                                                                        aux = ast_node("Block", NULL); 
+                                                                                        add_brother($3, aux); 
+                                                                                        add_children(aux, $5);
+                                                                                    }
+                                                                                }
          | RETURN Expr SEMICOLON                                                { $$ = ast_node("Return", NULL); add_children($$, $2); }
          | RETURN SEMICOLON                                                     { $$ = ast_node("Return", NULL); }
          | MethodInvocation SEMICOLON                                           { $$ = $1; }
@@ -233,11 +231,11 @@ Statement2: Statement Statement2                                                
           |                                                                     { $$ = NULL;}
 
 MethodInvocation: ID LPAR RPAR                                                  {  $$ = ast_node("Call", NULL); aux = ast_node("Id", $1); add_children($$, aux);  }
-                | ID LPAR error RPAR                                            {  $$ = NULL; free($1);}
+                | ID LPAR error RPAR                                            {  $$ = NULL; }
                 | ID LPAR Expr MethodInvocation2 RPAR                           {  $$ = ast_node("Call", NULL); aux = ast_node("Id", $1); add_children($$, aux); add_brother(aux, $3); add_brother($3, $4);  }
                 ;
 
-MethodInvocation2: COMMA Expr MethodInvocation2                                 { $$ = $2; add_brother($$, $3); }
+MethodInvocation2: COMMA Expr MethodInvocation2                                 { if ($2) {$$ = $2; add_brother($$, $3);} else {$$ = $2;}  }
                  | error                                                        { $$ = NULL;}
                  |                                                              { $$ = NULL; }
                  ;
@@ -247,11 +245,12 @@ Assignment: ID ASSIGN Expr                                                      
 
 
 ParseArgs: PARSEINT LPAR ID LSQ Expr RSQ RPAR                                   { $$ = ast_node("ParseArgs", NULL); aux = ast_node("Id", $3); add_children($$, aux); add_brother(aux, $5); }
-         | PARSEINT LPAR error RPAR   {$$= NULL;}
+         | PARSEINT LPAR error RPAR                                              {$$= NULL;}
 
 
-Expr: Assignment   { $$ = $1; }
-     | Expr1       { $$ = $1; }
+Expr: Assignment                                                                { $$ = $1; }
+     | LPAR Assignment RPAR                                                     { $$ = $2;}
+     | Expr1                                                                    { $$ = $1; }
      ;
 
 Expr1: Expr1 PLUS   Expr1                                                       { $$ = ast_node("Add", NULL); add_children($$, $1); add_brother($1, $3); }
@@ -270,9 +269,9 @@ Expr1: Expr1 PLUS   Expr1                                                       
     | Expr1 LE     Expr1                                                        { $$ = ast_node("Le", NULL); add_children($$, $1); add_brother($1, $3); }
     | Expr1 LT     Expr1                                                        { $$ = ast_node("Lt", NULL); add_children($$, $1); add_brother($1, $3); }
     | Expr1 NE     Expr1                                                        { $$ = ast_node("Ne", NULL); add_children($$, $1); add_brother($1, $3); }
-    | MINUS       Expr1                                                         { $$ = ast_node("Minus", NULL); add_children($$, $2); }
+    | MINUS       Expr1           %prec NO_ELSE                                 { $$ = ast_node("Minus", NULL); add_children($$, $2); }
     | NOT         Expr1                                                         { $$ = ast_node("Not", NULL); add_children($$, $2); }
-    | PLUS        Expr1                                                         { $$ = ast_node("Plus", NULL); add_children($$, $2); }
+    | PLUS        Expr1           %prec NO_ELSE                                 { $$ = ast_node("Plus", NULL); add_children($$, $2); }
     | LPAR        Expr1 RPAR                                                    { $$ = $2; }
     | LPAR error RPAR                                                           { $$ = NULL; }
     | MethodInvocation                                                          { $$ = $1; }

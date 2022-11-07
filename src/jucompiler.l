@@ -180,17 +180,6 @@ strlit                                                     ([^\n\r\"\\]|"\\n"|"\
 
 
 %%
-/*int main(int argc, char *argv[]) {
-
-    for (int i = 0; i < argc; ++i) {
-        if (!strcmp(argv[i], "-l"))
-            l = true;
-        else l = false;
-    }
-
-    yylex();
-    return 0;
-}*/
 
 int yywrap() {
     return 1;

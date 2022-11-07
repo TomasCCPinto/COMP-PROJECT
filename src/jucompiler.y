@@ -50,7 +50,7 @@
 
 %type <node> Program Program2
 %type <node> MethodDecl MethodInvocation MethodInvocation2 FieldDecl FieldDecl2 MethodHeader MethodBody MethodBody2
-%type <node> Type Expr VarDecl VarDecl2
+%type <node> Type Expr VarDecl VarDecl2 Expr1
 %type <node> Assignment Statement ParseArgs Statement2
 %type <node> FormalParams FormalParams2 Main 
 
@@ -236,37 +236,40 @@ Assignment: ID ASSIGN Expr                                                      
 ParseArgs: PARSEINT LPAR ID LSQ Expr RSQ RPAR                                   { $$ = ast_node("ParseArgs", NULL); aux = ast_node("Id", $3); add_children($$, aux); add_brother(aux, $5); }
          | PARSEINT LPAR error RPAR   {$$= NULL;}
 
-Expr: Expr PLUS Expr                                                            { $$ = ast_node("Add", NULL); add_children($$, $1); add_brother($1, $3);; }
-    | Expr MINUS Expr                                                           { $$ = ast_node("Sub", NULL); add_children($$, $1); add_brother($1, $3);; }
-    | Expr STAR Expr                                                            { $$ = ast_node("Mul", NULL); add_children($$, $1); add_brother($1, $3);; }
-    | Expr DIV Expr                                                             { $$ = ast_node("Div", NULL); add_children($$, $1); add_brother($1, $3);; }
-    | Expr MOD Expr                                                             { $$ = ast_node("Mod", NULL); add_children($$, $1); add_brother($1, $3);; }
-    | Expr AND Expr                                                             { $$ = ast_node("And", NULL); add_children($$, $1); add_brother($1, $3);; }
-    | Expr OR Expr                                                              { $$ = ast_node("Or", NULL); add_children($$, $1); add_brother($1, $3);; }
-    | Expr XOR Expr                                                             { $$ = ast_node("Xor", NULL); add_children($$, $1); add_brother($1, $3);; }
-    | Expr LSHIFT Expr                                                          { $$ = ast_node("Lshift", NULL); add_children($$, $1); add_brother($1, $3);; }
-    | Expr RSHIFT Expr                                                          { $$ = ast_node("Rshift", NULL); add_children($$, $1); add_brother($1, $3);; }
-    | Expr EQ Expr                                                              { $$ = ast_node("Eq", NULL); add_children($$, $1); add_brother($1, $3); }
-    | Expr GE Expr                                                              { $$ = ast_node("Ge", NULL); add_children($$, $1); add_brother($1, $3); }
-    | Expr GT Expr                                                              { $$ = ast_node("Gt", NULL); add_children($$, $1); add_brother($1, $3); }
-    | Expr LE Expr                                                              { $$ = ast_node("Le", NULL); add_children($$, $1); add_brother($1, $3); }
-    | Expr LT Expr                                                              { $$ = ast_node("Lt", NULL); add_children($$, $1); add_brother($1, $3); }
-    | Expr NE Expr                                                              { $$ = ast_node("NE", NULL); add_children($$, $1); add_brother($1, $3); }
-    | MINUS Expr                                                                { $$ = ast_node("Minus", NULL); add_children($$, $2); }
-    | NOT Expr                                                                  { $$ = ast_node("Not", NULL); add_children($$, $2); }
-    | PLUS Expr                                                                 { $$ = ast_node("Plus", NULL); add_children($$, $2); }
-    | LPAR Expr RPAR                                                            { $$ = $2; }
+
+Expr: Assignment   { $$ = $1; }
+     | Expr1       { $$ = $1; }
+     ;
+
+Expr1: Expr1 PLUS   Expr1                                                            { $$ = ast_node("Add", NULL); add_children($$, $1); add_brother($1, $3);; }
+    | Expr1 MINUS  Expr1                                                           { $$ = ast_node("Sub", NULL); add_children($$, $1); add_brother($1, $3);; }
+    | Expr1 STAR   Expr1                                                            { $$ = ast_node("Mul", NULL); add_children($$, $1); add_brother($1, $3);; }
+    | Expr1 DIV    Expr1                                                             { $$ = ast_node("Div", NULL); add_children($$, $1); add_brother($1, $3);; }
+    | Expr1 MOD    Expr1                                                             { $$ = ast_node("Mod", NULL); add_children($$, $1); add_brother($1, $3);; }
+    | Expr1 AND    Expr1                                                             { $$ = ast_node("And", NULL); add_children($$, $1); add_brother($1, $3);; }
+    | Expr1 OR     Expr1                                                              { $$ = ast_node("Or", NULL); add_children($$, $1); add_brother($1, $3);; }
+    | Expr1 XOR    Expr1                                                             { $$ = ast_node("Xor", NULL); add_children($$, $1); add_brother($1, $3);; }
+    | Expr1 LSHIFT Expr1                                                          { $$ = ast_node("Lshift", NULL); add_children($$, $1); add_brother($1, $3);; }
+    | Expr1 RSHIFT Expr1                                                          { $$ = ast_node("Rshift", NULL); add_children($$, $1); add_brother($1, $3);; }
+    | Expr1 EQ     Expr1                                                              { $$ = ast_node("Eq", NULL); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 GE     Expr1                                                              { $$ = ast_node("Ge", NULL); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 GT     Expr1                                                              { $$ = ast_node("Gt", NULL); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 LE     Expr1                                                              { $$ = ast_node("Le", NULL); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 LT     Expr1                                                              { $$ = ast_node("Lt", NULL); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 NE     Expr1                                                              { $$ = ast_node("NE", NULL); add_children($$, $1); add_brother($1, $3); }
+    | MINUS       Expr1                                                                     { $$ = ast_node("Minus", NULL); add_children($$, $2); }
+    | NOT         Expr1                                                                  { $$ = ast_node("Not", NULL); add_children($$, $2); }
+    | PLUS        Expr1                                                                 { $$ = ast_node("Plus", NULL); add_children($$, $2); }
+    | LPAR        Expr1 RPAR                                                            { $$ = $2; }
     | LPAR error RPAR                                                           { $$ = NULL; }
     | MethodInvocation                                                          { $$ = $1; }
-    | Assignment                                                                { $$ = $1; }
     | ParseArgs                                                                 { $$ = $1; }
     | ID DOTLENGTH                                                              { $$ = ast_node("Id", $1); }
     | ID                                                                        { $$ = ast_node("Id", $1); }
     | INTLIT                                                                    { $$ = ast_node("DecLit", $1); }
     | REALLIT                                                                   { $$ = ast_node("RealLit", $1); }
     | BOOLLIT                                                                   { $$ = ast_node("BoolLit", $1); }
-    ;
-    
+    ;    
 %%
 
 

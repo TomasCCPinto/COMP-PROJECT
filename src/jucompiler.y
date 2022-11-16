@@ -5,6 +5,8 @@
 
     
   #include "ast.h"
+  #include "table.h"
+  #include "semantic_analysis.h"
  
   // Functions
   extern int yylex();
@@ -19,6 +21,9 @@
   ast_node_t *aux;
   ast_node_t *aux2;
   ast_node_t *aux3;
+
+  symbol_table *global_table;
+
 
   // Compiler Flags TODO
   int a = 0;
@@ -310,6 +315,9 @@ int main(int argc, char *argv[]) {
       print_ast(my_program);  
   }
 
+  semantic_analysis(my_program);
+  printf("printing\n");
+  print_table(global_table);
   free_ast(my_program);
   return 0;
 }

@@ -315,6 +315,7 @@ int main(int argc, char *argv[]) {
       print_ast(my_program);  
   }
 
+  printf("analysis\n");
   semantic_analysis(my_program);
   printf("printing\n");
   print_table(global_table);

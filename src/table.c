@@ -1,4 +1,3 @@
-#include "ast.h"
 #include "table.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,7 +22,7 @@ symbol_table* symbol_table_node(char *id, char *value) {
     if (node) {
         node->id = id;
         node->value = value;
-	node->params = NULL;
+      	node->params = NULL;
 
         node->next = NULL;
         node->symbols = NULL;
@@ -49,12 +48,16 @@ void _print_params(param_list *head) {
 
 void print_table(symbol_table *tabela){
     if(tabela){
-        printf("%s ", tabela->id);
+      printf("%s ", tabela->id);
 
-	_print_params(tabela->params);
+	    _print_params(tabela->params);
 
-	printf("%s\n", tabela->value);
-        print_table(tabela->symbols);
+	    printf("%s\n", tabela->value);
+      print_table(tabela->symbols);
+      if (tabela->next) {
+        printf("\n\nNova tabela: ");
+        print_table(tabela->next);
+      }
     }
 }
 

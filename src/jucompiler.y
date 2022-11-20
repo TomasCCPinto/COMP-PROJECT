@@ -315,9 +315,10 @@ int main(int argc, char *argv[]) {
       print_ast(my_program);  
   }
 
+  print_ast(my_program);
   printf("analysis\n");
   semantic_analysis(my_program);
-  printf("printing\n");
+  printf("printing\n\n");
   print_table(global_table);
   free_ast(my_program);
   return 0;

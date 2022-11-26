@@ -16,12 +16,14 @@ param_list* param_list_node(char *param) {
   return node;
 }
 
-symbol_table* symbol_table_node(char *id, char *value) {
+symbol_table* symbol_table_node(char *id, char *value, bool is_param, bool is_func) {
     symbol_table *node = (symbol_table *) malloc(sizeof(symbol_table));
 
     if (node) {
         node->id = id;
         node->value = value;
+        node->is_param = is_param;
+        node->is_func = is_func;
       	node->params = NULL;
 
         node->next = NULL;
@@ -32,32 +34,116 @@ symbol_table* symbol_table_node(char *id, char *value) {
 
 
 
-void _print_params(param_list *head) {
+static void _print_params(param_list *head) {
+  printf("(");
   if(head) {
-    printf("(");
     param_list *current = head;
     for (; current->next; current = current->next) {
-      printf("%s,", current->param);
-    }
-    printf("%s) ", current->param);
 
-
-  }
-}
-
-
-void print_table(symbol_table *tabela){
-    if(tabela){
-      printf("%s ", tabela->id);
-
-	    _print_params(tabela->params);
-
-	    printf("%s\n", tabela->value);
-      print_table(tabela->symbols);
-      if (tabela->next) {
-        printf("\n\nNova tabela: ");
-        print_table(tabela->next);
+      if (!strcmp(current->param, "Int")) {
+        printf("int,");
+      } else if (!strcmp(current->param, "Bool")) {
+        printf("boolean,");
+      } else if (!strcmp(current->param, "Double")) {
+        printf("double,");
+      } else if (!strcmp(current->param, "StringArray")) {
+        printf("String[],");
+      } else if (!strcmp(current->param, "Void")) {
+        printf("void,");
+      } else {
+        printf("%s,", current->param);
       }
     }
+    if (!strcmp(current->param, "Int")) {
+      printf("int");
+    } else if (!strcmp(current->param, "Bool")) {
+        printf("boolean");
+    } else if (!strcmp(current->param, "Double")) {
+        printf("double");
+    } else if (!strcmp(current->param, "StringArray")) {
+        printf("String[]");
+    } else if (!strcmp(current->param, "Void")) {
+        printf("void");
+    } else {
+      printf("%s", current->param);
+    }
+  }
+  printf(")");
 }
 
+static void _print_function_table(symbol_table *tabela) {
+
+  if(tabela){
+
+    if (tabela->is_func) {
+      printf("===== Method %s", tabela->id);
+	    _print_params(tabela->params);
+      printf(" Symbol Table =====");
+    } else {
+
+      printf("%s\t", tabela->id);
+
+      if (!strcmp(tabela->value, "Int")) {
+        printf("\tint");
+      } else if (!strcmp(tabela->value, "Bool")) {
+        printf("\tboolean");
+      } else if (!strcmp(tabela->value, "Double")) {
+        printf("\tdouble");
+      } else if (!strcmp(tabela->value, "StringArray")) {
+        printf("\tString[]");
+      } else if (!strcmp(tabela->value, "Void")) {
+        printf("\tvoid");
+      } else {
+	      printf("\t%s", tabela->value);
+      }
+    }
+
+    if (tabela->is_param)
+      printf("\tparam");
+    printf("\n");
+
+    if (tabela->symbols)
+      _print_function_table(tabela->symbols);
+    else 
+      printf("\n");
+    } 
+  }
+
+void _print_table(symbol_table *tabela) {
+  if(tabela){
+    printf("%s\t", tabela->id);
+
+    if (tabela->is_func) {
+	    _print_params(tabela->params);
+    }
+      printf("\t");
+
+    if (!strcmp(tabela->value, "Int")) {
+      printf("int\n");
+    } else if (!strcmp(tabela->value, "Bool")) {
+        printf("boolean\n");
+    } else if (!strcmp(tabela->value, "Double")) {
+        printf("double\n");
+    } else if (!strcmp(tabela->value, "StringArray")) {
+        printf("String[]\n");
+    } else if (!strcmp(tabela->value, "Void")) {
+        printf("void\n");
+    } else {
+	    printf("%s\n", tabela->value);
+    }
+
+    if (tabela->symbols)
+      _print_table(tabela->symbols);
+    else
+      printf("\n");
+
+    _print_function_table(tabela->next);
+  } 
+}
+
+void print_table(symbol_table *tabela){
+  if(tabela){
+    printf("===== %s Symbol Table =====\n", tabela->id);
+    _print_table(tabela->symbols);
+  }
+}

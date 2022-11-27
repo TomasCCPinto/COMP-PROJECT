@@ -104,8 +104,8 @@ static void _print_function_table(symbol_table *tabela) {
 
     if (tabela->symbols)
       _print_function_table(tabela->symbols);
-    else 
-      printf("\n");
+    /* else  */
+    /*   printf("\n"); */
     } 
   }
 
@@ -134,16 +134,25 @@ void _print_table(symbol_table *tabela) {
 
     if (tabela->symbols)
       _print_table(tabela->symbols);
-    else
-      printf("\n");
 
-    _print_function_table(tabela->next);
-  } 
+    //_print_function_table(tabela->next);
+  }
+}
+
+static void print_function(symbol_table *tabela) {
+    if (tabela) {
+	if (tabela->next) {
+	    printf("\n");
+	    _print_function_table(tabela->next);
+	}
+	print_function(tabela->symbols);
+    }
 }
 
 void print_table(symbol_table *tabela){
   if(tabela){
-    printf("===== %s Symbol Table =====\n", tabela->id);
+      printf("===== %s %s Symbol Table =====\n", tabela->id, tabela->value);
     _print_table(tabela->symbols);
+    print_function(tabela);
   }
 }

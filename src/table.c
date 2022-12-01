@@ -141,11 +141,11 @@ void _print_table(symbol_table *tabela) {
 
 static void print_function(symbol_table *tabela) {
     if (tabela) {
-	if (tabela->next) {
-	    printf("\n");
-	    _print_function_table(tabela->next);
-	}
-	print_function(tabela->symbols);
+	      if (tabela->next) {
+	          printf("\n");
+	          _print_function_table(tabela->next);
+	      }
+  	    print_function(tabela->symbols);
     }
 }
 
@@ -153,6 +153,7 @@ void print_table(symbol_table *tabela){
   if(tabela){
       printf("===== %s %s Symbol Table =====\n", tabela->id, tabela->value);
     _print_table(tabela->symbols);
+    // printf("\n");
     print_function(tabela);
   }
 }

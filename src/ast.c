@@ -45,6 +45,7 @@ ast_node_t *ast_node(char *id, char *value) {
         node->brother = NULL;
         node->child = NULL;
         node->value = value;
+        node->type = NULL;
     }
 
     return node;

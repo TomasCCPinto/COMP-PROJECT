@@ -15,6 +15,7 @@ typedef char *token_t;
 typedef struct _ASTNode {
     char *id;
     char *value;
+    char *type;
 
     struct _ASTNode *child;
     struct _ASTNode *brother;

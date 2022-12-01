@@ -27,7 +27,7 @@
 
   // Compiler Flags TODO
   int a = 0;
-  bool l = false, e1 = false, e2 = true, t = false; 
+  bool l = false, e1 = false, e2 = true, t = false, s =false; 
 
 %}
 
@@ -288,6 +288,7 @@ void flags(int argc, char *argv[]) {
 
 
 int main(int argc, char *argv[]) {
+    
   for (int i = 1; i < argc; ++i) {
       if (!strcmp(argv[i], "-l")) {
            e1 = t = e2 = false;
@@ -301,6 +302,9 @@ int main(int argc, char *argv[]) {
       } else if (!strcmp(argv[i], "-t")) {
           l = e2 = e1 = false;
           t = true; 
+      } else if (!strcmp(argv[i], "-s")) {
+        l = e2 = e1 = t = false;
+        s = true;
       }
   }
 
@@ -312,14 +316,20 @@ int main(int argc, char *argv[]) {
       yyparse(); 
   } else if (t) {
       yyparse();
+      semantic_analysis(my_program);
       print_ast(my_program);  
+  } else if (s) {
+      yyparse();
+      semantic_analysis(my_program);
+      print_table(global_table);
+      printf("\n");
+      print_ast(my_program);  
+    
   }
 
   // print_ast(my_program);
   // printf("analysis\n");
-  semantic_analysis(my_program);
   // printf("printing\n\n");
-  print_table(global_table);
   free_ast(my_program);
   return 0;
 }

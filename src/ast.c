@@ -76,9 +76,31 @@ static void _print_ast(ast_node_t *node, int level) {
                     pos--;
                 }
             } 
-            printf("%s(%s)\n", node->id, node->value);
+            printf("%s(%s)", node->id, node->value);
         } else {
-            printf("%s\n", node->id);
+            printf("%s", node->id);
+        }
+
+        if (node->type) {
+
+            if (!strcmp(node->type, "Int")) {
+              printf(" - int\n");
+            } else if (!strcmp(node->type, "Bool")) {
+              printf(" - boolean\n");
+            } else if (!strcmp(node->type, "Double")) {
+              printf(" - double\n");
+            } else if (!strcmp(node->type, "StringArray")) {
+              printf(" - String[]\n");
+            } else if (!strcmp(node->type, "Void")) {
+              printf(" - void\n");
+            } else {
+                printf(" - %s\n", node->type);
+            }
+
+
+
+        } else {
+            printf("\n");
         }
         _print_ast(node->child, level + 1);
         _print_ast(node->brother, level);

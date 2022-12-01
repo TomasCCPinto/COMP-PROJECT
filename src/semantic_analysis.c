@@ -41,16 +41,125 @@ static void add_params(ast_node_t *node, param_list **global_head, param_list **
     }
 }
 
+static char* return_type_ast(ast_node_t *node, symbol_table *head) {
+    if (!node->value) 
+        return NULL;
 
-static void add_body_params(ast_node_t *node, symbol_table **symbol_node, const symbol_table *head) {
+    symbol_table *current = head;
+    for (; current; current = current->symbols) {
+        if (!strcmp(node->value, current->id) && strcmp(current->value, "")) {
+            //printf("%s - %s - %s\n", current->id, node->value, current->value);
+            return current->value;
+        } else if (!strcmp(node->id, "DecLit")) {
+            return "Int";
+        } else if (!strcmp(node->id, "RealLit")) {
+            return "Double";
+        } else if (!strcmp(node->id, "BoolLit")) {
+            return "Bool";
+        }
+    }
+
+    current = global_table;
+    for (; current; current = current->symbols) {
+        if (!strcmp(node->value, current->id)) {
+            //printf("%s - %s - %s\n", current->id, node->value, current->value);
+            return current->value;
+        } else if (!strcmp(node->id, "DecLit")) {
+            return "Int";
+        } else if (!strcmp(node->id, "RealLit")) {
+            return "Double";
+        } else if (!strcmp(node->id, "BoolLit")) {
+            return "Bool";
+        }
+    }
+
+    return NULL;
+}
+
+static void add_type_ast(ast_node_t *node, symbol_table *head) {
+    if (node) {
+        node->type = return_type_ast(node, head);
+        add_type_ast(node->child, head);
+        add_type_ast(node->brother, head);
+
+        if (!strcmp(node->id, "Assign")) {
+            add_type_ast(node->child, head);
+            node->type = node->child->type;
+        } else if (!strcmp(node->id, "Call")) {
+            add_type_ast(node->child, head);
+            node->type = return_type_ast(node->child, head);
+            //printf("type: %s\n", return_type_ast(node->child, head));
+        }
+
+
+        if (!strcmp(node->id, "ParseArgs")) {
+            // NOT SURE IT'S ALWAYS: INT
+            node->type = "Int";
+        } else if (!strcmp(node->id, "Eq") || !strcmp(node->id, "Le") || !strcmp(node->id, "Ne") || !strcmp(node->id, "Ge") || !strcmp(node->id, "Gt") || !strcmp(node->id, "Lt") ) {
+            node->type = "Bool";
+        } else if (!strcmp(node->id, "And") || !strcmp(node->id, "Or") || !strcmp(node->id, "Xor") || !strcmp(node->id, "Not") ) {
+            node->type = "Bool";
+        }
+
+        if (!node->child || !node->child->type)
+            return;
+
+        if (!strcmp(node->id, "Add")) {
+            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->type, "Int"))
+                node->type = "Int";
+            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->type, "Double"))
+                node->type = "Double";
+        } else if (!strcmp(node->id, "Sub")) {
+            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->type, "Int"))
+                node->type = "Int";
+            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->type, "Double"))
+                node->type = "Double";
+        } else if (!strcmp(node->id, "Div")) {
+            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->type, "Int"))
+                node->type = "Int";
+            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->type, "Double"))
+                node->type = "Double";
+        } else if (!strcmp(node->id, "Mul")) {
+            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->type, "Int"))
+                node->type = "Int";
+            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->type, "Double"))
+                node->type = "Double";
+        } else if (!strcmp(node->id, "Mod")) {
+            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->type, "Int"))
+                node->type = "Int";
+            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->type, "Double"))
+                node->type = "Double";
+        }
+    }
+}
+
+static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol_table *head) {
     if (!node)
         return;
 
     if (!(*symbol_node)) {
         if (!strcmp(node->id, "VarDecl")) {
-	    if (in_table(head, node->child->brother->value)) {
-	        *symbol_node = symbol_table_node(node->child->brother->value, node->child->id, false, false);
-	    }
+	        if (in_table(head, node->child->brother->value)) {
+	            *symbol_node = symbol_table_node(node->child->brother->value, node->child->id, false, false);
+	        }
+        } else if (!strcmp(node->id, "Assign")) {
+            //add_type_ast(node->child, head);
+            //node->type = node->child->type;
+            add_type_ast(node, head);
+
+            //add_type_ast(node, head);
+        } else if (!strcmp(node->id, "Return")) {
+            add_type_ast(node->child, head);
+        } else if (!strcmp(node->id, "Call")) {
+            //add_type_ast(node->child, head);
+            //node->type = head->symbols->value;
+            add_type_ast(node, head);
+
+            // printf("type: %s\n", node->type);
+        } else if (!strcmp(node->id, "If")) {
+            add_type_ast(node->child, head);
+        } else if (!strcmp(node->id, "While")) {
+            add_type_ast(node->child, head);
         }
         add_body_params(node->brother, symbol_node, head);
         return;

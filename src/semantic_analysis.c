@@ -56,6 +56,8 @@ static char* return_type_ast(ast_node_t *node, symbol_table *head) {
             return "Double";
         } else if (!strcmp(node->id, "BoolLit")) {
             return "Bool";
+        } else if (!strcmp(node->id, "StrLit")) {
+            return "String";
         }
     }
 
@@ -70,9 +72,69 @@ static char* return_type_ast(ast_node_t *node, symbol_table *head) {
             return "Double";
         } else if (!strcmp(node->id, "BoolLit")) {
             return "Bool";
+        } else if (!strcmp(node->id, "StrLit")) {
+            return "String";
         }
     }
 
+    return NULL;
+}
+
+static char* copy_args(ast_node_t *node, symbol_table *head) {
+    if (!node)
+        return NULL;
+    if (head && head->params) {
+        if (!strcmp(node->value, head->id)) {
+
+            param_list *curr_param = head->params;
+
+            char *string = (char *) malloc(sizeof(char *) * (strlen(curr_param->param) + 1));
+
+            if (!strcmp(curr_param->param, "Int")) {
+                sprintf(string, "(int");
+            } else if (!strcmp(curr_param->param, "Bool")) {
+                sprintf(string, "(boolean");
+            } else if (!strcmp(curr_param->param, "Double")) {
+                sprintf(string, "(double");
+            } else if (!strcmp(curr_param->param, "StringArray")) {
+                sprintf(string, "(String[]");
+            } else if (!strcmp(curr_param->param, "Void")) {
+                sprintf(string, "(void");
+            } else {
+	            sprintf(string, "(%s", curr_param->param);
+            }
+
+            curr_param = curr_param->next;
+            for (; curr_param; curr_param = curr_param->next) {
+                string = (char *) realloc(string, sizeof(char *) * strlen(string) + strlen(curr_param->param) + 1);
+
+                if (!strcmp(curr_param->param, "Int")) {
+                    strcat(string, ",");
+                    strcat(string, "int");
+                } else if (!strcmp(curr_param->param, "Bool")) {
+                    strcat(string, ",");
+                    strcat(string, "boolean");
+                } else if (!strcmp(curr_param->param, "Double")) {
+                    strcat(string, ",");
+                    strcat(string, "double");
+                } else if (!strcmp(curr_param->param, "StringArray")) {
+                    strcat(string, ",");
+                    strcat(string, "String[]");
+                } else if (!strcmp(curr_param->param, "Void")) {
+                    strcat(string, ",");
+                    strcat(string, "void");
+                } else {
+	             sprintf(string, "(%s", curr_param->param);
+                }
+            }
+
+            string = (char *) realloc(string, sizeof(char *) * strlen(string) + 1);
+            strcat(string, ")");
+
+            return string;
+        }
+        return copy_args(node, head->symbols);
+    }
     return NULL;
 }
 
@@ -88,8 +150,8 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
         } else if (!strcmp(node->id, "Call")) {
             add_type_ast(node->child, head);
             node->type = return_type_ast(node->child, head);
-            //printf("type: %s\n", return_type_ast(node->child, head));
-        }
+            node->child->type = copy_args(node->child, global_table->symbols);
+        } 
 
 
         if (!strcmp(node->id, "ParseArgs")) {
@@ -143,22 +205,16 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
 	            *symbol_node = symbol_table_node(node->child->brother->value, node->child->id, false, false);
 	        }
         } else if (!strcmp(node->id, "Assign")) {
-            //add_type_ast(node->child, head);
-            //node->type = node->child->type;
             add_type_ast(node, head);
-
-            //add_type_ast(node, head);
         } else if (!strcmp(node->id, "Return")) {
             add_type_ast(node->child, head);
         } else if (!strcmp(node->id, "Call")) {
-            //add_type_ast(node->child, head);
-            //node->type = head->symbols->value;
             add_type_ast(node, head);
-
-            // printf("type: %s\n", node->type);
         } else if (!strcmp(node->id, "If")) {
             add_type_ast(node->child, head);
         } else if (!strcmp(node->id, "While")) {
+            add_type_ast(node->child, head);
+        } else if (!strcmp(node->id, "Print")) {
             add_type_ast(node->child, head);
         }
         add_body_params(node->brother, symbol_node, head);

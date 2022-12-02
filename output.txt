@@ -1,42 +1,27 @@
-===== Class Factorial Symbol Table =====
-factorial	(int)	int
+===== Class ifwhile Symbol Table =====
+b		boolean
+i		int
+d		double
 main	(String[])	void
-
-===== Method factorial(int) Symbol Table =====
-return		int
-n		int	param
 
 ===== Method main(String[]) Symbol Table =====
 return		void
 args		String[]	param
-argument		int
+bl		boolean
+t		boolean
+f		boolean
 
 Program
-..Id(Factorial)
-..MethodDecl
-....MethodHeader
-......Int
-......Id(factorial)
-......MethodParams
-........ParamDecl
-..........Int
-..........Id(n)
-....MethodBody
-......If
-........Eq - boolean
-..........Id(n) - int
-..........DecLit(0) - int
-........Return
-..........DecLit(1) - int
-........Block
-......Return
-........Mul - int
-..........Id(n) - int
-..........Call - int
-............Id(factorial) - int
-............Sub - int
-..............Id(n) - int
-..............DecLit(1) - int
+..Id(ifwhile)
+..FieldDecl
+....Bool
+....Id(b)
+..FieldDecl
+....Int
+....Id(i)
+..FieldDecl
+....Double
+....Id(d)
 ..MethodDecl
 ....MethodHeader
 ......Void
@@ -47,14 +32,47 @@ Program
 ..........Id(args)
 ....MethodBody
 ......VarDecl
-........Int
-........Id(argument)
-......Assign - int
-........Id(argument) - int
-........ParseArgs - int
-..........Id(args) - String[]
-..........DecLit(0) - int
-......Print
-........Call - int
-..........Id(factorial) - int
-..........Id(argument) - int
+........Bool
+........Id(bl)
+......VarDecl
+........Bool
+........Id(t)
+......VarDecl
+........Bool
+........Id(f)
+......If
+........Id(t) - boolean
+........Block
+..........While
+............Id(b) - boolean
+............While
+..............BoolLit(true) - boolean
+..............Block
+................Print
+..................Id(i) - int
+................Print
+..................Id(b) - boolean
+................Print
+..................Id(d) - double
+..........Print
+............StrLit("Gotcha!") - String
+..........While
+............BoolLit(true) - boolean
+............Block
+..............If
+................Id(f) - boolean
+................Block
+................Block
+..................While
+....................Id(f) - boolean
+....................Print
+......................Id(d) - double
+..................Print
+....................StrLit("Twice!") - String
+..............Print
+................StrLit("Thrice!") - String
+........Block
+......While
+........BoolLit(false) - boolean
+........Print
+..........Id(b) - boolean

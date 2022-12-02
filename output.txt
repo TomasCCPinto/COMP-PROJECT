@@ -1,27 +1,24 @@
-===== Class ifwhile Symbol Table =====
-b		boolean
-i		int
-d		double
+===== Class divide Symbol Table =====
+num		int
+den		int
 main	(String[])	void
 
 ===== Method main(String[]) Symbol Table =====
 return		void
 args		String[]	param
-bl		boolean
-t		boolean
-f		boolean
+quo		int
+q		int
+r		int
+check		boolean
 
 Program
-..Id(ifwhile)
-..FieldDecl
-....Bool
-....Id(b)
+..Id(divide)
 ..FieldDecl
 ....Int
-....Id(i)
+....Id(num)
 ..FieldDecl
-....Double
-....Id(d)
+....Int
+....Id(den)
 ..MethodDecl
 ....MethodHeader
 ......Void
@@ -32,47 +29,70 @@ Program
 ..........Id(args)
 ....MethodBody
 ......VarDecl
-........Bool
-........Id(bl)
+........Int
+........Id(quo)
 ......VarDecl
-........Bool
-........Id(t)
+........Int
+........Id(q)
 ......VarDecl
-........Bool
-........Id(f)
-......If
-........Id(t) - boolean
-........Block
-..........While
-............Id(b) - boolean
-............While
-..............BoolLit(true) - boolean
-..............Block
-................Print
-..................Id(i) - int
-................Print
-..................Id(b) - boolean
-................Print
-..................Id(d) - double
-..........Print
-............StrLit("Gotcha!") - String
-..........While
-............BoolLit(true) - boolean
-............Block
-..............If
-................Id(f) - boolean
-................Block
-................Block
-..................While
-....................Id(f) - boolean
-....................Print
-......................Id(d) - double
-..................Print
-....................StrLit("Twice!") - String
-..............Print
-................StrLit("Thrice!") - String
-........Block
+........Int
+........Id(r)
+......Assign - int
+........Id(num) - int
+........ParseArgs - int
+..........Id(args) - String[]
+..........DecLit(0) - int
+......Assign - int
+........Id(den) - int
+........ParseArgs - int
+..........Id(args) - String[]
+..........DecLit(1) - int
+......Assign - int
+........Id(q) - int
+........Div - int
+..........Id(num) - int
+..........Id(den) - int
+......Assign - int
+........Id(r) - int
+........Mod - int
+..........Id(num) - int
+..........Id(den) - int
+......Assign - int
+........Id(quo) - int
+........DecLit(0) - int
 ......While
-........BoolLit(false) - boolean
+........Le - boolean
+..........Id(den) - int
+..........Id(num) - int
+........Block
+..........Assign - int
+............Id(num) - int
+............Sub - int
+..............Id(num) - int
+..............Id(den) - int
+..........Assign - int
+............Id(quo) - int
+............Add - int
+..............Id(quo) - int
+..............DecLit(1) - int
+......VarDecl
+........Bool
+........Id(check)
+......Assign - boolean
+........Id(check) - boolean
+........And - boolean
+..........Eq - boolean
+............Id(quo) - int
+............Id(q) - int
+..........Eq - boolean
+............Id(num) - int
+............Id(r) - int
+......If
+........Id(check) - boolean
+........Block
+..........Print
+............Id(quo) - int
+..........Print
+............Id(num) - int
 ........Print
-..........Id(b) - boolean
+..........Id(check) - boolean

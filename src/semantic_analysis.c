@@ -76,66 +76,65 @@ static char* return_type_ast(ast_node_t *node, symbol_table *head) {
             return "String";
         }
     }
-
     return NULL;
 }
 
 static char* copy_args(ast_node_t *node, symbol_table *head) {
     if (!node)
         return NULL;
-    if (head && head->params) {
-        if (!strcmp(node->value, head->id)) {
+    if (!head || !head->params) {
+        return "()";
+    }
+    if (!strcmp(node->value, head->id)) {
 
-            param_list *curr_param = head->params;
+        param_list *curr_param = head->params;
 
-            char *string = (char *) malloc(sizeof(char *) * (strlen(curr_param->param) + 1));
+        char *string = (char *) malloc(sizeof(char *) * (strlen(curr_param->param) + 1));
+
+        if (!strcmp(curr_param->param, "Int")) {
+            sprintf(string, "(int");
+        } else if (!strcmp(curr_param->param, "Bool")) {
+            sprintf(string, "(boolean");
+        } else if (!strcmp(curr_param->param, "Double")) {
+            sprintf(string, "(double");
+        } else if (!strcmp(curr_param->param, "StringArray")) {
+            sprintf(string, "(String[]");
+        } else if (!strcmp(curr_param->param, "Void")) {
+            sprintf(string, "(void");
+        } else {
+	         sprintf(string, "(%s", curr_param->param);
+        }
+
+        curr_param = curr_param->next;
+        for (; curr_param; curr_param = curr_param->next) {
+            string = (char *) realloc(string, sizeof(char *) * strlen(string) + strlen(curr_param->param) + 1);
 
             if (!strcmp(curr_param->param, "Int")) {
-                sprintf(string, "(int");
+                strcat(string, ",");
+                strcat(string, "int");
             } else if (!strcmp(curr_param->param, "Bool")) {
-                sprintf(string, "(boolean");
+                strcat(string, ",");
+                strcat(string, "boolean");
             } else if (!strcmp(curr_param->param, "Double")) {
-                sprintf(string, "(double");
+                strcat(string, ",");
+                strcat(string, "double");
             } else if (!strcmp(curr_param->param, "StringArray")) {
-                sprintf(string, "(String[]");
+                strcat(string, ",");
+                strcat(string, "String[]");
             } else if (!strcmp(curr_param->param, "Void")) {
-                sprintf(string, "(void");
+                strcat(string, ",");
+                strcat(string, "void");
             } else {
-	            sprintf(string, "(%s", curr_param->param);
+	          sprintf(string, "(%s", curr_param->param);
             }
-
-            curr_param = curr_param->next;
-            for (; curr_param; curr_param = curr_param->next) {
-                string = (char *) realloc(string, sizeof(char *) * strlen(string) + strlen(curr_param->param) + 1);
-
-                if (!strcmp(curr_param->param, "Int")) {
-                    strcat(string, ",");
-                    strcat(string, "int");
-                } else if (!strcmp(curr_param->param, "Bool")) {
-                    strcat(string, ",");
-                    strcat(string, "boolean");
-                } else if (!strcmp(curr_param->param, "Double")) {
-                    strcat(string, ",");
-                    strcat(string, "double");
-                } else if (!strcmp(curr_param->param, "StringArray")) {
-                    strcat(string, ",");
-                    strcat(string, "String[]");
-                } else if (!strcmp(curr_param->param, "Void")) {
-                    strcat(string, ",");
-                    strcat(string, "void");
-                } else {
-	             sprintf(string, "(%s", curr_param->param);
-                }
-            }
-
-            string = (char *) realloc(string, sizeof(char *) * strlen(string) + 1);
-            strcat(string, ")");
-
-            return string;
         }
-        return copy_args(node, head->symbols);
+
+        string = (char *) realloc(string, sizeof(char *) * strlen(string) + 1);
+        strcat(string, ")");
+
+        return string;
     }
-    return NULL;
+    return copy_args(node, head->symbols);
 }
 
 static void add_type_ast(ast_node_t *node, symbol_table *head) {
@@ -151,6 +150,9 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
             add_type_ast(node->child, head);
             node->type = return_type_ast(node->child, head);
             node->child->type = copy_args(node->child, global_table->symbols);
+        } else if (!strcmp(node->id, "Length")) {
+            add_type_ast(node->child, head);
+            node->type = "Int";
         } 
 
 
@@ -165,31 +167,33 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
 
         if (!node->child || !node->child->type)
             return;
+        if (!node->child->brother || !node->child->brother->type)
+            return;
 
         if (!strcmp(node->id, "Add")) {
-            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->type, "Int"))
+            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
                 node->type = "Int";
-            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->type, "Double"))
+            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
                 node->type = "Double";
         } else if (!strcmp(node->id, "Sub")) {
-            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->type, "Int"))
+            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
                 node->type = "Int";
-            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->type, "Double"))
+            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
                 node->type = "Double";
         } else if (!strcmp(node->id, "Div")) {
-            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->type, "Int"))
+            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
                 node->type = "Int";
-            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->type, "Double"))
+            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
                 node->type = "Double";
         } else if (!strcmp(node->id, "Mul")) {
-            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->type, "Int"))
+            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
                 node->type = "Int";
-            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->type, "Double"))
+            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
                 node->type = "Double";
         } else if (!strcmp(node->id, "Mod")) {
-            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->type, "Int"))
+            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
                 node->type = "Int";
-            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->type, "Double"))
+            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
                 node->type = "Double";
         }
     }

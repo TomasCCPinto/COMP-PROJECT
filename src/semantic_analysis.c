@@ -79,13 +79,42 @@ static char* return_type_ast(ast_node_t *node, symbol_table *head) {
     return NULL;
 }
 
+static bool match_method(ast_node_t *node, symbol_table *head) {
+    if (!node || !head)
+        return false;
+
+
+    /*if (node->brother && head->params && node->brother->type && !strcmp(node->brother->type, head->params->param)) {
+        return true;
+    }*/
+    if (node->brother && head->params) {
+        ast_node_t *cur_node = node->brother;
+        param_list *cur_param = head->params;
+
+
+        for (; cur_param && cur_node; cur_param = cur_param->next, cur_node = cur_node->brother) {
+            if (cur_node->type && strcmp(cur_param->param, cur_node->type))
+                return false;
+        }
+        if (cur_param || cur_node)
+            return false;
+
+        return true;
+    }
+
+    if (!node->brother && !head->params)
+        return true;
+    
+    return false;
+}
+
 static char* copy_args(ast_node_t *node, symbol_table *head) {
     if (!node)
         return NULL;
     if (!head || !head->params) {
-        return "()";
+        return NULL;
     }
-    if (!strcmp(node->value, head->id)) {
+    if (!strcmp(node->value, head->id) && match_method(node, head)) {
 
         param_list *curr_param = head->params;
 
@@ -131,10 +160,20 @@ static char* copy_args(ast_node_t *node, symbol_table *head) {
 
         string = (char *) realloc(string, sizeof(char *) * strlen(string) + 1);
         strcat(string, ")");
-
         return string;
     }
     return copy_args(node, head->symbols);
+}
+
+
+static char* return_type_call(ast_node_t *node, symbol_table *head) {
+    if (!node || ! head)
+        return NULL;
+
+    if (match_method(node, head))
+        return head->id;
+
+    return return_type_call(node, head->symbols);
 }
 
 static void add_type_ast(ast_node_t *node, symbol_table *head) {

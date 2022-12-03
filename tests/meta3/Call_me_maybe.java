@@ -1,5 +1,34 @@
 class Call_Me_Maybe {
     // Breaking Bad e bem melhor que Game of Thrones
+    public static void f() {
+    }
+
+    public static int f(boolean a) {
+    }
+
+    public static boolean f(double a) {
+    }
+
+    public static double f(int a) {
+    }
+
+    public static void f(String[] a) {
+    }
+
+    public static boolean f(int a, double b) {
+    }
+
+    public static boolean f(int a, double b, boolean c) {
+    }
+
+    public static boolean f(int a, double b, boolean c, int d) {
+    }
+
+    public static int f(double a, int b, double c, int d) {
+    }
+
+    public static double f(int a, double b, int c, double d) {
+    }
     public static void main(String[] args) {
 
         int i;
@@ -40,34 +69,5 @@ class Call_Me_Maybe {
 
     }
 
-    public static void f() {
-    }
-
-    public static int f(boolean a) {
-    }
-
-    public static boolean f(double a) {
-    }
-
-    public static double f(int a) {
-    }
-
-    public static void f(String[] a) {
-    }
-
-    public static boolean f(int a, double b) {
-    }
-
-    public static boolean f(int a, double b, boolean c) {
-    }
-
-    public static boolean f(int a, double b, boolean c, int d) {
-    }
-
-    public static int f(double a, int b, double c, int d) {
-    }
-
-    public static double f(int a, double b, int c, double d) {
-    }
 
 }

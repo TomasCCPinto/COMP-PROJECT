@@ -1,24 +1,199 @@
-===== Class divide Symbol Table =====
-num		int
-den		int
+===== Class Call_Me_Maybe Symbol Table =====
+f	()	void
+f	(boolean)	int
+f	(double)	boolean
+f	(int)	double
+f	(String[])	void
+f	(int,double)	boolean
+f	(int,double,boolean)	boolean
+f	(int,double,boolean,int)	boolean
+f	(double,int,double,int)	int
+f	(int,double,int,double)	double
 main	(String[])	void
+
+===== Method f() Symbol Table =====
+return		void
+
+===== Method f(boolean) Symbol Table =====
+return		int
+a		boolean	param
+
+===== Method f(double) Symbol Table =====
+return		boolean
+a		double	param
+
+===== Method f(int) Symbol Table =====
+return		double
+a		int	param
+
+===== Method f(String[]) Symbol Table =====
+return		void
+a		String[]	param
+
+===== Method f(int,double) Symbol Table =====
+return		boolean
+a		int	param
+b		double	param
+
+===== Method f(int,double,boolean) Symbol Table =====
+return		boolean
+a		int	param
+b		double	param
+c		boolean	param
+
+===== Method f(int,double,boolean,int) Symbol Table =====
+return		boolean
+a		int	param
+b		double	param
+c		boolean	param
+d		int	param
+
+===== Method f(double,int,double,int) Symbol Table =====
+return		int
+a		double	param
+b		int	param
+c		double	param
+d		int	param
+
+===== Method f(int,double,int,double) Symbol Table =====
+return		double
+a		int	param
+b		double	param
+c		int	param
+d		double	param
 
 ===== Method main(String[]) Symbol Table =====
 return		void
 args		String[]	param
-quo		int
-q		int
-r		int
-check		boolean
+i		int
+d		double
+b		boolean
 
 Program
-..Id(divide)
-..FieldDecl
-....Int
-....Id(num)
-..FieldDecl
-....Int
-....Id(den)
+..Id(Call_Me_Maybe)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(f)
+......MethodParams
+....MethodBody
+..MethodDecl
+....MethodHeader
+......Int
+......Id(f)
+......MethodParams
+........ParamDecl
+..........Bool
+..........Id(a)
+....MethodBody
+..MethodDecl
+....MethodHeader
+......Bool
+......Id(f)
+......MethodParams
+........ParamDecl
+..........Double
+..........Id(a)
+....MethodBody
+..MethodDecl
+....MethodHeader
+......Double
+......Id(f)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(a)
+....MethodBody
+..MethodDecl
+....MethodHeader
+......Void
+......Id(f)
+......MethodParams
+........ParamDecl
+..........StringArray
+..........Id(a)
+....MethodBody
+..MethodDecl
+....MethodHeader
+......Bool
+......Id(f)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(a)
+........ParamDecl
+..........Double
+..........Id(b)
+....MethodBody
+..MethodDecl
+....MethodHeader
+......Bool
+......Id(f)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(a)
+........ParamDecl
+..........Double
+..........Id(b)
+........ParamDecl
+..........Bool
+..........Id(c)
+....MethodBody
+..MethodDecl
+....MethodHeader
+......Bool
+......Id(f)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(a)
+........ParamDecl
+..........Double
+..........Id(b)
+........ParamDecl
+..........Bool
+..........Id(c)
+........ParamDecl
+..........Int
+..........Id(d)
+....MethodBody
+..MethodDecl
+....MethodHeader
+......Int
+......Id(f)
+......MethodParams
+........ParamDecl
+..........Double
+..........Id(a)
+........ParamDecl
+..........Int
+..........Id(b)
+........ParamDecl
+..........Double
+..........Id(c)
+........ParamDecl
+..........Int
+..........Id(d)
+....MethodBody
+..MethodDecl
+....MethodHeader
+......Double
+......Id(f)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(a)
+........ParamDecl
+..........Double
+..........Id(b)
+........ParamDecl
+..........Int
+..........Id(c)
+........ParamDecl
+..........Double
+..........Id(d)
+....MethodBody
 ..MethodDecl
 ....MethodHeader
 ......Void
@@ -30,69 +205,159 @@ Program
 ....MethodBody
 ......VarDecl
 ........Int
-........Id(quo)
+........Id(i)
 ......VarDecl
-........Int
-........Id(q)
-......VarDecl
-........Int
-........Id(r)
-......Assign - int
-........Id(num) - int
-........ParseArgs - int
-..........Id(args) - String[]
-..........DecLit(0) - int
-......Assign - int
-........Id(den) - int
-........ParseArgs - int
-..........Id(args) - String[]
-..........DecLit(1) - int
-......Assign - int
-........Id(q) - int
-........Div - int
-..........Id(num) - int
-..........Id(den) - int
-......Assign - int
-........Id(r) - int
-........Mod - int
-..........Id(num) - int
-..........Id(den) - int
-......Assign - int
-........Id(quo) - int
-........DecLit(0) - int
-......While
-........Le - boolean
-..........Id(den) - int
-..........Id(num) - int
-........Block
-..........Assign - int
-............Id(num) - int
-............Sub - int
-..............Id(num) - int
-..............Id(den) - int
-..........Assign - int
-............Id(quo) - int
-............Add - int
-..............Id(quo) - int
-..............DecLit(1) - int
+........Double
+........Id(d)
 ......VarDecl
 ........Bool
-........Id(check)
-......Assign - boolean
-........Id(check) - boolean
-........And - boolean
-..........Eq - boolean
-............Id(quo) - int
-............Id(q) - int
-..........Eq - boolean
-............Id(num) - int
-............Id(r) - int
-......If
-........Id(check) - boolean
-........Block
-..........Print
-............Id(quo) - int
-..........Print
-............Id(num) - int
-........Print
-..........Id(check) - boolean
+........Id(b)
+......Call - return
+........Id(f)
+......Call
+........Id(f)
+........BoolLit(true) - boolean
+......Call
+........Id(f)
+........RealLit(0e0) - double
+......Call
+........Id(f)
+........DecLit(123) - int
+......Call - main
+........Id(f)
+........Id(args) - String[]
+......Call
+........Id(f)
+........Id(i) - int
+........Id(d) - double
+......Call
+........Id(f)
+........Id(i) - int
+........Id(d) - double
+........Id(b) - boolean
+......Call
+........Id(f)
+........Id(i) - int
+........Id(d) - double
+........Id(b) - boolean
+........Id(i) - int
+......Call
+........Id(f)
+........RealLit(0.) - double
+........DecLit(1) - int
+........RealLit(2.) - double
+........DecLit(3) - int
+......Call
+........Id(f)
+........DecLit(0) - int
+........RealLit(.1) - double
+........DecLit(2) - int
+........RealLit(.3) - double
+......Call
+........Id(f)
+........Id(i) - int
+........Id(i) - int
+......Call
+........Id(f)
+........Id(i) - int
+........Id(i) - int
+........Id(b) - boolean
+......Call
+........Id(f)
+........Id(i) - int
+........Id(i) - int
+........Id(b) - boolean
+........Id(i) - int
+......Call
+........Id(f)
+........RealLit(0.) - double
+........DecLit(1) - int
+........DecLit(2) - int
+........DecLit(3) - int
+......Call
+........Id(f)
+........DecLit(0) - int
+........DecLit(1) - int
+........RealLit(2.) - double
+........DecLit(3) - int
+......Call
+........Id(f)
+........DecLit(0) - int
+........RealLit(.1) - double
+........DecLit(2) - int
+........DecLit(3) - int
+......Call
+........Id(f)
+........DecLit(0) - int
+........DecLit(1) - int
+........DecLit(2) - int
+........RealLit(.3) - double
+......Call - main
+........Id(f)
+........Call
+..........Id(f)
+..........Call - main
+............Id(f)
+............Call
+..............Id(f)
+..............Call - main
+................Id(f)
+................Call
+..................Id(f)
+..................DecLit(0) - int
+......Call
+........Id(f)
+........Call
+..........Id(f)
+..........BoolLit(true) - boolean
+........Call
+..........Id(f)
+..........DecLit(0) - int
+........Call
+..........Id(f)
+..........RealLit(0.0) - double
+......Call
+........Id(f)
+........Call
+..........Id(f)
+..........BoolLit(true) - boolean
+........Call
+..........Id(f)
+..........BoolLit(false) - boolean
+........Call
+..........Id(f)
+..........RealLit(0.0) - double
+......Print
+........Call - main
+..........Id(f)
+..........Call
+............Id(f)
+............Call - main
+..............Id(f)
+..............Call
+................Id(f)
+................Call - main
+..................Id(f)
+..................Call
+....................Id(f)
+....................DecLit(0) - int
+......Print
+........Call
+..........Id(f)
+..........Call
+............Id(f)
+............BoolLit(true) - boolean
+..........Call
+............Id(f)
+............DecLit(0) - int
+..........Call
+............Id(f)
+............RealLit(0.0) - double
+......Print
+........Call
+..........Id(f)
+..........RealLit(0e0) - double
+......Print
+........Call
+..........Id(f)
+..........DecLit(123) - int

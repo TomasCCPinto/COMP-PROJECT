@@ -267,20 +267,17 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
         add_body_params(node, &(*symbol_node)->symbols, head);
 }
 
-static void append_symbol_table(ast_node_t *node, symbol_table *symbol_node) {
+static symbol_table* append_symbol_table(ast_node_t *node, symbol_table *symbol_node) {
     if (symbol_node->symbols) {
-        append_symbol_table(node, symbol_node->symbols);
-	return;
+        return append_symbol_table(node, symbol_node->symbols);
     }
     symbol_node->symbols = symbol_table_node(node->child->brother->value, node->child->id, false, true);
     symbol_node->next = symbol_table_node(node->child->brother->value, "", false, true); 
     symbol_node->next->symbols = symbol_table_node("return", node->child->id, false, false); 
     if (node->child->brother->brother && node->child->brother->brother->child && !strcmp(node->child->brother->brother->child->id, "ParamDecl")) {
-      add_params(node->child->brother->brother->child, &symbol_node->symbols->params, &symbol_node->next->params, &symbol_node->next->symbols->symbols, symbol_node->next->symbols->symbols);
+        add_params(node->child->brother->brother->child, &symbol_node->symbols->params, &symbol_node->next->params, &symbol_node->next->symbols->symbols, symbol_node->next->symbols->symbols);
     }
-    if (node->brother && !strcmp(node->brother->id, "MethodBody")) {
-        add_body_params(node->brother->child, &symbol_node->next, symbol_node->next);
-    }
+    return symbol_node;
 }
 
 static void append_var_table(ast_node_t *node, symbol_table *symbol_node) {
@@ -297,9 +294,12 @@ void semantic_analysis(ast_node_t *node) {
     if (!strcmp("Program", node->id)) {
         global_table = symbol_table_node("Class", node->child->value, false, false);
     } else if (!strcmp("MethodDecl", node->id)) {
-        append_symbol_table(node->child, global_table);
+        symbol_table *symbol_node = append_symbol_table(node->child, global_table);
 
+        
         semantic_analysis(node->brother);
+        add_body_params(node->child->brother->child, &symbol_node->next, symbol_node->next);
+
 
         return; 
     } else if (!strcmp("FieldDecl", node->id)) {

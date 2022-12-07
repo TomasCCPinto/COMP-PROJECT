@@ -100,6 +100,8 @@ static bool match_method(ast_node_t *node, symbol_table *head) {
             return false;
 
         return true;
+    } else if (!node->brother && !head->params) {
+        return true;
     }
 
     if (!node->brother && !head->params)
@@ -110,10 +112,16 @@ static bool match_method(ast_node_t *node, symbol_table *head) {
 
 static char* copy_args(ast_node_t *node, symbol_table *head) {
     if (!node)
-        return NULL;
+        return "()";
     if (!head || !head->params) {
-        return NULL;
+        return "()";
     }
+
+    
+    if (!strcmp(node->value, head->id)) {
+
+    }
+    
     if (!strcmp(node->value, head->id) && match_method(node, head)) {
 
         param_list *curr_param = head->params;
@@ -170,9 +178,12 @@ static char* return_type_call(ast_node_t *node, symbol_table *head) {
     if (!node || ! head)
         return NULL;
 
-    if (match_method(node, head))
-        return head->id;
+    if (!strcmp(node->value, head->id) && match_method(node, head)) {
+        //printf("%s\n", head->id);
 
+        node->type = copy_args(node, head);
+        return head->value;
+    }
     return return_type_call(node, head->symbols);
 }
 
@@ -183,14 +194,10 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
         add_type_ast(node->brother, head);
 
         if (!strcmp(node->id, "Assign")) {
-            add_type_ast(node->child, head);
             node->type = node->child->type;
         } else if (!strcmp(node->id, "Call")) {
-            add_type_ast(node->child, head);
-            node->type = return_type_ast(node->child, head);
-            node->child->type = copy_args(node->child, global_table->symbols);
+            node->type = return_type_call(node->child, global_table);
         } else if (!strcmp(node->id, "Length")) {
-            add_type_ast(node->child, head);
             node->type = "Int";
         } 
 
@@ -260,6 +267,7 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
         } else if (!strcmp(node->id, "Print")) {
             add_type_ast(node->child, head);
         }
+
         add_body_params(node->brother, symbol_node, head);
         return;
     }

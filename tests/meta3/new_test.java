@@ -3,7 +3,9 @@ class AA {
     public static double main() {
 
         int i;
+        int i;
         double d;
+        boolean b;
         boolean b;
 
         //b = true;
@@ -21,15 +23,22 @@ class AA {
     }   
 
     public static boolean b;
+    public static boolean b;
     public static int a;
     public static int a;
     public static int f;
 
     
     public static double f(int t, double d) {
+        int k;
+        int k;
         // declaration
      }
     public static boolean AA() {
+        // declaration
+    }
+
+    public static boolean ss(int d, int d, double t, double t) {
         // declaration
     }
 

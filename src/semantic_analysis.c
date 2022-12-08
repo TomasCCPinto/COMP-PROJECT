@@ -46,6 +46,27 @@ static char* return_type_ast(ast_node_t *node, symbol_table *head) {
 
     symbol_table *current = head;
     for (; current; current = current->symbols) {
+        //printf("---%d\n",current->is_func);
+        if(!current->is_func){
+        if (!strcmp(node->value, current->id)) {
+            //printf("%s - %s - %s\n", current->id, node->value, current->value);
+            return current->value;
+        } else if (!strcmp(node->id, "DecLit")) {
+            return "Int";
+        } else if (!strcmp(node->id, "RealLit")) {
+            return "Double";
+        } else if (!strcmp(node->id, "BoolLit")) {
+            return "Bool";
+        } else if (!strcmp(node->id, "StrLit")) {
+            return "String";
+        }
+     }
+    }
+
+    current = global_table;
+    for (; current; current = current->symbols) {
+        //printf("-%d\n",current->is_func);
+        if(!current->is_func){
         if (!strcmp(node->value, current->id)) {
             //printf("%s - %s - %s\n", current->id, node->value, current->value);
             return current->value;
@@ -59,35 +80,29 @@ static char* return_type_ast(ast_node_t *node, symbol_table *head) {
             return "String";
         }
     }
-
-    current = global_table;
-    for (; current; current = current->symbols) {
-        if (!strcmp(node->value, current->id)) {
-            //printf("%s - %s - %s\n", current->id, node->value, current->value);
-            return current->value;
-        } else if (!strcmp(node->id, "DecLit")) {
-            return "Int";
-        } else if (!strcmp(node->id, "RealLit")) {
-            return "Double";
-        } else if (!strcmp(node->id, "BoolLit")) {
-            return "Bool";
-        } else if (!strcmp(node->id, "StrLit")) {
-            return "String";
-        }
     }
     return NULL;
 }
 
 static bool match_method(ast_node_t *node, symbol_table *head, bool flag) {
+    //if(flag==1){
+    //    printf("here\n");
+    //}
     if (!node || !head)
         return false;
+        
+    
     if (node->brother && head->params) {
+        
         ast_node_t *cur_node = node->brother;
         param_list *cur_param = head->params;
 
         for (; cur_param && cur_node; cur_param = cur_param->next, cur_node = cur_node->brother) {
-            if (flag && cur_node->type && !strcmp(cur_node->type, "Int") && !strcmp(cur_param->param, "Double"))
+            //printf("lmao-> %d\n",flag);
+            if (flag && cur_node->type && !strcmp(cur_node->type, "Int") && !strcmp(cur_param->param, "Double")){
+                
                 continue;
+            }
             if (cur_node->type && strcmp(cur_param->param, cur_node->type)) {
                 return false;
             }
@@ -157,34 +172,53 @@ static char* copy_args(ast_node_t *node, symbol_table *head) {
 static bool return_type_call(ast_node_t *node, symbol_table *head) {
     if (!node || ! head)
         return false;
-
+    
+    //verificar se da match direto correto
+    //printf("lol-> %s\n",head->id);
     if (!strcmp(node->child->value, head->id) && match_method(node->child, head, false)) {
+        //printf("-> %s \n",head->value);
         node->type = head->value;
         node->child->type = copy_args(node, head);
+        return true;
     }
 
     bool flag = return_type_call(node, head->symbols);
     if (flag)
         return flag;
 
-
+    
     if (!strcmp(node->child->value, head->id) && match_method(node->child, head, true)) {
+        //printf("aqui\n");
         node->type = head->value;
         node->child->type = copy_args(node, head);
+        return true;
     }
-    return true;
+    return false;
 }
 
 static void add_type_ast(ast_node_t *node, symbol_table *head) {
     if (node) {
-        node->type = return_type_ast(node, head);
+        
+        //printf("%d\n",head->is_func);
+        
+        if(!node->type){
+            node->type = return_type_ast(node, head);
+        }
+
         add_type_ast(node->child, head);
         add_type_ast(node->brother, head);
+
+        
 
         if (!strcmp(node->id, "Assign")) {
             node->type = node->child->type;
         } else if (!strcmp(node->id, "Call")) {
+            //("-- %s\n",node->child->type);
+            if(strcmp(node->child->id,"Id")==0){
+                node->child->type=NULL;
+            }
             return_type_call(node, global_table);
+            //printf("-- %s\n",node->child->type);
         } else if (!strcmp(node->id, "Length")) {
             node->type = "Int";
         } 

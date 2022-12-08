@@ -7,14 +7,14 @@
 
 
 typedef struct _param_list {
-  token_t param;
+  char *param;
 
   struct _param_list *next;
 } param_list;
 
 typedef struct _symbol_table {
-    token_t id;
-    token_t value;
+    char *id;
+    char *value;
     bool is_param;
     bool is_func;
     param_list *params;

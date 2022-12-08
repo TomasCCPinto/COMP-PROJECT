@@ -10,26 +10,31 @@
 #include <string.h>
 
 
-typedef char *token_t;
+typedef struct Token {
+    char *value;
+    int line;
+    int col;
+} token_t;
 
 typedef struct _ASTNode {
     char *id;
     char *value;
     char *type;
+    int line;
+    int col;
 
     struct _ASTNode *child;
     struct _ASTNode *brother;
 } ast_node_t;
 
-
+#define NULL_TOKEN (token_t) { .value = NULL, .line = -1, .col = -1 }
 
 extern bool syntax_error; 
 
 
-token_t token(char *, int );
+token_t token(char *value, int line, int col, int type);
 
-
-ast_node_t *ast_node(char *, char *);
+ast_node_t *ast_node(char *, token_t );
 void add_children(ast_node_t *, ast_node_t *);
 void add_brother(ast_node_t *, ast_node_t *);
 

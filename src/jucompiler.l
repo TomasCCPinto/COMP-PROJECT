@@ -16,7 +16,7 @@
     extern bool l;
 
     #define findAsciiChars(character, line, col) { if (character <= 126 && character >= 33) printf("Line %d, col %d: illegal character (%c)\n", line, col, character); }
-    #define SEND_TOKEN(...) {  yylval.token = token(yytext, __VA_ARGS__); return __VA_ARGS__; }
+    #define SEND_TOKEN(...) {  yylval.token = token(yytext, line, col - yyleng, __VA_ARGS__); /*printf("%d - %d - %s\n", yylval.token.line, yylval.token.col, yylval.token.value);*/ return __VA_ARGS__; }
     
     extern bool syntax_error; 
 
@@ -133,7 +133,7 @@ strlit                                                     ([^\n\r\"\\]|"\\n"|"\
 {return}                                                   { TOKEN(l, "RETURN");                 col+=yyleng; SEND_TOKEN(RETURN   ); }
 {static}                                                   { TOKEN(l, "STATIC");                 col+=yyleng; SEND_TOKEN(STATIC   ); }
 {string}                                                   { TOKEN(l, "STRING");                 col+=yyleng; SEND_TOKEN(STRING   ); }
-{void}                                                     { TOKEN(l, "VOID");                   col+=yyleng; SEND_TOKEN(VOID    ); }
+{void}                                                     { TOKEN(l, "VOID");                   col+=yyleng; SEND_TOKEN(VOID     ); }
 {while}                                                    { TOKEN(l, "WHILE");                  col+=yyleng; SEND_TOKEN(WHILE    ); }
 {reserved}                                                 { TOKEN(l, "RESERVED(%s)", yytext);   col+=yyleng; SEND_TOKEN(RESERVED ); }
 {boollit}                                                  { TOKEN(l, "BOOLLIT(%s)", yytext);    col+=yyleng; SEND_TOKEN(BOOLLIT  ); }
@@ -142,6 +142,7 @@ strlit                                                     ([^\n\r\"\\]|"\\n"|"\
 {id}                                                       { TOKEN(l, "ID(%s)", yytext);         col+=yyleng; SEND_TOKEN(ID       ); }
 {intlit}                                                   { TOKEN(l, "INTLIT(%s)", yytext);     col+=yyleng; SEND_TOKEN(INTLIT   ); }
 {reallit}                                                  { TOKEN(l, "REALLIT(%s)", yytext);    col+=yyleng; SEND_TOKEN(REALLIT  ); }
+
 
 
 {comment}                                                  { BEGIN COM; }

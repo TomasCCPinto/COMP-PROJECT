@@ -365,6 +365,7 @@ char *search_type_var_in_table(symbol_table *table, char *var_name) {
 void semantic_analysis(ast_node_t *node) {
     if (!node) 
         return;
+    //printf("%d - %d\n", node->line, node->col);
     if (!strcmp("Program", node->id)) {
         global_table = symbol_table_node("Class", node->child->value, false, false);
     } else if (!strcmp("MethodDecl", node->id)) {
@@ -379,7 +380,8 @@ void semantic_analysis(ast_node_t *node) {
     } else if (!strcmp("FieldDecl", node->id)) {
 
         if (search_type_var_in_table(global_table,  node->child->brother->value) != NULL) {
-          printf("Line %d, col %d: Symbol %s already defined\n",line,col ,node->child->brother->value);
+          //printf("Line %d, col %d: Symbol %s already defined\n", node->child->line, node->child->col, node->id);
+          printf("Line %d, col %d: Symbol %s already defined\n", node->child->brother->line, node->child->brother->col, node->child->brother->value);
         } else {
         append_var_table(node, global_table);
         semantic_analysis(node->brother);

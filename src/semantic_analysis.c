@@ -79,22 +79,19 @@ static char* return_type_ast(ast_node_t *node, symbol_table *head) {
     return NULL;
 }
 
-static bool match_method(ast_node_t *node, symbol_table *head) {
+static bool match_method(ast_node_t *node, symbol_table *head, bool flag) {
     if (!node || !head)
         return false;
-
-
-    /*if (node->brother && head->params && node->brother->type && !strcmp(node->brother->type, head->params->param)) {
-        return true;
-    }*/
     if (node->brother && head->params) {
         ast_node_t *cur_node = node->brother;
         param_list *cur_param = head->params;
 
-
         for (; cur_param && cur_node; cur_param = cur_param->next, cur_node = cur_node->brother) {
-            if (cur_node->type && strcmp(cur_param->param, cur_node->type))
+            if (flag && cur_node->type && !strcmp(cur_node->type, "Int") && !strcmp(cur_param->param, "Double"))
+                continue;
+            if (cur_node->type && strcmp(cur_param->param, cur_node->type)) {
                 return false;
+            }
         }
         if (cur_param || cur_node)
             return false;
@@ -103,10 +100,6 @@ static bool match_method(ast_node_t *node, symbol_table *head) {
     } else if (!node->brother && !head->params) {
         return true;
     }
-
-    if (!node->brother && !head->params)
-        return true;
-    
     return false;
 }
 
@@ -117,74 +110,70 @@ static char* copy_args(ast_node_t *node, symbol_table *head) {
         return "()";
     }
 
-    
-    if (!strcmp(node->value, head->id)) {
+    param_list *curr_param = head->params;
+    char *string = (char *) malloc(sizeof(char *) * (strlen(curr_param->param) + 1));
 
+    if (!strcmp(curr_param->param, "Int")) {
+        sprintf(string, "(int");
+    } else if (!strcmp(curr_param->param, "Bool")) {
+        sprintf(string, "(boolean");
+    } else if (!strcmp(curr_param->param, "Double")) {
+        sprintf(string, "(double");
+    } else if (!strcmp(curr_param->param, "StringArray")) {
+        sprintf(string, "(String[]");
+    } else if (!strcmp(curr_param->param, "Void")) {
+        sprintf(string, "(void");
+    } else {
+	    sprintf(string, "(%s", curr_param->param);
     }
-    
-    if (!strcmp(node->value, head->id) && match_method(node, head)) {
 
-        param_list *curr_param = head->params;
-
-        char *string = (char *) malloc(sizeof(char *) * (strlen(curr_param->param) + 1));
+    curr_param = curr_param->next;
+    for (; curr_param; curr_param = curr_param->next) {
+        string = (char *) realloc(string, sizeof(char *) * strlen(string) + strlen(curr_param->param) + 1);
 
         if (!strcmp(curr_param->param, "Int")) {
-            sprintf(string, "(int");
+            strcat(string, ",");
+            strcat(string, "int");
         } else if (!strcmp(curr_param->param, "Bool")) {
-            sprintf(string, "(boolean");
+            strcat(string, ",");
+            strcat(string, "boolean");
         } else if (!strcmp(curr_param->param, "Double")) {
-            sprintf(string, "(double");
+            strcat(string, ",");
+            strcat(string, "double");
         } else if (!strcmp(curr_param->param, "StringArray")) {
-            sprintf(string, "(String[]");
+            strcat(string, ",");
+            strcat(string, "String[]");
         } else if (!strcmp(curr_param->param, "Void")) {
-            sprintf(string, "(void");
+            strcat(string, ",");
+            strcat(string, "void");
         } else {
-	         sprintf(string, "(%s", curr_param->param);
+	        sprintf(string, "(%s", curr_param->param);
         }
-
-        curr_param = curr_param->next;
-        for (; curr_param; curr_param = curr_param->next) {
-            string = (char *) realloc(string, sizeof(char *) * strlen(string) + strlen(curr_param->param) + 1);
-
-            if (!strcmp(curr_param->param, "Int")) {
-                strcat(string, ",");
-                strcat(string, "int");
-            } else if (!strcmp(curr_param->param, "Bool")) {
-                strcat(string, ",");
-                strcat(string, "boolean");
-            } else if (!strcmp(curr_param->param, "Double")) {
-                strcat(string, ",");
-                strcat(string, "double");
-            } else if (!strcmp(curr_param->param, "StringArray")) {
-                strcat(string, ",");
-                strcat(string, "String[]");
-            } else if (!strcmp(curr_param->param, "Void")) {
-                strcat(string, ",");
-                strcat(string, "void");
-            } else {
-	          sprintf(string, "(%s", curr_param->param);
-            }
-        }
-
-        string = (char *) realloc(string, sizeof(char *) * strlen(string) + 1);
-        strcat(string, ")");
-        return string;
     }
-    return copy_args(node, head->symbols);
+    string = (char *) realloc(string, sizeof(char *) * strlen(string) + 1);
+    strcat(string, ")");
+    return string;
 }
 
-
-static char* return_type_call(ast_node_t *node, symbol_table *head) {
+static bool return_type_call(ast_node_t *node, symbol_table *head) {
     if (!node || ! head)
-        return NULL;
+        return false;
 
-    if (!strcmp(node->value, head->id) && match_method(node, head)) {
-        //printf("%s\n", head->id);
-
-        node->type = copy_args(node, head);
-        return head->value;
+    if (!strcmp(node->child->value, head->id) && match_method(node->child, head, false)) {
+        node->type = head->value;
+        node->child->type = copy_args(node, head);
     }
-    return return_type_call(node, head->symbols);
+
+    bool flag = return_type_call(node, head->symbols);
+    if (flag)
+        return flag;
+
+
+    if (!strcmp(node->child->value, head->id) && match_method(node->child, head, true)) {
+        node->type = head->value;
+        node->child->type = copy_args(node, head);
+    }
+    return true;
 }
 
 static void add_type_ast(ast_node_t *node, symbol_table *head) {
@@ -196,7 +185,7 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
         if (!strcmp(node->id, "Assign")) {
             node->type = node->child->type;
         } else if (!strcmp(node->id, "Call")) {
-            node->type = return_type_call(node->child, global_table);
+            return_type_call(node, global_table);
         } else if (!strcmp(node->id, "Length")) {
             node->type = "Int";
         } 
@@ -237,6 +226,16 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
             else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
                 node->type = "Double";
         } else if (!strcmp(node->id, "Mod")) {
+            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
+                node->type = "Int";
+            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
+                node->type = "Double";
+        } else if (!strcmp(node->id, "Lshift")) {
+            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
+                node->type = "Int";
+            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
+                node->type = "Double";
+        } else if (!strcmp(node->id, "Rshift")) {
             if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
                 node->type = "Int";
             else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))

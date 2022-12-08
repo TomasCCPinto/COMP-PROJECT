@@ -157,14 +157,14 @@ Program
 ........DecLit(1) - int
 ........RealLit(2.) - double
 ........DecLit(3) - int
-......Call
-........Id(f) - void
+......Call - double
+........Id(f) - (int,double,int,double)
 ........DecLit(0) - int
 ........RealLit(.1) - double
 ........DecLit(2) - int
 ........DecLit(3) - int
-......Call
-........Id(f) - void
+......Call - double
+........Id(f) - (int,double,int,double)
 ........DecLit(0) - int
 ........DecLit(1) - int
 ........DecLit(2) - int

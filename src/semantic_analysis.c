@@ -29,7 +29,6 @@ static void add_params(ast_node_t *node, param_list **global_head, param_list **
 	    return;
 	}
 	add_params(node->brother, global_head, func_head, symbol_head, head);
-	// add_params(node->brother, &(*global_head)->next, &(*func_head)->next, symbol_head);
 	return;
     } 
     if (global_head && func_head && symbol_head) {
@@ -47,7 +46,7 @@ static char* return_type_ast(ast_node_t *node, symbol_table *head) {
 
     symbol_table *current = head;
     for (; current; current = current->symbols) {
-        if (!strcmp(node->value, current->id) && strcmp(current->value, "")) {
+        if (!strcmp(node->value, current->id)) {
             //printf("%s - %s - %s\n", current->id, node->value, current->value);
             return current->value;
         } else if (!strcmp(node->id, "DecLit")) {

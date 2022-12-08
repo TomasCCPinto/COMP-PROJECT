@@ -69,5 +69,4 @@ class Call_Me_Maybe {
     public static double f(int a, double b, int c, double d) {
     }
 
-
 }

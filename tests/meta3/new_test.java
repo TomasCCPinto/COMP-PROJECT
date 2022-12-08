@@ -22,6 +22,7 @@ class AA {
 
     public static boolean b;
     public static int a;
+    public static int a;
     public static int f;
 
     

@@ -2,6 +2,9 @@
 #include "table.h"
 #include <stdio.h>
 
+extern int line;
+extern int col;
+
 
 static bool in_table(const symbol_table *head, const char *value) {
   if (!head)
@@ -328,6 +331,37 @@ static void append_var_table(ast_node_t *node, symbol_table *symbol_node) {
     append_var_table(node, symbol_node->symbols);
 }
 
+/*
+char *search_type_var(symbol_table *table_global, symbol_table *table_local, char *var_name) {
+  char *aux = search_type_var_in_table(table_local, var_name);
+  if (aux != NULL) {
+    return aux;
+  }
+  aux = search_type_var_in_table(table_global, var_name);
+  if (aux != NULL) {
+    return aux;
+  }
+  return NULL;
+}
+*/
+
+char *search_type_var_in_table(symbol_table *table, char *var_name) {
+  if (table == NULL) {
+    return NULL;
+  }
+
+  symbol_table *current = table;
+
+  while (current != NULL) {
+    if (strcmp(current->id, var_name) == 0  && !current->is_func) {
+      return current->value;
+    }
+    current = current->symbols;
+  }
+
+  return NULL;
+}
+
 void semantic_analysis(ast_node_t *node) {
     if (!node) 
         return;
@@ -343,10 +377,15 @@ void semantic_analysis(ast_node_t *node) {
 
         return; 
     } else if (!strcmp("FieldDecl", node->id)) {
+
+        if (search_type_var_in_table(global_table,  node->child->brother->value) != NULL) {
+          printf("Line %d, col %d: Symbol %s already defined\n",line,col ,node->child->brother->value);
+        } else {
         append_var_table(node, global_table);
         semantic_analysis(node->brother);
-
-        return; 
+        
+        return;
+        } 
     }
 
     semantic_analysis(node->brother);

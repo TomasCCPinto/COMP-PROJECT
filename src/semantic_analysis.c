@@ -4,7 +4,7 @@
 
 extern int line;
 extern int col;
-
+char *search_type_var_in_table(symbol_table *table, char *var_name);
 
 static bool in_table(const symbol_table *head, const char *value) {
   if (!head)
@@ -18,7 +18,7 @@ static bool in_table(const symbol_table *head, const char *value) {
   return true;
 }
 
-static void add_params(ast_node_t *node, param_list **global_head, param_list **func_head, symbol_table **symbol_head, const symbol_table *head) {
+static void add_params(ast_node_t *node, param_list **global_head, param_list **func_head, symbol_table **symbol_head, const symbol_table *head, symbol_table *tabela) {
     if (!node)
 	return;
 
@@ -26,20 +26,33 @@ static void add_params(ast_node_t *node, param_list **global_head, param_list **
 
 	*global_head = param_list_node(node->child->id);
 	*func_head = param_list_node(node->child->id);
-	if (in_table(head, node->child->brother->value)) {
-	    *symbol_head = symbol_table_node(node->child->brother->value, node->child->id, true, false);
-	    add_params(node->brother, global_head, func_head, &(*symbol_head)->symbols, head);
-	    return;
-	}
-	add_params(node->brother, global_head, func_head, symbol_head, head);
+
+    
+    //printf("lol-> %s\n",search_type_var_in_table(*symbol_head,  node->child->brother->value) );
+    //if (search_type_var_in_table(*symbol_head,  node->child->brother->value) != NULL) {
+    //    printf("Line , col : Symbol %s already defined\n",node->child->brother->value);
+	//    }
+    //else{
+
+    //tinha aqui in_table
+    if (search_type_var_in_table(tabela,  node->child->brother->value) != NULL) {
+        printf("Line %d, col %d: Symbol %s already defined\n", node->child->brother->line, node->child->brother->col, node->child->brother->value);
+    }
+    *symbol_head = symbol_table_node(node->child->brother->value, node->child->id, true, false);
+	add_params(node->brother, global_head, func_head, &(*symbol_head)->symbols, head,tabela);
+	return;
+    
+
+    print_table(*symbol_head);
+	add_params(node->brother, global_head, func_head, symbol_head, head,tabela);
 	return;
     } 
     if (global_head && func_head && symbol_head) {
-      add_params(node, &(*global_head)->next, &(*func_head)->next, symbol_head, head);
+      add_params(node, &(*global_head)->next, &(*func_head)->next, symbol_head, head,tabela);
     } else if (global_head) {
-      add_params(node, &(*global_head)->next, func_head, symbol_head, head);
+      add_params(node, &(*global_head)->next, func_head, symbol_head, head,tabela);
     } else if (func_head) {
-      add_params(node, global_head, &(*func_head)->next, symbol_head, head);
+      add_params(node, global_head, &(*func_head)->next, symbol_head, head,tabela);
     }
 }
 
@@ -286,9 +299,13 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
 
     if (!(*symbol_node)) {
         if (!strcmp(node->id, "VarDecl")) {
-	        if (in_table(head, node->child->brother->value)) {
-	            *symbol_node = symbol_table_node(node->child->brother->value, node->child->id, false, false);
+            //printf("lol-> %d\n",search_type_var_in_table(head,  node->child->brother->value) );
+	        if (search_type_var_in_table(head,  node->child->brother->value) != NULL) {
+                printf("Line %d, col %d: Symbol %s already defined\n", node->child->brother->line, node->child->brother->col, node->child->brother->value);
 	        }
+            else{
+                *symbol_node = symbol_table_node(node->child->brother->value, node->child->id, false, false);
+            }
         } else if (!strcmp(node->id, "Assign")) {
             add_type_ast(node, head);
         } else if (!strcmp(node->id, "Return")) {
@@ -318,7 +335,11 @@ static symbol_table* append_symbol_table(ast_node_t *node, symbol_table *symbol_
     symbol_node->next = symbol_table_node(node->child->brother->value, "", false, true); 
     symbol_node->next->symbols = symbol_table_node("return", node->child->id, false, false); 
     if (node->child->brother->brother && node->child->brother->brother->child && !strcmp(node->child->brother->brother->child->id, "ParamDecl")) {
-        add_params(node->child->brother->brother->child, &symbol_node->symbols->params, &symbol_node->next->params, &symbol_node->next->symbols->symbols, symbol_node->next->symbols->symbols);
+        //printf("lalala\n");
+        //print_table(symbol_node->next);
+        //printf("lelelele\n");
+        add_params(node->child->brother->brother->child, &symbol_node->symbols->params, &symbol_node->next->params, &symbol_node->next->symbols->symbols, symbol_node->next->symbols->symbols, symbol_node->next);
+        
     }
     return symbol_node;
 }
@@ -350,6 +371,8 @@ char *search_type_var_in_table(symbol_table *table, char *var_name) {
     return NULL;
   }
 
+
+  
   symbol_table *current = table;
 
   while (current != NULL) {

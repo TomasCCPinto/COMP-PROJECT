@@ -5,6 +5,7 @@
 extern int line;
 extern int col;
 char *search_type_var_in_table(symbol_table *table, char *var_name);
+char * get_types(char * type );
 
 static bool in_table(const symbol_table *head, const char *value) {
   if (!head)
@@ -28,11 +29,7 @@ static void add_params(ast_node_t *node, param_list **global_head, param_list **
 	*func_head = param_list_node(node->child->id);
 
     
-    //printf("lol-> %s\n",search_type_var_in_table(*symbol_head,  node->child->brother->value) );
-    //if (search_type_var_in_table(*symbol_head,  node->child->brother->value) != NULL) {
-    //    printf("Line , col : Symbol %s already defined\n",node->child->brother->value);
-	//    }
-    //else{
+    
 
     //tinha aqui in_table
     if (search_type_var_in_table(tabela,  node->child->brother->value) != NULL) {
@@ -56,6 +53,27 @@ static void add_params(ast_node_t *node, param_list **global_head, param_list **
     }
 }
 
+
+static bool is_declit(const char *number) {
+    char string[strlen(number) + 2];
+    strcpy(string, number);
+
+    for (int i = 0; string[i] != '\0'; ++i) {
+        if (string[i] == '_') {
+            int j = i;
+            for (; string[j+1] != '\0'; ++j) {
+                string[j] = string[j+1];
+            }
+            string[j] = '\0';
+            i--;
+        }
+    }
+    long long convertion = atoll(string);
+        
+    return convertion < 2147483648;
+}
+
+
 static char* return_type_ast(ast_node_t *node, symbol_table *head) {
     if (!node->value) 
         return NULL;
@@ -68,6 +86,13 @@ static char* return_type_ast(ast_node_t *node, symbol_table *head) {
             //printf("%s - %s - %s\n", current->id, node->value, current->value);
             return current->value;
         } else if (!strcmp(node->id, "DecLit")) {
+            // -2147483648
+            if (is_declit(node->value)) {
+                return "Int";
+            } else {
+                printf("Line %d, col %d: Number %s out of bounds\n", node->line, node->col, node->value);
+                return "Int";
+            }
             return "Int";
         } else if (!strcmp(node->id, "RealLit")) {
             return "Double";
@@ -234,6 +259,11 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
                 node->child->type=NULL;
             }
             return_type_call(node, global_table);
+            if (!node->type) {
+                node->type = "undef";
+                node->child->type = "undef";
+                printf("Line %d, col %d: Cannot find symbol %s\n", node->child->line, node->child->col, node->child->value);
+            }
             //printf("-- %s\n",node->child->type);
         } else if (!strcmp(node->id, "Length")) {
             node->type = "Int";
@@ -247,6 +277,14 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
             node->type = "Bool";
         } else if (!strcmp(node->id, "And") || !strcmp(node->id, "Or") || !strcmp(node->id, "Xor") || !strcmp(node->id, "Not") ) {
             node->type = "Bool";
+        }
+        
+
+        if (node->child && node->child->type && !strcmp(node->id, "Add")) {
+            if (!strcmp(node->child->type, "Int"))
+                node->type = "Int";
+            else if (!strcmp(node->child->type, "Double"))
+                node->type = "Double";
         }
 
         if (!node->child || !node->child->type)
@@ -314,8 +352,33 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
             add_type_ast(node, head);
         } else if (!strcmp(node->id, "If")) {
             add_type_ast(node->child, head);
+
+            //printf("lol->%s\n",node->child->type);
+            
+            if (!node->child->value || strcmp(node->child->type, "Bool")) {
+                if (node->child->line != -1)
+                    printf("Line %d, col %d: Incompatible type %s in if statement\n", node->child->line, node->child->col, get_types(node->child->type));
+                //else
+                //printf("Line %d, col %d: Incompatible type %s in if statement\n", node->child->child->line, node->child->child->col, get_types(node->child->type));
+
+                //printf("%s - %s\n", node->child->id, node->child->value);
+            }
+            
+
         } else if (!strcmp(node->id, "While")) {
             add_type_ast(node->child, head);
+
+            if (!node->child->value || strcmp(node->child->type, "Bool")) {
+                if (node->child->line != -1)
+                    printf("Line %d, col %d: Incompatible type %s in while statement\n", node->child->line, node->child->col, get_types(node->child->type));
+                   
+                //else
+                //printf("Line %d, col %d: Incompatible type %s in if statement\n", node->child->child->line, node->child->child->col, get_types(node->child->type));
+
+                //printf("%s - %s\n", node->child->id, node->child->value);
+            }
+
+            
         } else if (!strcmp(node->id, "Print")) {
             add_type_ast(node->child, head);
         }
@@ -415,4 +478,26 @@ void semantic_analysis(ast_node_t *node) {
 
     semantic_analysis(node->brother);
     semantic_analysis(node->child);
+}
+
+
+char * get_types(char * type ){
+    if(strcmp(type,"Bool")==0){
+      return "boolean";  
+    }
+    else if(strcmp(type,"Int")==0){
+      return "int";  
+    }
+    else if(strcmp(type,"Double")==0){
+      return "double";  
+    }
+    else if(strcmp(type,"StringArray")==0){
+      return "String[]";  
+    }
+    else if(strcmp(type,"Void")==0){
+      return "void";  
+    }
+    else{
+        return "";
+    }
 }

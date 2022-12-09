@@ -31,7 +31,7 @@ token_t token(char *value, int line, int col, int type) {
     token.value =  (char *) strdup(value);
     return token;
 
-    for (int i = 0; i < 5; ++i) {
+    /*for (int i = 0; i < 5; ++i) {
         if (type == types[i]) {
             token.value =  (char *) strdup(value);
             return token;
@@ -39,7 +39,7 @@ token_t token(char *value, int line, int col, int type) {
     }
 
     token.value =  (char *) strdup(value);
-    return token;
+    return token;*/
 }
 
 ast_node_t *ast_node(char *id, token_t token) {

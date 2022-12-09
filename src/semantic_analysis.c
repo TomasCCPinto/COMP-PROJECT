@@ -87,12 +87,12 @@ static char* return_type_ast(ast_node_t *node, symbol_table *head) {
             return current->value;
         } else if (!strcmp(node->id, "DecLit")) {
             // -2147483648
-            /*if (is_declit(node->value)) {
+            if (is_declit(node->value)) {
                 return "Int";
             } else {
                 printf("Line %d, col %d: Number %s out of bounds\n", node->line, node->col, node->value);
                 return "Int";
-            }*/
+            }
             return "Int";
         } else if (!strcmp(node->id, "RealLit")) {
             return "Double";
@@ -389,6 +389,8 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
             
         } else if (!strcmp(node->id, "Print")) {
             add_type_ast(node->child, head);
+            if (!strcmp(node->child->type, "undef"))
+                printf("Line %d, col %d: Incompatible type undef in System.out.print\n", node->child->line, node->col);
         }
 
         add_body_params(node->brother, symbol_node, head);

@@ -28,6 +28,7 @@ typedef struct _ASTNode {
 } ast_node_t;
 
 #define NULL_TOKEN (token_t) { .value = NULL, .line = -1, .col = -1 }
+#define COPY_POS(AST, TOKEN) AST->line = TOKEN.line; AST->col = TOKEN.col
 
 extern bool syntax_error; 
 

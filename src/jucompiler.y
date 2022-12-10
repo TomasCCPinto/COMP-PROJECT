@@ -222,8 +222,8 @@ Statement: LBRACE Statement2 RBRACE                                            {
          | ParseArgs SEMICOLON                                                  { $$ = $1; }
          | error SEMICOLON                                                      { $$ = NULL; }
          | SEMICOLON                                                            { $$ = NULL; }
-         | PRINT LPAR Expr RPAR SEMICOLON                                       { $$ = ast_node("Print", NULL_TOKEN); add_children($$, $3);  }
-         | PRINT LPAR STRLIT RPAR SEMICOLON                                     { $$ = ast_node("Print", NULL_TOKEN); add_children($$, ast_node("StrLit", $3));  }
+         | PRINT LPAR Expr RPAR SEMICOLON                                       { $$ = ast_node("Print", NULL_TOKEN); COPY_POS2($$, $3); add_children($$, $3);  }
+         | PRINT LPAR STRLIT RPAR SEMICOLON                                     { $$ = ast_node("Print", NULL_TOKEN); COPY_POS($$, $3); add_children($$, ast_node("StrLit", $3));  }
          ;
 
 Statement2: Statement Statement2                                                { if($1) {$$ = $1; add_brother($$, $2); } else { $$ = $2; }}
@@ -231,16 +231,16 @@ Statement2: Statement Statement2                                                
 
 MethodInvocation: ID LPAR RPAR                                                  {  $$ = ast_node("Call", NULL_TOKEN); aux = ast_node("Id", $1); add_children($$, aux);  }
                 | ID LPAR error RPAR                                            {  $$ = NULL; }
-                | ID LPAR Expr MethodInvocation2 RPAR                           {  $$ = ast_node("Call", NULL_TOKEN); aux = ast_node("Id", $1); add_children($$, aux); add_brother(aux, $3); add_brother($3, $4);  }
+                | ID LPAR Expr MethodInvocation2 RPAR                           {  $$ = ast_node("Call", NULL_TOKEN); COPY_POS($$, $1); aux = ast_node("Id", $1); add_children($$, aux); add_brother(aux, $3); add_brother($3, $4);  }
                 ;
 
-MethodInvocation2: COMMA Expr MethodInvocation2                                 { if ($2) {$$ = $2; add_brother($$, $3);} else {$$ = $2;}  }
+MethodInvocation2: COMMA Expr MethodInvocation2                                 { if ($2) {$$ = $2; add_brother($$, $3);} else {$$ = $2;} }
                  | error                                                        { $$ = NULL;}
                  |                                                              { $$ = NULL; }
                  ;
 
 
-Assignment: ID ASSIGN Expr                                                      { $$ = ast_node("Assign", NULL_TOKEN); aux = ast_node("Id", $1); add_children($$, aux); add_brother(aux, $3); /*addicionar expr*/ }
+Assignment: ID ASSIGN Expr                                                      { $$ = ast_node("Assign", NULL_TOKEN); COPY_POS($$, $2); aux = ast_node("Id", $1); add_children($$, aux); add_brother(aux, $3); /*addicionar expr*/ }
 
 
 ParseArgs: PARSEINT LPAR ID LSQ Expr RSQ RPAR                                   { $$ = ast_node("ParseArgs", NULL_TOKEN); aux = ast_node("Id", $3); add_children($$, aux); add_brother(aux, $5); }
@@ -252,25 +252,25 @@ Expr: Assignment                                                                
      ;
 
 Expr1: Expr1 PLUS   Expr1                                                       { $$ = ast_node("Add", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
-    | Expr1 MINUS  Expr1                                                        { $$ = ast_node("Sub", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
-    | Expr1 STAR   Expr1                                                        { $$ = ast_node("Mul", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
-    | Expr1 DIV    Expr1                                                        { $$ = ast_node("Div", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
-    | Expr1 MOD    Expr1                                                        { $$ = ast_node("Mod", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
-    | Expr1 AND    Expr1                                                        { $$ = ast_node("And", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
-    | Expr1 OR     Expr1                                                        { $$ = ast_node("Or",  NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
-    | Expr1 XOR    Expr1                                                        { $$ = ast_node("Xor", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 MINUS  Expr1                                                        { $$ = ast_node("Sub", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 STAR   Expr1                                                        { $$ = ast_node("Mul", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 DIV    Expr1                                                        { $$ = ast_node("Div", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 MOD    Expr1                                                        { $$ = ast_node("Mod", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 AND    Expr1                                                        { $$ = ast_node("And", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 OR     Expr1                                                        { $$ = ast_node("Or",  NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 XOR    Expr1                                                        { $$ = ast_node("Xor", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
     | Expr1 LSHIFT Expr1                                                        { $$ = ast_node("Lshift", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
     | Expr1 RSHIFT Expr1                                                        { $$ = ast_node("Rshift", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
-    | Expr1 EQ     Expr1                                                        { $$ = ast_node("Eq", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
-    | Expr1 GE     Expr1                                                        { $$ = ast_node("Ge", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
-    | Expr1 GT     Expr1                                                        { $$ = ast_node("Gt", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
-    | Expr1 LE     Expr1                                                        { $$ = ast_node("Le", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
-    | Expr1 LT     Expr1                                                        { $$ = ast_node("Lt", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
-    | Expr1 NE     Expr1                                                        { $$ = ast_node("Ne", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
-    | MINUS       Expr1           %prec NO_ELSE                                { $$ = ast_node("Minus", NULL_TOKEN); add_children($$, $2); }
-    | NOT         Expr1                                                         { $$ = ast_node("Not", NULL_TOKEN); add_children($$, $2); }
-    | PLUS        Expr1           %prec NO_ELSE                                 { $$ = ast_node("Plus", NULL_TOKEN); add_children($$, $2); }
-    | LPAR        Expr RPAR                                                    { $$ = $2; }
+    | Expr1 EQ     Expr1                                                        { $$ = ast_node("Eq", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 GE     Expr1                                                        { $$ = ast_node("Ge", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 GT     Expr1                                                        { $$ = ast_node("Gt", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 LE     Expr1                                                        { $$ = ast_node("Le", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 LT     Expr1                                                        { $$ = ast_node("Lt", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 NE     Expr1                                                        { $$ = ast_node("Ne", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
+    | MINUS       Expr1           %prec NO_ELSE                                 { $$ = ast_node("Minus", NULL_TOKEN); COPY_POS($$, $1); add_children($$, $2); }
+    | NOT         Expr1                                                         { $$ = ast_node("Not", NULL_TOKEN); COPY_POS($$, $1); add_children($$, $2); }
+    | PLUS        Expr1           %prec NO_ELSE                                 { $$ = ast_node("Plus", NULL_TOKEN); COPY_POS($$, $1); add_children($$, $2); }
+    | LPAR        Expr RPAR                                                     { $$ = $2; }
     | LPAR error RPAR                                                           { $$ = NULL; }
     | MethodInvocation                                                          { $$ = $1; }
     | ParseArgs                                                                 { $$ = $1; }

@@ -254,17 +254,22 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
         if (!strcmp(node->id, "Assign")) {
             node->type = node->child->type;
         } else if (!strcmp(node->id, "Call")) {
-            //("-- %s\n",node->child->type);
-            if(strcmp(node->child->id,"Id")==0){
-                node->child->type=NULL;
-            }
             return_type_call(node, global_table);
             if (!node->type) {
                 node->type = "undef";
                 node->child->type = "undef";
-                printf("Line %d, col %d: Cannot find symbol %s\n", node->child->line, node->child->col, node->child->value);
+                printf("Line %d, col %d: Cannot find symbol %s(", node->child->line, node->child->col, node->child->value);
+
+                if (node->child &&  node->child->brother) {
+                    ast_node_t *current = node->child->brother;
+                    for (; current->brother; current = current->brother) {
+                        printf("%s,\n", get_types(current->type));
+                    }
+                    printf("%s)\n", get_types(current->type));
+                } else {
+                    printf("()\n");
+                }
             }
-            //printf("-- %s\n",node->child->type);
         } else if (!strcmp(node->id, "Length")) {
             node->type = "Int";
         } else if (!strcmp(node->id, "ParseArgs")) {
@@ -354,9 +359,8 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
 
             //printf("lol->%s\n",node->child->type);
             
-            if (!node->child->value || strcmp(node->child->type, "Bool")) {
-                if (node->child->line != -1)
-                    printf("Line %d, col %d: Incompatible type %s in if statement\n", node->child->line, node->child->col, get_types(node->child->type));
+            if (node->child->type && strcmp(node->child->type, "Bool")) {
+                printf("Line %d, col %d: Incompatible type %s in if statement\n", node->child->line, node->child->col, get_types(node->child->type));
                 //else
                 //printf("Line %d, col %d: Incompatible type %s in if statement\n", node->child->child->line, node->child->child->col, get_types(node->child->type));
 
@@ -378,9 +382,10 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
                 //printf("%s - %s\n", node->child->id, node->child->value);
             }
             */
-            
         } else if (!strcmp(node->id, "Print")) {
             add_type_ast(node->child, head);
+            if (!strcmp(node->child->type, "undef"))
+                printf("Line %d, col %d: Incompatible type undef in System.out.print statement\n", node->child->line, node->child->col);
         } else if (!strcmp(node->id, "ParseArgs")) {
             node->type = "Int";
             add_type_ast(node->child, head);

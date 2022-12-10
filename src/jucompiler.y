@@ -222,8 +222,8 @@ Statement: LBRACE Statement2 RBRACE                                            {
          | ParseArgs SEMICOLON                                                  { $$ = $1; }
          | error SEMICOLON                                                      { $$ = NULL; }
          | SEMICOLON                                                            { $$ = NULL; }
-         | PRINT LPAR Expr RPAR SEMICOLON                                       { $$ = ast_node("Print", NULL_TOKEN); add_children($$, $3);  }
-         | PRINT LPAR STRLIT RPAR SEMICOLON                                     { $$ = ast_node("Print", NULL_TOKEN); add_children($$, ast_node("StrLit", $3));  }
+         | PRINT LPAR Expr RPAR SEMICOLON                                       { $$ = ast_node("Print", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $3);  }
+         | PRINT LPAR STRLIT RPAR SEMICOLON                                     { $$ = ast_node("Print", NULL_TOKEN); COPY_POS($$, $2); add_children($$, ast_node("StrLit", $3));  }
          ;
 
 Statement2: Statement Statement2                                                { if($1) {$$ = $1; add_brother($$, $2); } else { $$ = $2; }}

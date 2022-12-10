@@ -539,7 +539,7 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
         } else if (!strcmp(node->id, "Print")) {
             add_type_ast(node->child, head);
             if (!strcmp(node->child->type, "undef"))
-                printf("Line %d, col %d: Incompatible type undef in System.out.print statement\n", node->line, node->col);
+                printf("Line %d, col %d: Incompatible type undef in System.out.print statement\n", node->child->line, node->child->col);
         }
 
         add_body_params(node->brother, symbol_node, head);

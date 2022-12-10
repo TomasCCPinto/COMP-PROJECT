@@ -1,18 +1,31 @@
-Line 27, col 11: Operator = cannot be applied to types int, boolean
-Line 28, col 18: Operator ^ cannot be applied to types double, double
-Line 28, col 11: Operator = cannot be applied to types int, undef
+Line 5, col 23: Symbol teste2 already defined
+Line 11, col 26: Cannot find symbol factorial
+Line 11, col 26: Incompatible type undef in System.out.print statement
 ===== Class ClassTeste Symbol Table =====
+teste0		int
+teste1		int
+teste2		int
 main	(String[])	void
 
 ===== Method main(String[]) Symbol Table =====
 return		void
 args		String[]	param
-b		boolean
-i		int
-d		double
+argument		int
 
 Program
 ..Id(ClassTeste)
+..FieldDecl
+....Int
+....Id(teste0)
+..FieldDecl
+....Int
+....Id(teste1)
+..FieldDecl
+....Int
+....Id(teste2)
+..FieldDecl
+....Int
+....Id(teste2)
 ..MethodDecl
 ....MethodHeader
 ......Void
@@ -23,105 +36,14 @@ Program
 ..........Id(args)
 ....MethodBody
 ......VarDecl
-........Bool
-........Id(b)
-......VarDecl
 ........Int
-........Id(i)
-......VarDecl
-........Double
-........Id(d)
-......Assign - boolean
-........Id(b) - boolean
-........And - boolean
-..........BoolLit(true) - boolean
-..........BoolLit(true) - boolean
-......Assign - boolean
-........Id(b) - boolean
-........And - boolean
-..........Not - boolean
-............BoolLit(true) - boolean
-..........BoolLit(true) - boolean
-......Assign - boolean
-........Id(b) - boolean
-........And - boolean
-..........BoolLit(true) - boolean
-..........Not - boolean
-............BoolLit(true) - boolean
-......Assign - boolean
-........Id(b) - boolean
-........And - boolean
-..........Not - boolean
-............BoolLit(true) - boolean
-..........Not - boolean
-............BoolLit(true) - boolean
-......Assign - boolean
-........Id(b) - boolean
-........Or - boolean
-..........BoolLit(true) - boolean
-..........BoolLit(true) - boolean
-......Assign - boolean
-........Id(b) - boolean
-........Or - boolean
-..........Not - boolean
-............BoolLit(true) - boolean
-..........BoolLit(true) - boolean
-......Assign - boolean
-........Id(b) - boolean
-........Or - boolean
-..........BoolLit(true) - boolean
-..........Not - boolean
-............BoolLit(true) - boolean
-......Assign - boolean
-........Id(b) - boolean
-........Or - boolean
-..........Not - boolean
-............BoolLit(true) - boolean
-..........Not - boolean
-............BoolLit(true) - boolean
-......Assign - boolean
-........Id(b) - boolean
-........Xor - boolean
-..........BoolLit(true) - boolean
-..........BoolLit(true) - boolean
-......Assign - boolean
-........Id(b) - boolean
-........Xor - boolean
-..........Not - boolean
-............BoolLit(true) - boolean
-..........BoolLit(true) - boolean
-......Assign - boolean
-........Id(b) - boolean
-........Xor - boolean
-..........BoolLit(true) - boolean
-..........Not - boolean
-............BoolLit(true) - boolean
-......Assign - boolean
-........Id(b) - boolean
-........Xor - boolean
-..........Not - boolean
-............BoolLit(true) - boolean
-..........Not - boolean
-............BoolLit(true) - boolean
+........Id(argument)
 ......Assign - int
-........Id(i) - int
-........Xor - int
-..........DecLit(10) - int
-..........DecLit(10) - int
-......Assign - int
-........Id(i) - int
-........Xor - boolean
-..........BoolLit(true) - boolean
-..........BoolLit(true) - boolean
-......Assign - int
-........Id(i) - int
-........Xor - undef
-..........RealLit(10.0) - double
-..........RealLit(10.0) - double
-......Assign - boolean
-........Id(b) - boolean
-........Id(b) - boolean
-......Assign - boolean
-........Id(b) - boolean
-........Not - boolean
-..........Id(b) - boolean
+........Id(argument) - int
+........ParseArgs - int
+..........Id(args) - String[]
+..........DecLit(0) - int
+......Print
+........Call - undef
+..........Id(factorial) - undef
+..........Id(argument) - int

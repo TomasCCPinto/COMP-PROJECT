@@ -250,9 +250,43 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
         add_type_ast(node->brother, head);
 
         
+        if (!strcmp(node->id, "Return")) {
 
-        if (!strcmp(node->id, "Assign")) {
+            /*
+            if (node->child != NULL) {
+                if (strcmp(table_local->vars->type, "void") == 0) {
+                    printf("Line %d, col %d: Incompatible type %s in return statement\n", aux2->line, aux2->colunm, aux2->anoted);
+                } else if (strcmp(table_local->vars->type, aux2->anoted) == 0) {
+                    return;
+                } else if (strcmp(table_local->vars->type, "double") == 0) {
+                    if ((strcmp(aux2->anoted, "int") && strcmp(aux2->anoted, "double"))) {
+                    printf("Line %d, col %d: Incompatible type %s in return statement\n", aux2->line, aux2->colunm, aux2->anoted);
+                    }
+                } else {
+                    printf("Line %d, col %d: Incompatible type %s in return statement\n", aux2->line, aux2->colunm, aux2->anoted);
+                }
+            } else {
+                if (strcmp(table_local->vars->type, "void")) {
+                    printf("Line %d, col %d: Incompatible type void in return statement\n", atual->line, atual->colunm);
+                }
+            }
+            */
+
+        } 
+        else if (!strcmp(node->id, "Assign")) {
+
             node->type = node->child->type;
+
+            if(node->child->type && node->child->brother->type){
+            if (strcmp(node->child->type, node->child->brother->type) == 0 && strcmp(node->child->type, "undef") && strcmp(node->child->type, "StringArray")) {
+                return;
+            } else if (strcmp(node->child->type, "Double") == 0 && strcmp(node->child->brother->type, "Int") == 0) {
+                return;
+            } else {
+                printf("Line %d, col %d: Operator = cannot be applied to types %s, %s\n", node->line, node->col, get_types(node->child->type), get_types(node->child->brother->type));
+            }
+            }
+            
         } else if (!strcmp(node->id, "Call")) {
             //("-- %s\n",node->child->type);
             if(strcmp(node->child->id,"Id")==0){
@@ -266,19 +300,96 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
             }
             //printf("-- %s\n",node->child->type);
         } else if (!strcmp(node->id, "Length")) {
+
+            if(node->child->type){
+            if (strcmp(node->child->type, "StringArray")) {
+                printf("Line %d, col %d: Operator .length cannot be applied to type %s\n", node->line, node->col, get_types(node->child->type));
+            }
+            }
             node->type = "Int";
         } 
 
 
         if (!strcmp(node->id, "ParseArgs")) {
-            // NOT SURE IT'S ALWAYS: INT
+
+            // A dar erro n sei pq -> MAYBE YACC
+            
+            if(node->child->type && node->child->brother->type){
+                if (strcmp(node->child->type, "StringArray")) {
+                    printf("Line %d, col %d: Operator Integer.parseInt cannot be applied to types %s, %s\n", node->line, node->col, node->child->type, get_types(node->child->brother->type));
+                } else if (strcmp(node->child->brother->type, "Int")) {
+                    printf("Line %d, col %d: Operator Integer.parseInt cannot be applied to types %s, %s\n", node->line, node->col, node->child->type, get_types(node->child->brother->type));
+                }
+            }
+            
+           
             node->type = "Int";
         } else if (!strcmp(node->id, "Eq") || !strcmp(node->id, "Le") || !strcmp(node->id, "Ne") || !strcmp(node->id, "Ge") || !strcmp(node->id, "Gt") || !strcmp(node->id, "Lt") ) {
             node->type = "Bool";
-        } else if (!strcmp(node->id, "And") || !strcmp(node->id, "Or") || !strcmp(node->id, "Xor") || !strcmp(node->id, "Not") ) {
+
+            char *aux;
+            //eq == eq
+            //le <= leq
+            //ne != neq
+            //ge >= geq
+            //gt >  gt
+            //lt <  lt
+
+            if (strcmp(node->id, "Eq") == 0) {
+                aux = "==";
+            } else if (strcmp(node->id, "Gt") == 0) {
+                aux = ">";
+            } else if (strcmp(node->id, "Ge") == 0) {
+                aux = ">=";
+            } else if (strcmp(node->id, "Le") == 0) {
+                aux = "<=";
+            } else if (strcmp(node->id, "Lt") == 0) {
+                aux = "<";
+            } else if (strcmp(node->id, "Ne") == 0) {
+                aux = "!=";
+            }
+
+            if (strcmp(node->id, "Eq") == 0 || strcmp(node->id, "Ne") == 0) {
+                if (strcmp(node->child->type, "Bool") == 0 && strcmp(node->child->brother->type, "Bool") == 0) {
+                    return;
+                }
+            }
+
+            if (strcmp(node->child->type, "Int") && strcmp(node->child->type, "Double")) {
+                printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", node->line, node->col, aux, get_types(node->child->type), get_types(node->child->brother->type));
+            } else if (strcmp(node->child->brother->type, "Double") && strcmp(node->child->brother->type, "Int")) {
+                printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", node->line, node->col, aux, get_types(node->child->type), get_types(node->child->brother->type));
+            }
+
+        } else if (!strcmp(node->id, "And") || !strcmp(node->id, "Or")  ) {
+            //node->child->type é apanhado a null algumas vezes idk why
+            
+            //printar errado -> ERRO YACC
+            if(node->child->type){
+            if (strcmp(node->child->type, "Bool") && strcmp(node->id, "And") == 0) {
+                printf("Line %d, col %d: Operator && cannot be applied to types %s, %s\n", node->line, node->col, get_types(node->child->type), get_types(node->child->brother->type));
+            } else if (strcmp(node->child->type, "Bool") && strcmp(node->id, "Or") == 0) {
+                printf("Line %d, col %d: Operator || cannot be applied to types %s, %s\n", node->line, node->col, get_types(node->child->type), get_types(node->child->brother->type));
+            } else if (strcmp(node->child->brother->type, "Bool") && strcmp(node->id, "And") == 0) {
+                printf("Line %d, col %d: Operator && cannot be applied to types %s, %s\n", node->line, node->col, get_types(node->child->type), get_types(node->child->brother->type));
+            } else if (strcmp(node->child->brother->type, "Bool") && strcmp(node->id, "Or") == 0) {
+                printf("Line %d, col %d: Operator || cannot be applied to types %s, %s\n", node->line, node->col, get_types(node->child->type), get_types(node->child->brother->type));
+            }
+            }
             node->type = "Bool";
-        }
-        
+
+        } else if ( !strcmp(node->id, "Not") ) {
+
+            
+            if (strcmp(node->child->type, "Bool")) {
+                printf("Line %d, col %d: Operator ! cannot be applied to type %s\n", node->line, node->col, get_types(node->child->type));
+            }
+            node->type = "Bool";
+
+        }else if (!strcmp(node->id, "Xor")){
+            //falta erros aqui
+            node->type = "Bool";
+        } 
 
 
         if (!node->child || !node->child->type)
@@ -299,6 +410,50 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
         if (!node->child->brother || !node->child->brother->type)
             return;
 
+        //ERRO YACC PROBABLY
+        /**/
+        if (!strcmp(node->id, "Add") || !strcmp(node->id, "Sub") ||  !strcmp(node->id, "Mul") || !strcmp(node->id, "Div") || !strcmp(node->id, "Mod")) {
+            char *aux;
+
+            
+            if (strcmp(node->id, "Add") == 0) {
+                aux = "+";
+            } else if (strcmp(node->id, "Sub") == 0) {
+                aux = "-";
+            } else if (strcmp(node->id, "Mul") == 0) {
+                aux = "*";
+            } else if (strcmp(node->id, "Div") == 0) {
+                aux = "/";
+            } else {
+                aux = "%";
+            }
+
+            
+            //printf("->%s\n",node->child->brother->type);
+            if (strcmp(node->child->type, "Int") == 0) {
+                if (strcmp(node->child->brother->type, "Int") == 0) {
+                    node->type = "Int";
+                } else if (strcmp(node->child->brother->type, "Double") == 0) {
+                    node->type = "Double";
+                } else {
+                    printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", node->line, node->col, aux, get_types(node->child->type), get_types(node->child->brother->type));
+                    node->type = "undef";
+                }
+            } else if (strcmp(node->child->type, "Double") == 0) {
+                if (strcmp(node->child->brother->type, "Int") && strcmp(node->child->brother->type, "Double")) {
+                    printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", node->line, node->col, aux, get_types(node->child->type), get_types(node->child->brother->type));
+                    node->type = "undef";
+                } else {
+                    node->type = "Double";
+                }
+            } else {
+                printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", node->line, node->col, aux, get_types(node->child->type), get_types(node->child->brother->type));
+                node->type = "undef";
+            }
+        
+        }      
+
+        /*
         if (!strcmp(node->id, "Add")) {
             if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
                 node->type = "Int";
@@ -324,17 +479,34 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
                 node->type = "Int";
             else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
                 node->type = "Double";
-        } else if (!strcmp(node->id, "Lshift")) {
+        } 
+        */
+        
+        
+        else if (!strcmp(node->id, "Lshift")  ) {
             if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
                 node->type = "Int";
-            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
-                node->type = "Double";
+            else {
+                printf("Line %d, col %d: Operator << cannot be applied to types %s, %s\n",node->line, node->col, get_types(node->child->type),get_types(node->child->brother->type));
+                node->type = "undef";
+            }
         } else if (!strcmp(node->id, "Rshift")) {
             if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
                 node->type = "Int";
-            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
-                node->type = "Double";
+            else {
+                printf("Line %d, col %d: Operator >> cannot be applied to types %s, %s\n",node->line, node->col, get_types(node->child->type),get_types(node->child->brother->type));
+                node->type = "undef";
+            }
         }
+        
+        else if (!strcmp(node->id, "StrLit")) {
+            node->type = "String";
+        }
+
+        else if (!strcmp(node->id, "BoolLit")) {
+            node->type = "Bool";
+        }
+        
     }
 }
 
@@ -361,7 +533,7 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
             add_type_ast(node->child, head);
 
             //printf("lol->%s\n",node->child->type);
-            
+            printf("lol1\n");
             if (!node->child->value || strcmp(node->child->type, "Bool")) {
                 if (node->child->line != -1)
                     printf("Line %d, col %d: Incompatible type %s in if statement\n", node->child->line, node->child->col, get_types(node->child->type));
@@ -375,17 +547,19 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
         } else if (!strcmp(node->id, "While")) {
             add_type_ast(node->child, head);
 
-            /*
-            if (!node->child->value || strcmp(node->child->type, "Bool")) {
-                if (node->child->line != -1)
+            
+            if (node->child->type){  
+                if(strcmp(node->child->type, "Bool")) {
+                    
                     printf("Line %d, col %d: Incompatible type %s in while statement\n", node->child->line, node->child->col, get_types(node->child->type));
-                   
-                //else
-                //printf("Line %d, col %d: Incompatible type %s in if statement\n", node->child->child->line, node->child->child->col, get_types(node->child->type));
-
-                //printf("%s - %s\n", node->child->id, node->child->value);
+                    node->type = "undef";
+                }else{
+                    node->type = "Bool";
+                }   
+            
             }
-            */
+            
+            
             
         } else if (!strcmp(node->id, "Print")) {
             add_type_ast(node->child, head);
@@ -458,6 +632,36 @@ char *search_type_var_in_table(symbol_table *table, char *var_name) {
   return NULL;
 }
 
+/*
+int search_function_exists(symbol_table *table_global, param_list *aux_paramTypes,  char *name) {
+  symbol_table *aux_vars;
+  param_list *aux_params1, *aux_params2;
+  int count_equals = 0;
+
+  aux_vars = table_global->symbols;
+  while (aux_vars != NULL) {
+    if (aux_vars->function == 1 && aux_vars->n_params == count_params && strcmp(aux_vars->name, name) == 0) {
+      count_equals = 0;
+      aux_params1 = aux_vars->paramTypes;
+      aux_params2 = aux_paramTypes;
+      while (aux_params1 != NULL) {
+        if (strcmp(aux_params1->type, aux_params2->type) == 0) {
+          count_equals++;
+        }
+        aux_params1 = aux_params1->next;
+        aux_params2 = aux_params2->next;
+      }
+      if (count_equals == count_params) {
+        return 1;
+      }
+    }
+    aux_vars = aux_vars->symbols;
+  }
+
+  return 0;
+}
+*/
+
 void semantic_analysis(ast_node_t *node) {
     if (!node) 
         return;
@@ -508,6 +712,6 @@ char * get_types(char * type ){
       return "void";  
     }
     else{
-        return "";
+        return type;
     }
 }

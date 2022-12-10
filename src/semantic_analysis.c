@@ -19,30 +19,50 @@ static bool in_table(const symbol_table *head, const char *value) {
   return true;
 }
 
+/*static void add_params(ast_node_t *node, param_list **global_head, param_list **func_head, symbol_table **symbol_head, const symbol_table *head, symbol_table *tabela) {
+    if (!node)
+	return;
+
+    if (!(*global_head) && !(*func_head) && !(*symbol_head)) {
+
+	    *global_head = param_list_node(node->child->id);
+	    *func_head = param_list_node(node->child->id);
+        //tinha aqui in_table
+        if (search_type_var_in_table(tabela,  node->child->brother->value) != NULL) {
+            printf("Line %d, col %d: Symbol %s already defined\n", node->child->brother->line, node->child->brother->col, node->child->brother->value);
+        }
+	    add_params(node->brother, global_head, func_head, symbol_head, head, tabela);
+	    *symbol_head = symbol_table_node(node->child->brother->value, node->child->id, true, false);
+        return;
+
+        //print_table(*symbol_head);
+	    // add_params(node->brother, global_head, func_head, symbol_head, head,tabela);
+	    // return;
+    } 
+    if (global_head && func_head && symbol_head) {
+      add_params(node, &(*global_head)->next, &(*func_head)->next, symbol_head, head,tabela);
+    } else if (global_head) {
+      add_params(node, &(*global_head)->next, func_head, symbol_head, head,tabela);
+    } else if (func_head) {
+      add_params(node, global_head, &(*func_head)->next, symbol_head, head,tabela);
+    }
+}*/
+
 static void add_params(ast_node_t *node, param_list **global_head, param_list **func_head, symbol_table **symbol_head, const symbol_table *head, symbol_table *tabela) {
     if (!node)
 	return;
 
     if (!(*global_head) && !(*func_head) && !(*symbol_head)) {
 
-	*global_head = param_list_node(node->child->id);
-	*func_head = param_list_node(node->child->id);
+	    *global_head = param_list_node(node->child->id);
+	    *func_head = param_list_node(node->child->id);
 
-    
-    
-
-    //tinha aqui in_table
-    if (search_type_var_in_table(tabela,  node->child->brother->value) != NULL) {
-        printf("Line %d, col %d: Symbol %s already defined\n", node->child->brother->line, node->child->brother->col, node->child->brother->value);
-    }
-    *symbol_head = symbol_table_node(node->child->brother->value, node->child->id, true, false);
-	add_params(node->brother, global_head, func_head, &(*symbol_head)->symbols, head,tabela);
-	return;
-    
-
-    print_table(*symbol_head);
-	add_params(node->brother, global_head, func_head, symbol_head, head,tabela);
-	return;
+	    add_params(node->brother, global_head, func_head, symbol_head, head,tabela);
+        if (search_type_var_in_table(tabela,  node->child->brother->value) != NULL) {
+            printf("Line %d, col %d: Symbol %s already defined\n", node->brother->child->brother->line, node->brother->child->brother->col, node->child->brother->value);
+        }
+        *symbol_head = symbol_table_node(node->child->brother->value, node->child->id, true, false);
+	    return;
     } 
     if (global_head && func_head && symbol_head) {
       add_params(node, &(*global_head)->next, &(*func_head)->next, symbol_head, head,tabela);
@@ -246,8 +266,13 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
     }
     add_type_ast(node->child, head);
     add_type_ast(node->brother, head);
-    
-    if (!strcmp(node->id, "Return")) {
+
+
+    if (!strcmp(node->id, "Minus")) {
+        node->type = node->child->type;
+    } else if (!strcmp(node->id, "Plus")) {
+        node->type = node->child->type;
+    } else if (!strcmp(node->id, "Return")) {
         /*
         if (node->child != NULL) {
             if (strcmp(table_local->vars->type, "void") == 0) {
@@ -287,7 +312,17 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
         if (!node->type) {
             node->type = "undef";
             node->child->type = "undef";
-            printf("Line %d, col %d: Cannot find symbol %s\n", node->child->line, node->child->col, node->child->value);
+            printf("Line %d, col %d: Cannot find symbol %s(", node->child->line, node->child->col, node->child->value);
+
+            if (node->child &&  node->child->brother) {
+                ast_node_t *current = node->child->brother;
+                for (; current->brother; current = current->brother) {
+                    printf("%s,\n", get_types(current->type));
+                }
+                printf("%s)\n", get_types(current->type));
+            } else {
+                printf("()\n");
+            }
         }
         //printf("-- %s\n",node->child->type);
     } else if (!strcmp(node->id, "Length")) {
@@ -589,17 +624,13 @@ char *search_type_var(symbol_table *table_global, symbol_table *table_local, cha
 */
 
 char *search_type_var_in_table(symbol_table *table, char *var_name) {
-  if (table == NULL) {
+  if (!table)
     return NULL;
-  }
 
-
-  
   symbol_table *current = table;
-
-  while (current != NULL) {
-    if (strcmp(current->id, var_name) == 0  && !current->is_func) {
-      return current->value;
+  while (current) {
+    if (!strcmp(current->id, var_name) && !current->is_func) {
+        return current->value;
     }
     current = current->symbols;
   }

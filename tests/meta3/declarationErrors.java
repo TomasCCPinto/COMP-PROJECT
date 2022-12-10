@@ -20,7 +20,7 @@ class errors {
         double i,_;
     }
 
-    public static void factorial(int i, int i,int _) {
+    public static void factorial(int i, int i, int _) {
       i = i + i;
     }
 }

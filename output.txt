@@ -1,49 +1,125 @@
-Line 5, col 23: Symbol teste2 already defined
-Line 11, col 26: Cannot find symbol factorial
-Line 11, col 26: Incompatible type undef in System.out.print statement
-===== Class ClassTeste Symbol Table =====
-teste0		int
-teste1		int
-teste2		int
-main	(String[])	void
+Line 4, col 23: Symbol c already defined
+Line 4, col 26: Symbol a already defined
+Line 4, col 29: Symbol b already defined
+Line 15, col 45: Symbol i already defined
+Line 23, col 45: Symbol i already defined
+Line 8, col 11: Incompatible type int in if statement
+Line 13, col 11: Symbol ola already defined
+Line 17, col 13: Symbol i already defined
+Line 18, col 13: Symbol argument already defined
+Line 20, col 16: Symbol i already defined
+===== Class errors Symbol Table =====
+a		int
+b		int
+c		int
+_		double
+underscore	(int)	int
+factorial	(int,int)	void
+factorial	(int,int,int)	void
 
-===== Method main(String[]) Symbol Table =====
+===== Method underscore(int) Symbol Table =====
+return		int
+ola		int	param
+
+===== Method factorial(int,int) Symbol Table =====
 return		void
-args		String[]	param
+i		int	param
 argument		int
+a		int
+_		double
+
+===== Method factorial(int,int,int) Symbol Table =====
+return		void
+i		int	param
 
 Program
-..Id(ClassTeste)
+..Id(errors)
 ..FieldDecl
 ....Int
-....Id(teste0)
+....Id(a)
 ..FieldDecl
 ....Int
-....Id(teste1)
+....Id(b)
 ..FieldDecl
 ....Int
-....Id(teste2)
+....Id(c)
 ..FieldDecl
 ....Int
-....Id(teste2)
+....Id(c)
+..FieldDecl
+....Int
+....Id(a)
+..FieldDecl
+....Int
+....Id(b)
+..FieldDecl
+....Double
+....Id(_)
+..MethodDecl
+....MethodHeader
+......Int
+......Id(underscore)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(ola)
+....MethodBody
+......If
+........Id(ola) - int
+........Return
+..........Id(ola) - int
+........Return
+..........Id(ola) - int
+......VarDecl
+........Int
+........Id(ola)
 ..MethodDecl
 ....MethodHeader
 ......Void
-......Id(main)
+......Id(factorial)
 ......MethodParams
 ........ParamDecl
-..........StringArray
-..........Id(args)
+..........Int
+..........Id(i)
+........ParamDecl
+..........Int
+..........Id(i)
 ....MethodBody
 ......VarDecl
 ........Int
 ........Id(argument)
+......VarDecl
+........Int
+........Id(i)
+......VarDecl
+........Int
+........Id(argument)
+......VarDecl
+........Int
+........Id(a)
+......VarDecl
+........Double
+........Id(i)
+......VarDecl
+........Double
+........Id(_)
+..MethodDecl
+....MethodHeader
+......Void
+......Id(factorial)
+......MethodParams
+........ParamDecl
+..........Int
+..........Id(i)
+........ParamDecl
+..........Int
+..........Id(i)
+........ParamDecl
+..........Int
+..........Id(_)
+....MethodBody
 ......Assign - int
-........Id(argument) - int
-........ParseArgs - int
-..........Id(args) - String[]
-..........DecLit(0) - int
-......Print
-........Call - undef
-..........Id(factorial) - undef
-..........Id(argument) - int
+........Id(i) - int
+........Add - int
+..........Id(i) - int
+..........Id(i) - int

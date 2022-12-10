@@ -267,35 +267,27 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
             //printf("-- %s\n",node->child->type);
         } else if (!strcmp(node->id, "Length")) {
             node->type = "Int";
-        } 
-
-
-        if (!strcmp(node->id, "ParseArgs")) {
+        } else if (!strcmp(node->id, "ParseArgs")) {
             // NOT SURE IT'S ALWAYS: INT
             node->type = "Int";
         } else if (!strcmp(node->id, "Eq") || !strcmp(node->id, "Le") || !strcmp(node->id, "Ne") || !strcmp(node->id, "Ge") || !strcmp(node->id, "Gt") || !strcmp(node->id, "Lt") ) {
             node->type = "Bool";
         } else if (!strcmp(node->id, "And") || !strcmp(node->id, "Or") || !strcmp(node->id, "Xor") || !strcmp(node->id, "Not") ) {
             node->type = "Bool";
+        } else if (!strcmp(node->id, "Minus")) {
+            node->type = node->child->type;
+        } else if (!strcmp(node->id, "Plus")) {
+            node->type = node->child->type;
+        } else if (!strcmp(node->id, "StrLit")) {
+            node->type = "String";
+        } else if (!strcmp(node->id, "BoolLit")) {
+            node->type = "Bool";
         }
-        
 
 
         if (!node->child || !node->child->type)
             return;
 
-        /*if (!strcmp(node->id, "Add")) {
-            if (!strcmp(node->child->type, "Int"))
-                node->type = "Int";
-            else if (!strcmp(node->child->type, "Double"))
-                node->type = "Double";
-        } else if (!strcmp(node->id, "Sub")) {
-            if (!strcmp(node->child->type, "Int"))
-                node->type = "Int";
-            else if (!strcmp(node->child->type, "Double"))
-                node->type = "Double";
-        }*/
-        
         if (!node->child->brother || !node->child->brother->type)
             return;
 
@@ -334,7 +326,7 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
                 node->type = "Int";
             else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
                 node->type = "Double";
-        }
+        } 
     }
 }
 
@@ -388,6 +380,9 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
             */
             
         } else if (!strcmp(node->id, "Print")) {
+            add_type_ast(node->child, head);
+        } else if (!strcmp(node->id, "ParseArgs")) {
+            node->type = "Int";
             add_type_ast(node->child, head);
         }
 

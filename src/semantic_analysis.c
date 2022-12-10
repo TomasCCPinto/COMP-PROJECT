@@ -87,12 +87,12 @@ static char* return_type_ast(ast_node_t *node, symbol_table *head) {
             return current->value;
         } else if (!strcmp(node->id, "DecLit")) {
             // -2147483648
-            /*if (is_declit(node->value)) {
+            if (is_declit(node->value)) {
                 return "Int";
             } else {
                 printf("Line %d, col %d: Number %s out of bounds\n", node->line, node->col, node->value);
                 return "Int";
-            }*/
+            }
             return "Int";
         } else if (!strcmp(node->id, "RealLit")) {
             return "Double";

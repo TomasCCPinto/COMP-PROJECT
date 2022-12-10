@@ -259,8 +259,8 @@ Expr1: Expr1 PLUS   Expr1                                                       
     | Expr1 AND    Expr1                                                        { $$ = ast_node("And", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
     | Expr1 OR     Expr1                                                        { $$ = ast_node("Or",  NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
     | Expr1 XOR    Expr1                                                        { $$ = ast_node("Xor", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
-    | Expr1 LSHIFT Expr1                                                        { $$ = ast_node("Lshift", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
-    | Expr1 RSHIFT Expr1                                                        { $$ = ast_node("Rshift", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 LSHIFT Expr1                                                        { $$ = ast_node("Lshift", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
+    | Expr1 RSHIFT Expr1                                                        { $$ = ast_node("Rshift", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
     | Expr1 EQ     Expr1                                                        { $$ = ast_node("Eq", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
     | Expr1 GE     Expr1                                                        { $$ = ast_node("Ge", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
     | Expr1 GT     Expr1                                                        { $$ = ast_node("Gt", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }

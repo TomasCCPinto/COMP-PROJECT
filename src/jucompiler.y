@@ -243,7 +243,7 @@ MethodInvocation2: COMMA Expr MethodInvocation2                                 
 Assignment: ID ASSIGN Expr                                                      { $$ = ast_node("Assign", NULL_TOKEN); COPY_POS($$, $2); aux = ast_node("Id", $1); add_children($$, aux); add_brother(aux, $3); /*addicionar expr*/ }
 
 
-ParseArgs: PARSEINT LPAR ID LSQ Expr RSQ RPAR                                   { $$ = ast_node("ParseArgs", NULL_TOKEN); aux = ast_node("Id", $3); add_children($$, aux); add_brother(aux, $5); }
+ParseArgs: PARSEINT LPAR ID LSQ Expr RSQ RPAR                                   { $$ = ast_node("ParseArgs", NULL_TOKEN); COPY_POS($$, $1); aux = ast_node("Id", $3); add_children($$, aux); add_brother(aux, $5); }
          | PARSEINT LPAR error RPAR                                             { $$ = NULL;}
 
 

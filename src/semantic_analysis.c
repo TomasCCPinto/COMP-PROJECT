@@ -268,7 +268,7 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
                 if (node->child &&  node->child->brother) {
                     ast_node_t *current = node->child->brother;
                     for (; current->brother; current = current->brother) {
-                        printf("%s,\n", get_types(current->type));
+                        printf("%s,", get_types(current->type));
                     }
                     printf("%s)\n", get_types(current->type));
                 } else {
@@ -483,8 +483,11 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
             */
         } else if (!strcmp(node->id, "Print")) {
             add_type_ast(node->child, head);
-            if (!strcmp(node->child->type, "undef"))
+            if (!strcmp(node->child->type, "undef")){
                 printf("Line %d, col %d: Incompatible type undef in System.out.print statement\n", node->child->line, node->child->col);
+            } else if(!strcmp(node->child->type, "Void")){
+                printf("Line %d, col %d: Incompatible type void in System.out.print statement\n", node->child->line, node->child->col); 
+            }
         } else if (!strcmp(node->id, "ParseArgs")) {
             node->type = "Int";
             add_type_ast(node->child, head);
@@ -554,6 +557,7 @@ char *search_type_var_in_table(symbol_table *table, char *var_name) {
 
   return NULL;
 }
+
 
 void semantic_analysis(ast_node_t *node) {
     if (!node) 

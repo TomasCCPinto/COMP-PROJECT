@@ -8,6 +8,8 @@ extern int line;
 extern int col;
 char *search_type_var_in_table(symbol_table *table, char *var_name);
 char * get_types(char * type );
+char *search_type_var(symbol_table *global, symbol_table *local, char *name);
+char *search_func_in_table(symbol_table *table, char *func_name);
 
 static bool in_table(const symbol_table *head, const char *value) {
   if (!head)
@@ -77,30 +79,48 @@ static char* return_type_ast(ast_node_t *node, symbol_table *head) {
     if (!node->value) 
         return NULL;
 
+    //printf("->%s ->%s ->%d\n",node->id,node->value,head->is_func);
+
+    if (strcmp(node->id, "Id") == 0) {
+            //printf("%s\n",node->value);
+
+            
+        char *aux = search_type_var(global_table, head, node->value);
+
+        //printf("%s->%s\n",node->value,search_func_in_table(global_table,node->value));
+        if (aux != NULL || search_func_in_table(global_table,node->value)) {
+            node->type = aux;
+        } else {
+            printf("Line %d, col %d: Cannot find symbol %s\n", node->line, node->col, node->value);
+            node->type = "undef";
+        } 
+        
+    }
+
     symbol_table *current = head;
     for (; current; current = current->symbols) {
         //printf("---%d\n",current->is_func);
         if(!current->is_func){
-        if (!strcmp(node->value, current->id)) {
-            //printf("%s - %s - %s\n", current->id, node->value, current->value);
-            return current->value;
-        } else if (!strcmp(node->id, "DecLit")) {
-            // -2147483648
-            if (is_declit(node->value)) {
+            if (!strcmp(node->value, current->id)) {
+                //printf("%s - %s - %s\n", current->id, node->value, current->value);
+                return current->value;
+            } else if (!strcmp(node->id, "DecLit")) {
+                // -2147483648
+                if (is_declit(node->value)) {
+                    return "Int";
+                } else {
+                    printf("Line %d, col %d: Number %s out of bounds\n", node->line, node->col, node->value);
+                    semantic_error=1;
+                    return "Int";
+                }
                 return "Int";
-            } else {
-                printf("Line %d, col %d: Number %s out of bounds\n", node->line, node->col, node->value);
-                semantic_error=1;
-                return "Int";
+            } else if (!strcmp(node->id, "RealLit")) {
+                return "Double";
+            } else if (!strcmp(node->id, "BoolLit")) {
+                return "Bool";
+            } else if (!strcmp(node->id, "StrLit")) {
+                return "String";
             }
-            return "Int";
-        } else if (!strcmp(node->id, "RealLit")) {
-            return "Double";
-        } else if (!strcmp(node->id, "BoolLit")) {
-            return "Bool";
-        } else if (!strcmp(node->id, "StrLit")) {
-            return "String";
-        }
      }
     }
 
@@ -122,7 +142,8 @@ static char* return_type_ast(ast_node_t *node, symbol_table *head) {
         }
     }
     }
-    return NULL;
+    
+    return node->type;
 }
 
 static bool match_method(ast_node_t *node, symbol_table *head, bool flag) {
@@ -237,18 +258,32 @@ static bool return_type_call(ast_node_t *node, symbol_table *head) {
     return false;
 }
 
+
+char *search_type_var(symbol_table *global, symbol_table *local, char *name) {
+  char *aux = search_type_var_in_table(local, name);
+  if (aux != NULL) {
+    return aux;
+  }
+  aux = search_type_var_in_table(global, name);
+  if (aux != NULL) {
+    return aux;
+  }
+  return NULL;
+}
+
+
 static void add_type_ast(ast_node_t *node, symbol_table *head) {
     if (node) {
         
-        //printf("%d\n",head->is_func);
+        //printf("->%s\n",node->id);
         
-        if(!node->type){
+        if(!node->type ){
             node->type = return_type_ast(node, head);
         }
 
         add_type_ast(node->child, head);
         add_type_ast(node->brother, head);
-
+        
         
 
         if (!strcmp(node->id, "Assign")) {
@@ -263,7 +298,20 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
                     semantic_error=1;
                 }
             }
-        } else if (!strcmp(node->id, "Call")) {
+        } /*else if (strcmp(node->id, "Id") == 0) {
+            //printf("%s\n",node->value);
+
+            
+            char *aux = search_type_var(global_table, head, node->value);
+
+            if (aux != NULL) {
+                node->type = aux;
+            } else {
+                printf("Line %d, col %d: Cannot find symbol %s\n", node->line, node->col, node->value);
+                node->type = "undef";
+            } 
+        
+        } */else if (!strcmp(node->id, "Call")) {
             return_type_call(node, global_table);
             if (!node->type) {
                 node->type = "undef";
@@ -276,10 +324,10 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
                     for (; current->brother; current = current->brother) {
                         printf("%s,", get_types(current->type));
                     }
-                    printf("%s)\n", get_types(current->type));
-                } else {
-                    printf("()\n");
-                }
+                    printf("%s\n", get_types(current->type));
+                } 
+                    printf(")\n");
+                
             }
         } else if (!strcmp(node->id, "Length")) {
             if(node->child->type){
@@ -289,13 +337,12 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
             }
             node->type = "Int";
         } else if (!strcmp(node->id, "ParseArgs")) {
-            // NOT SURE IT'S ALWAYS: INT
             if(node->child->type && node->child->brother->type){
                 if (strcmp(node->child->type, "StringArray")) {
-                    printf("Line %d, col %d: Operator Integer.parseInt cannot be applied to types %s, %s\n", node->line, node->col, node->child->type, get_types(node->child->brother->type));
+                    printf("Line %d, col %d: Operator Integer.parseInt cannot be applied to types %s, %s\n", node->line, node->col, get_types(node->child->type), get_types(node->child->brother->type));
                     semantic_error=1;
                 } else if (strcmp(node->child->brother->type, "Int")) {
-                    printf("Line %d, col %d: Operator Integer.parseInt cannot be applied to types %s, %s\n", node->line, node->col, node->child->type, get_types(node->child->brother->type));
+                    printf("Line %d, col %d: Operator Integer.parseInt cannot be applied to types %s, %s\n", node->line, node->col, get_types(node->child->type), get_types(node->child->brother->type));
                     semantic_error=1;
                 }
             }
@@ -522,7 +569,7 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
         } else if (!strcmp(node->id, "Assign")) {
             add_type_ast(node->child, head);
             node->type = node->child->type;
-
+            
             if(node->child->type && node->child->brother->type){
                 if (!strcmp(node->child->type, node->child->brother->type) && strcmp(node->child->type, "undef") && strcmp(node->child->type, "StringArray")) {
                     ;
@@ -559,6 +606,19 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
             }
             
 
+        } else if (!strcmp(node->id, "ParseArgs")) {
+            add_type_ast(node->child, head);
+
+            if(node->child->type && node->child->brother->type){
+                if (strcmp(node->child->type, "StringArray")) {
+                    printf("Line %d, col %d: Operator Integer.parseInt cannot be applied to types %s, %s\n", node->line, node->col, get_types(node->child->type), get_types(node->child->brother->type));
+                    semantic_error=1;
+                } else if (strcmp(node->child->brother->type, "Int")) {
+                    printf("Line %d, col %d: Operator Integer.parseInt cannot be applied to types %s, %s\n", node->line, node->col, get_types(node->child->type), get_types(node->child->brother->type));
+                    semantic_error=1;
+                }
+            }
+            node->type = "Int";
         } else if (!strcmp(node->id, "Call")) {
             add_type_ast(node, head);
         } else if (!strcmp(node->id, "If")) {
@@ -647,6 +707,24 @@ char *search_type_var(symbol_table *table_global, symbol_table *table_local, cha
   return NULL;
 }
 */
+
+char *search_func_in_table(symbol_table *table, char *func_name) {
+  if (table == NULL) {
+    return NULL;
+  }
+
+  symbol_table *current = table;
+
+  while (current != NULL) {
+    if (strcmp(current->id, func_name) == 0  && current->is_func) {
+      return current->value;
+    }
+    current = current->symbols;
+  }
+
+  return NULL;
+}
+
 
 char *search_type_var_in_table(symbol_table *table, char *var_name) {
   if (table == NULL) {

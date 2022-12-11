@@ -451,6 +451,30 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
             }
         } else if (!strcmp(node->id, "Return")) {
             add_type_ast(node->child, head);
+
+            //printf("%s\n",head->symbols->value);
+            /*
+            if (node->child != NULL) {
+                
+                if (strcmp(head->symbols->value, "void") == 0) {
+                    printf("Line %d, col %d: Incompatible type %s in return statement\n", node->child->line, node->child->col, get_types(node->child->type));
+                } else if (strcmp(head->symbols->value, node->child->type) == 0) {
+                    return;
+                } else if (strcmp(head->symbols->value, "Double") == 0) {
+                    if ((strcmp(node->child->type, "Int") && strcmp(node->child->type, "Double"))) {
+                    printf("Line %d, col %d: Incompatible type %s in return statement\n", node->child->line, node->child->col, get_types(node->child->type));
+                    }
+                } else {
+                    printf("Line %d, col %d: Incompatible type %s in return statement\n", node->child->line, node->child->col, get_types(node->child->type));
+                }
+                
+            } else {
+                if (strcmp(head->symbols->value, "void")) {
+                    printf("Line %d, col %d: Incompatible type void in return statement\n", node->line, node->col);
+                }
+            }
+            */
+
         } else if (!strcmp(node->id, "Call")) {
             add_type_ast(node, head);
         } else if (!strcmp(node->id, "If")) {
@@ -470,17 +494,6 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
         } else if (!strcmp(node->id, "While")) {
             add_type_ast(node->child, head);
 
-            /*
-            if (!node->child->value || strcmp(node->child->type, "Bool")) {
-                if (node->child->line != -1)
-                    printf("Line %d, col %d: Incompatible type %s in while statement\n", node->child->line, node->child->col, get_types(node->child->type));
-                   
-                //else
-                //printf("Line %d, col %d: Incompatible type %s in if statement\n", node->child->child->line, node->child->child->col, get_types(node->child->type));
-
-                //printf("%s - %s\n", node->child->id, node->child->value);
-            }
-            */
             
             if (node->child->type){  
                 if(strcmp(node->child->type, "Bool")) {

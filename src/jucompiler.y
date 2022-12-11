@@ -17,6 +17,9 @@
   extern int num_line;
   extern int num_col;
 
+  extern int lexical_error ; 
+  int syntax_error = 0; 
+
   ast_node_t *my_program;
   ast_node_t *aux;
   ast_node_t *aux2;
@@ -103,7 +106,7 @@ MethodDecl: PUBLIC STATIC MethodHeader MethodBody                               
 
 FieldDecl: PUBLIC STATIC Type ID FieldDecl2 SEMICOLON                           { $$ = ast_node("FieldDecl", NULL_TOKEN); add_children($$, $3); add_type($3, $5); 
                                                                                  aux = ast_node("Id", $4); add_brother($3, aux); add_brother($$, $5);} 
-         | error SEMICOLON                                                      { $$ = NULL; }
+         | error SEMICOLON                                                      {  $$ = NULL;  }
 
 FieldDecl2: COMMA ID FieldDecl2                                                 { $$ = ast_node("FieldDecl", NULL_TOKEN); aux = ast_node("Id", $2); add_children($$, aux); add_brother($$, $3); }
           |                                                                     { $$ = NULL; }
@@ -215,8 +218,8 @@ Statement: LBRACE Statement2 RBRACE                                            {
                                                                                         add_children(aux, $5);
                                                                                     }
                                                                                 }
-         | RETURN Expr SEMICOLON                                                { $$ = ast_node("Return", NULL_TOKEN); add_children($$, $2); }
-         | RETURN SEMICOLON                                                     { $$ = ast_node("Return", NULL_TOKEN); }
+         | RETURN Expr SEMICOLON                                                { $$ = ast_node("Return", NULL_TOKEN);  add_children($$, $2); }
+         | RETURN SEMICOLON                                                     { $$ = ast_node("Return", NULL_TOKEN); COPY_POS($$, $1); }
          | MethodInvocation SEMICOLON                                           { $$ = $1; }
          | Assignment SEMICOLON                                                 { $$ = $1; }
          | ParseArgs SEMICOLON                                                  { $$ = $1; }
@@ -230,12 +233,12 @@ Statement2: Statement Statement2                                                
           |                                                                     { $$ = NULL;}
 
 MethodInvocation: ID LPAR RPAR                                                  {  $$ = ast_node("Call", NULL_TOKEN); aux = ast_node("Id", $1); add_children($$, aux);  }
-                | ID LPAR error RPAR                                            {  $$ = NULL; }
+                | ID LPAR error RPAR                                            { $$ = NULL; }
                 | ID LPAR Expr MethodInvocation2 RPAR                           {  $$ = ast_node("Call", NULL_TOKEN); COPY_POS($$, $1); aux = ast_node("Id", $1); add_children($$, aux); add_brother(aux, $3); add_brother($3, $4);  }
                 ;
 
 MethodInvocation2: COMMA Expr MethodInvocation2                                 { if ($2) {$$ = $2; add_brother($$, $3);} else {$$ = $2;} }
-                 | error                                                        { $$ = NULL;}
+                 | error                                                        {  $$ = NULL;}
                  |                                                              { $$ = NULL; }
                  ;
 
@@ -244,7 +247,7 @@ Assignment: ID ASSIGN Expr                                                      
 
 
 ParseArgs: PARSEINT LPAR ID LSQ Expr RSQ RPAR                                   { $$ = ast_node("ParseArgs", NULL_TOKEN); COPY_POS($$, $1); aux = ast_node("Id", $3); add_children($$, aux); add_brother(aux, $5); }
-         | PARSEINT LPAR error RPAR                                             { $$ = NULL;}
+         | PARSEINT LPAR error RPAR                                             {  $$ = NULL;}
 
 
 Expr: Assignment                                                                { $$ = $1; }
@@ -271,7 +274,7 @@ Expr1: Expr1 PLUS   Expr1                                                       
     | NOT         Expr1                                                         { $$ = ast_node("Not", NULL_TOKEN); COPY_POS($$, $1); add_children($$, $2); }
     | PLUS        Expr1           %prec NO_ELSE                                 { $$ = ast_node("Plus", NULL_TOKEN); COPY_POS($$, $1); add_children($$, $2); }
     | LPAR        Expr RPAR                                                     { $$ = $2; }
-    | LPAR error RPAR                                                           { $$ = NULL; }
+    | LPAR error RPAR                                                           {  $$ = NULL; }
     | MethodInvocation                                                          { $$ = $1; }
     | ParseArgs                                                                 { $$ = $1; }
     | ID DOTLENGTH                                                              { $$ = ast_node("Length", NULL_TOKEN); aux = ast_node("Id", $1); add_children($$, aux); }
@@ -316,16 +319,19 @@ int main(int argc, char *argv[]) {
       yyparse(); 
   } else if (t) {
       yyparse();
-      semantic_analysis(my_program);
+      //semantic_analysis(my_program);
       print_ast(my_program);  
-  } else if (s) {
-      yyparse();
-      semantic_analysis(my_program);
-      print_table(global_table);
-      printf("\n");
-      print_ast(my_program);  
-    
-  }
+  } else {
+        yyparse(); 
+        if (!syntax_error && !lexical_error) {
+            semantic_analysis(my_program); 
+            if (s) {
+                print_table(global_table);
+                printf("\n");
+                print_ast(my_program);
+            }
+        }
+  }  
 
   // print_ast(my_program);
   // printf("analysis\n");

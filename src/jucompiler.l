@@ -9,7 +9,7 @@
     
 
     #define TOKEN(flag, ...) if (flag) printf(__VA_ARGS__); if (flag) printf("\n")
-    #define ERROR(...) printf(__VA_ARGS__);printf("\n")
+    #define ERROR(...) printf(__VA_ARGS__); printf("\n") ; lexical_error =1
 
     int col=1, line=1;
     int savecol, saveline;
@@ -18,7 +18,9 @@
     #define findAsciiChars(character, line, col) { if (character <= 126 && character >= 33) printf("Line %d, col %d: illegal character (%c)\n", line, col, character); }
     #define SEND_TOKEN(...) {  yylval.token = token(yytext, line, col - yyleng, __VA_ARGS__); /*printf("%d - %d - %s\n", yylval.token.line, yylval.token.col, yylval.token.value);*/ return __VA_ARGS__; }
     
-    extern bool syntax_error; 
+     
+    int lexical_error = 0; 
+    extern int syntax_error ;
 
 %}
 
@@ -169,7 +171,7 @@ strlit                                                     ([^\n\r\"\\]|"\\n"|"\
 <INVALID_STR>"\\n"|"\\f"|"\\r"|"\\t"|"\\\\"|"\\\""         { col += yyleng; }
 <INVALID_STR>"\\"|("\\"[^\n\r])                            { ERROR("Line %d, col %d: invalid escape sequence (%s)", line, col, yytext);col += yyleng; }
 <INVALID_STR>.                                             { col += yyleng; }
-<INVALID_STR>{end_line}                                    { ERROR("Line %d, col %d: unterminated string literal", saveline, savecol); line++; col = 1; BEGIN 0; }
+<INVALID_STR>{end_line}                                    { ERROR("Line %d, col %d: unterminated string literal", saveline, savecol); line++; col = 1; BEGIN 0;  }
 <INVALID_STR><<EOF>>                                       { ERROR("Line %d, col %d: unterminated string literal", saveline, savecol); line++; col = 1; BEGIN 0; }
 
 
@@ -195,5 +197,5 @@ extern void yyerror (const char *s ) {
     } else {
         printf ("Line %d, col %d: %s: %s\n", line, col - yyleng, s , yytext );
     }
-    syntax_error = true;
+    syntax_error = 1;
 }

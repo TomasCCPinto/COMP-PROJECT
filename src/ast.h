@@ -31,7 +31,7 @@ typedef struct _ASTNode {
 #define COPY_POS(AST, TOKEN) AST->line = TOKEN.line; AST->col = TOKEN.col
 #define COPY_POS2(AST, NODE) AST->line = NODE->line; AST->col = NODE->col
 
-extern bool syntax_error; 
+
 
 
 token_t token(char *value, int line, int col, int type);

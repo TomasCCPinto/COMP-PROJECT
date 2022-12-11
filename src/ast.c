@@ -4,7 +4,7 @@
 #include "y.tab.h"
 #include <stdio.h>
 
-bool syntax_error = false; 
+extern int syntax_error ; 
 
 static int types[] = {
     ID,

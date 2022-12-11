@@ -481,6 +481,14 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
                 //printf("%s - %s\n", node->child->id, node->child->value);
             }
             */
+            
+            if (node->child->type){  
+                if(strcmp(node->child->type, "Bool")) {
+                    
+                    printf("Line %d, col %d: Incompatible type %s in while statement\n", node->child->line, node->child->col, get_types(node->child->type));
+                }    
+            }
+
         } else if (!strcmp(node->id, "Print")) {
             add_type_ast(node->child, head);
             if (!strcmp(node->child->type, "undef")){

@@ -278,7 +278,7 @@ Expr1: Expr1 PLUS   Expr1                                                       
     | LPAR error RPAR                                                           {  $$ = NULL; }
     | MethodInvocation                                                          { $$ = $1; }
     | ParseArgs                                                                 { $$ = $1; }
-    | ID DOTLENGTH                                                              { $$ = ast_node("Length", NULL_TOKEN); aux = ast_node("Id", $1); add_children($$, aux); }
+    | ID DOTLENGTH                                                              { $$ = ast_node("Length", NULL_TOKEN); COPY_POS($$, $2); aux = ast_node("Id", $1); add_children($$, aux); }
     | ID                                                                        { $$ = ast_node("Id", $1); }
     | INTLIT                                                                    { $$ = ast_node("DecLit", $1); }
     | REALLIT                                                                   { $$ = ast_node("RealLit", $1); }

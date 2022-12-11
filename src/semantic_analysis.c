@@ -2,6 +2,8 @@
 #include "table.h"
 #include <stdio.h>
 
+int semantic_error=0;
+
 extern int line;
 extern int col;
 char *search_type_var_in_table(symbol_table *table, char *var_name);
@@ -30,6 +32,7 @@ static void add_params(ast_node_t *node, param_list **global_head, param_list **
 
     if (search_type_var_in_table(tabela,  node->child->brother->value) != NULL) {
         printf("Line %d, col %d: Symbol %s already defined\n", node->child->brother->line, node->child->brother->col, node->child->brother->value);
+        semantic_error=1;
     }
     *symbol_head = symbol_table_node(node->child->brother->value, node->child->id, true, false);
 	add_params(node->brother, global_head, func_head, &(*symbol_head)->symbols, head,tabela);
@@ -87,6 +90,7 @@ static char* return_type_ast(ast_node_t *node, symbol_table *head) {
                 return "Int";
             } else {
                 printf("Line %d, col %d: Number %s out of bounds\n", node->line, node->col, node->value);
+                semantic_error=1;
                 return "Int";
             }
             return "Int";
@@ -256,6 +260,7 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
                     return;
                 } else {
                     printf("Line %d, col %d: Operator = cannot be applied to types %s, %s\n", node->line, node->col, get_types(node->child->type), get_types(node->child->brother->type));
+                    semantic_error=1;
                 }
             }
         } else if (!strcmp(node->id, "Call")) {
@@ -264,6 +269,7 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
                 node->type = "undef";
                 node->child->type = "undef";
                 printf("Line %d, col %d: Cannot find symbol %s(", node->child->line, node->child->col, node->child->value);
+                semantic_error=1;
 
                 if (node->child &&  node->child->brother) {
                     ast_node_t *current = node->child->brother;
@@ -282,8 +288,10 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
             if(node->child->type && node->child->brother->type){
                 if (strcmp(node->child->type, "StringArray")) {
                     printf("Line %d, col %d: Operator Integer.parseInt cannot be applied to types %s, %s\n", node->line, node->col, node->child->type, get_types(node->child->brother->type));
+                    semantic_error=1;
                 } else if (strcmp(node->child->brother->type, "Int")) {
                     printf("Line %d, col %d: Operator Integer.parseInt cannot be applied to types %s, %s\n", node->line, node->col, node->child->type, get_types(node->child->brother->type));
+                    semantic_error=1;
                 }
             }
             node->type = "Int";
@@ -305,6 +313,7 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
                     node->type = "Bool";
                 } else {
                     printf("Line %d, col %d: Operator ^ cannot be applied to types %s, %s\n", node->line, node->col, get_types(node->child->type), get_types(node->child->brother->type));
+                    semantic_error=1;
                     node->type = "undef";
                 }
             } else if (!strcmp(node->child->type, "Int")) {
@@ -312,10 +321,12 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
                     node->type = "Int";
                 } else {
                     printf("Line %d, col %d: Operator ^ cannot be applied to types %s, %s\n", node->line, node->col, get_types(node->child->type), get_types(node->child->brother->type));
+                    semantic_error=1;
                     node->type = "undef";
                 }
             } else {
                 printf("Line %d, col %d: Operator ^ cannot be applied to types %s, %s\n", node->line, node->col, get_types(node->child->type), get_types(node->child->brother->type));
+                semantic_error=1;
                 node->type = "undef";
             }
         } 
@@ -348,17 +359,20 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
                     node->type = "Double";
                 } else {
                     printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", node->line, node->col, aux, get_types(node->child->type), get_types(node->child->brother->type));
+                    semantic_error=1;
                     node->type = "undef";
                 }
             } else if (!strcmp(node->child->type, "Double")) {
                 if (strcmp(node->child->brother->type, "Int") && strcmp(node->child->brother->type, "Double")) {
                     printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", node->line, node->col, aux, get_types(node->child->type), get_types(node->child->brother->type));
+                    semantic_error=1;
                     node->type = "undef";
                 } else {
                     node->type = "Double";
                 }
             } else {
                 printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", node->line, node->col, aux, get_types(node->child->type), get_types(node->child->brother->type));
+                semantic_error=1;
                 node->type = "undef";
             }
         } else if (!strcmp(node->id, "Lshift")  ) {
@@ -366,6 +380,7 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
                 node->type = "Int";
             else {
                 printf("Line %d, col %d: Operator << cannot be applied to types %s, %s\n",node->line, node->col, get_types(node->child->type),get_types(node->child->brother->type));
+                semantic_error=1;
                 node->type = "undef";
             }
         } else if (!strcmp(node->id, "Rshift")) {
@@ -373,6 +388,7 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
                 node->type = "Int";
             else {
                 printf("Line %d, col %d: Operator >> cannot be applied to types %s, %s\n",node->line, node->col, get_types(node->child->type),get_types(node->child->brother->type));
+                semantic_error=1;
                 node->type = "undef";
             }
         } else if (!strcmp(node->id, "StrLit")) {
@@ -432,6 +448,7 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
             //printf("lol-> %d\n",search_type_var_in_table(head,  node->child->brother->value) );
 	        if (search_type_var_in_table(head,  node->child->brother->value) != NULL) {
                 printf("Line %d, col %d: Symbol %s already defined\n", node->child->brother->line, node->child->brother->col, node->child->brother->value);
+                semantic_error=1;
 	        }
             else{
                 *symbol_node = symbol_table_node(node->child->brother->value, node->child->id, false, false);
@@ -447,6 +464,7 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
                     ;
                 } else {
                     printf("Line %d, col %d: Operator = cannot be applied to types %s, %s\n", node->line, node->col, get_types(node->child->type), get_types(node->child->brother->type));
+                    semantic_error=1;
                 }
             }
         } else if (!strcmp(node->id, "Return")) {
@@ -484,6 +502,7 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
             
             if (node->child->type && strcmp(node->child->type, "Bool")) {
                 printf("Line %d, col %d: Incompatible type %s in if statement\n", node->child->line, node->child->col, get_types(node->child->type));
+                semantic_error=1;
                 //else
                 //printf("Line %d, col %d: Incompatible type %s in if statement\n", node->child->child->line, node->child->child->col, get_types(node->child->type));
 
@@ -499,6 +518,7 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
                 if(strcmp(node->child->type, "Bool")) {
                     
                     printf("Line %d, col %d: Incompatible type %s in while statement\n", node->child->line, node->child->col, get_types(node->child->type));
+                    semantic_error=1;
                 }    
             }
 
@@ -506,8 +526,10 @@ static void add_body_params(ast_node_t *node, symbol_table **symbol_node, symbol
             add_type_ast(node->child, head);
             if (!strcmp(node->child->type, "undef")){
                 printf("Line %d, col %d: Incompatible type undef in System.out.print statement\n", node->child->line, node->child->col);
+                semantic_error=1;
             } else if(!strcmp(node->child->type, "Void")){
                 printf("Line %d, col %d: Incompatible type void in System.out.print statement\n", node->child->line, node->child->col); 
+                semantic_error=1;
             }
         } else if (!strcmp(node->id, "ParseArgs")) {
             node->type = "Int";
@@ -600,6 +622,7 @@ void semantic_analysis(ast_node_t *node) {
         if (search_type_var_in_table(global_table,  node->child->brother->value) != NULL) {
           //printf("Line %d, col %d: Symbol %s already defined\n", node->child->line, node->child->col, node->id);
           printf("Line %d, col %d: Symbol %s already defined\n", node->child->brother->line, node->child->brother->col, node->child->brother->value);
+          semantic_error=1;
         } else {
         append_var_table(node, global_table);
         semantic_analysis(node->brother);

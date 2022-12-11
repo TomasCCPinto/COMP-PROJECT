@@ -17,6 +17,7 @@
   extern int num_line;
   extern int num_col;
 
+  extern int semantic_error;
   extern int lexical_error ; 
   int syntax_error = 0; 
 
@@ -30,7 +31,7 @@
 
   // Compiler Flags TODO
   int a = 0;
-  bool l = false, e1 = false, e2 = true, t = false, s =false; 
+  bool l = false, e1 = false, e2 = false, t = false, s =false; 
 
 %}
 

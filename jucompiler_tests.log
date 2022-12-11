@@ -1,0 +1,3653 @@
+================== tests/meta3/run.sh DIFF OUTPUT ==================
+Line 1, col 1: illegal character (#)			      <
+Line 1, col 2: syntax error: !				      <
+							      <
+================== tests/meta3/declarationErrors.java DIFF OUTPUT ==================
+Line 4, col 23: Symbol c already defined			Line 4, col 23: Symbol c already defined
+Line 4, col 26: Symbol a already defined			Line 4, col 26: Symbol a already defined
+Line 4, col 29: Symbol b already defined			Line 4, col 29: Symbol b already defined
+							      >	Line 5, col 26: Symbol _ is reserved
+Line 15, col 45: Symbol i already defined			Line 15, col 45: Symbol i already defined
+Line 23, col 45: Symbol i already defined			Line 23, col 45: Symbol i already defined
+							      >	Line 23, col 51: Symbol _ is reserved
+							      >	Line 8, col 11: Incompatible type int in if statement
+							      >	Line 13, col 11: Symbol ola already defined
+Line 17, col 13: Symbol i already defined			Line 17, col 13: Symbol i already defined
+Line 18, col 13: Symbol argument already defined		Line 18, col 13: Symbol argument already defined
+Line 20, col 16: Symbol i already defined			Line 20, col 16: Symbol i already defined
+Line 8, col 11: Incompatible type int in if statement	      |	Line 20, col 18: Symbol _ is reserved
+Line 13, col 11: Symbol ola already defined		      <
+===== Class errors Symbol Table =====				===== Class errors Symbol Table =====
+a		int						a		int
+b		int						b		int
+c		int						c		int
+_		double					      <
+underscore	(int)	int					underscore	(int)	int
+factorial	(int,int)	void				factorial	(int,int)	void
+factorial	(int,int,int)	void				factorial	(int,int,int)	void
+
+===== Method underscore(int) Symbol Table =====			===== Method underscore(int) Symbol Table =====
+return		int						return		int
+ola		int	param					ola		int	param
+
+===== Method factorial(int,int) Symbol Table =====		===== Method factorial(int,int) Symbol Table =====
+return		void						return		void
+i		int	param					i		int	param
+i		int	param				      <
+argument		int					argument		int
+a		int						a		int
+_		double					      <
+
+===== Method factorial(int,int,int) Symbol Table =====		===== Method factorial(int,int,int) Symbol Table =====
+return		void						return		void
+i		int	param					i		int	param
+i		int	param				      <
+_		int	param				      <
+
+Program								Program
+..Id(errors)							..Id(errors)
+..FieldDecl							..FieldDecl
+....Int								....Int
+....Id(a)							....Id(a)
+..FieldDecl							..FieldDecl
+....Int								....Int
+....Id(b)							....Id(b)
+..FieldDecl							..FieldDecl
+....Int								....Int
+....Id(c)							....Id(c)
+..FieldDecl							..FieldDecl
+....Int								....Int
+....Id(c)							....Id(c)
+..FieldDecl							..FieldDecl
+....Int								....Int
+....Id(a)							....Id(a)
+..FieldDecl							..FieldDecl
+....Int								....Int
+....Id(b)							....Id(b)
+..FieldDecl							..FieldDecl
+....Double							....Double
+....Id(_)							....Id(_)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(underscore)						......Id(underscore)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(ola)						..........Id(ola)
+....MethodBody							....MethodBody
+......If							......If
+........Id(ola) - int						........Id(ola) - int
+........Return							........Return
+..........Id(ola) - int						..........Id(ola) - int
+........Return							........Return
+..........Id(ola) - int						..........Id(ola) - int
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(ola)							........Id(ola)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(factorial)						......Id(factorial)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(i)							..........Id(i)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(i)							..........Id(i)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(argument)						........Id(argument)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(i)							........Id(i)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(argument)						........Id(argument)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(a)							........Id(a)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(i)							........Id(i)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(_)							........Id(_)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(factorial)						......Id(factorial)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(i)							..........Id(i)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(i)							..........Id(i)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(_)							..........Id(_)
+....MethodBody							....MethodBody
+......Assign - int						......Assign - int
+........Id(i) - int						........Id(i) - int
+........Add - int						........Add - int
+..........Id(i) - int						..........Id(i) - int
+..........Id(i) - int						..........Id(i) - int
+================== tests/meta3/jucompiler2 DIFF OUTPUT ==================
+Line 1, col 37: syntax error: H				      <
+							      <
+================== tests/meta3/testeProblemaE.java DIFF OUTPUT ==================
+							      >	Line 24, col 24: Symbol main(String[]) already defined
+							      >	Line 32, col 22: Symbol funcao3(int,int,double) already defin
+							      >	Line 34, col 22: Symbol funcao3(int,int,double) already defin
+Line 43, col 41: Symbol i already defined			Line 43, col 41: Symbol i already defined
+Line 55, col 40: Symbol i already defined			Line 55, col 40: Symbol i already defined
+Line 57, col 26: Symbol funcao already defined			Line 57, col 26: Symbol funcao already defined
+Line 69, col 12: Operator = cannot be applied to types int, b |	Line 10, col 9: Operator + cannot be applied to types boolean
+							      >	Line 10, col 15: Operator == cannot be applied to types undef
+							      >	Line 13, col 6: Operator = cannot be applied to types boolean
+							      >	Line 21, col 11: Operator = cannot be applied to types int, n
+Line 62, col 10: Operator = cannot be applied to types boolea	Line 62, col 10: Operator = cannot be applied to types boolea
+Line 63, col 10: Operator = cannot be applied to types int, d	Line 63, col 10: Operator = cannot be applied to types int, d
+Line 64, col 10: Operator = cannot be applied to types int, d	Line 64, col 10: Operator = cannot be applied to types int, d
+Line -1, col -1: Operator Integer.parseInt cannot be applied  |	Line 66, col 13: Operator Integer.parseInt cannot be applied 
+Line 26, col 5: Operator = cannot be applied to types boolean |	Line 69, col 12: Operator = cannot be applied to types int, b
+Line 10, col 9: Operator + cannot be applied to types boolean <
+Line 13, col 6: Operator = cannot be applied to types boolean <
+===== Class Java Symbol Table =====				===== Class Java Symbol Table =====
+funcao2	(String[])	void					funcao2	(String[])	void
+x	(double,int)	double					x	(double,int)	double
+main	(String[])	void					main	(String[])	void
+main	(String[])	void				      <
+a		boolean						a		boolean
+funcao3	(int,int,double)	int				funcao3	(int,int,double)	int
+funcao3	(int,int,double)	int			      <
+funcao3	(int,int,double)	int			      <
+funcao3	(int,int,boolean)	boolean				funcao3	(int,int,boolean)	boolean
+funcao		boolean						funcao		boolean
+funcao	(int,double)	int					funcao	(int,double)	int
+funcao	(double,int)	void					funcao	(double,int)	void
+funcao	(double,double)	double					funcao	(double,double)	double
+funcao	(int,int)	int					funcao	(int,int)	int
+maine	()	void						maine	()	void
+ola56	(int)	int						ola56	(int)	int
+ola56		boolean						ola56		boolean
+
+===== Method funcao2(String[]) Symbol Table =====		===== Method funcao2(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+a		boolean						a		boolean
+b		boolean						b		boolean
+c		int						c		int
+d		int						d		int
+
+===== Method x(double,int) Symbol Table =====			===== Method x(double,int) Symbol Table =====
+return		double						return		double
+x		double	param					x		double	param
+a		int	param					a		int	param
+
+===== Method main(String[]) Symbol Table =====			===== Method main(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+x		int						x		int
+b		int						b		int
+
+===== Method main(String[]) Symbol Table =====		      <
+return		void					      <
+args		String[]	param			      <
+x		int					      <
+							      <
+===== Method funcao3(int,int,double) Symbol Table =====	      <
+return		int					      <
+a		int	param				      <
+b		int	param				      <
+c		double	param				      <
+							      <
+===== Method funcao3(int,int,double) Symbol Table =====	      <
+return		int					      <
+a		int	param				      <
+b		int	param				      <
+c		double	param				      <
+							      <
+===== Method funcao3(int,int,double) Symbol Table =====		===== Method funcao3(int,int,double) Symbol Table =====
+return		int						return		int
+a		int	param					a		int	param
+b		int	param					b		int	param
+c		double	param					c		double	param
+
+===== Method funcao3(int,int,boolean) Symbol Table =====	===== Method funcao3(int,int,boolean) Symbol Table =====
+return		boolean						return		boolean
+a		int	param					a		int	param
+b		int	param					b		int	param
+c		boolean	param					c		boolean	param
+x		int						x		int
+y		int						y		int
+z		int						z		int
+w		int						w		int
+
+===== Method funcao(int,double) Symbol Table =====		===== Method funcao(int,double) Symbol Table =====
+return		int						return		int
+i		int	param					i		int	param
+i		double	param				      <
+
+===== Method funcao(double,int) Symbol Table =====		===== Method funcao(double,int) Symbol Table =====
+return		void						return		void
+i		double	param					i		double	param
+funcao		int	param					funcao		int	param
+m		boolean						m		boolean
+
+===== Method funcao(double,double) Symbol Table =====		===== Method funcao(double,double) Symbol Table =====
+return		double						return		double
+i		double	param					i		double	param
+funcao		double	param					funcao		double	param
+m		int						m		int
+
+===== Method funcao(int,int) Symbol Table =====			===== Method funcao(int,int) Symbol Table =====
+return		int						return		int
+i		int	param					i		int	param
+i		int	param				      <
+
+===== Method maine() Symbol Table =====				===== Method maine() Symbol Table =====
+return		void						return		void
+a		int						a		int
+b		int						b		int
+c		int						c		int
+d		int						d		int
+e		double						e		double
+f		double						f		double
+g		double						g		double
+h		double						h		double
+i		boolean						i		boolean
+j		boolean						j		boolean
+k		boolean						k		boolean
+l		boolean						l		boolean
+
+===== Method ola56(int) Symbol Table =====			===== Method ola56(int) Symbol Table =====
+return		int						return		int
+x1		int	param					x1		int	param
+
+Program								Program
+..Id(Java)							..Id(Java)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(funcao2)						......Id(funcao2)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......ParseArgs - int						......ParseArgs - int
+........Id(args) - String[]					........Id(args) - String[]
+........DecLit(0) - int						........DecLit(0) - int
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(a)							........Id(a)
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(b)							........Id(b)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(c)							........Id(c)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(d)							........Id(d)
+......Assign - boolean						......Assign - boolean
+........Id(a) - boolean						........Id(a) - boolean
+........BoolLit(true) - boolean					........BoolLit(true) - boolean
+......Assign - boolean						......Assign - boolean
+........Id(b) - boolean						........Id(b) - boolean
+........BoolLit(true) - boolean					........BoolLit(true) - boolean
+......Assign - int						......Assign - int
+........Id(c) - int						........Id(c) - int
+........DecLit(1) - int						........DecLit(1) - int
+......Assign - int						......Assign - int
+........Id(d) - int						........Id(d) - int
+........DecLit(1) - int						........DecLit(1) - int
+......If							......If
+........Eq - boolean						........Eq - boolean
+..........Add - undef						..........Add - undef
+............Id(a) - boolean					............Id(a) - boolean
+............BoolLit(true) - boolean				............BoolLit(true) - boolean
+..........DecLit(2) - int					..........DecLit(2) - int
+........Print							........Print
+..........StrLit("olaaaa\n") - String				..........StrLit("olaaaa\n") - String
+........Block							........Block
+......Assign - boolean						......Assign - boolean
+........Id(a) - boolean						........Id(a) - boolean
+........Length - int						........Length - int
+..........Id(args) - String[]					..........Id(args) - String[]
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Double							......Double
+......Id(x)							......Id(x)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Double						..........Double
+..........Id(x)							..........Id(x)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(a)							..........Id(a)
+....MethodBody							....MethodBody
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(x)							........Id(x)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(b)							........Id(b)
+......Assign - int						......Assign - int
+........Id(x) - int						........Id(x) - int
+........Lshift - int					      |	........Lshift
+..........DecLit(1) - int				      |	..........DecLit(1)
+..........Mul - int					      |	..........Mul
+............Id(x) - int					      |	............Id(x)
+............DecLit(1) - int				      |	............DecLit(1)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(x)							........Id(x)
+......Assign - boolean					      |	......Assign
+........Id(a) - boolean					      |	........Id(a)
+........Id(x) - int					      |	........Id(x)
+..FieldDecl							..FieldDecl
+....Bool							....Bool
+....Id(a)							....Id(a)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(funcao3)						......Id(funcao3)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(a)							..........Id(a)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(b)							..........Id(b)
+........ParamDecl						........ParamDecl
+..........Double						..........Double
+..........Id(c)							..........Id(c)
+....MethodBody							....MethodBody
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(funcao3)						......Id(funcao3)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(a)							..........Id(a)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(b)							..........Id(b)
+........ParamDecl						........ParamDecl
+..........Double						..........Double
+..........Id(c)							..........Id(c)
+....MethodBody							....MethodBody
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(funcao3)						......Id(funcao3)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(a)							..........Id(a)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(b)							..........Id(b)
+........ParamDecl						........ParamDecl
+..........Double						..........Double
+..........Id(c)							..........Id(c)
+....MethodBody							....MethodBody
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Bool							......Bool
+......Id(funcao3)						......Id(funcao3)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(a)							..........Id(a)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(b)							..........Id(b)
+........ParamDecl						........ParamDecl
+..........Bool							..........Bool
+..........Id(c)							..........Id(c)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(x)							........Id(x)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(y)							........Id(y)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(z)							........Id(z)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(w)							........Id(w)
+..FieldDecl							..FieldDecl
+....Bool							....Bool
+....Id(funcao)							....Id(funcao)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(funcao)						......Id(funcao)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(i)							..........Id(i)
+........ParamDecl						........ParamDecl
+..........Double						..........Double
+..........Id(i)							..........Id(i)
+....MethodBody							....MethodBody
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(funcao)						......Id(funcao)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Double						..........Double
+..........Id(i)							..........Id(i)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(funcao)						..........Id(funcao)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(m)							........Id(m)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Double							......Double
+......Id(funcao)						......Id(funcao)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Double						..........Double
+..........Id(i)							..........Id(i)
+........ParamDecl						........ParamDecl
+..........Double						..........Double
+..........Id(funcao)						..........Id(funcao)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(m)							........Id(m)
+......If							......If
+........Eq - boolean						........Eq - boolean
+..........Id(m) - int						..........Id(m) - int
+..........DecLit(1) - int					..........DecLit(1) - int
+........Call - int						........Call - int
+..........Id(funcao) - (int,int)				..........Id(funcao) - (int,int)
+..........Id(m) - int						..........Id(m) - int
+..........Id(m) - int						..........Id(m) - int
+........Block							........Block
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(funcao)						......Id(funcao)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(i)							..........Id(i)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(i)							..........Id(i)
+....MethodBody							....MethodBody
+..FieldDecl							..FieldDecl
+....Double							....Double
+....Id(funcao)							....Id(funcao)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(maine)							......Id(maine)
+......MethodParams						......MethodParams
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(a)							........Id(a)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(b)							........Id(b)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(c)							........Id(c)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(d)							........Id(d)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(e)							........Id(e)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(f)							........Id(f)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(g)							........Id(g)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(h)							........Id(h)
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(i)							........Id(i)
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(j)							........Id(j)
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(k)							........Id(k)
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(l)							........Id(l)
+......Assign - boolean						......Assign - boolean
+........Id(k) - boolean						........Id(k) - boolean
+........Add - double						........Add - double
+..........Add - int						..........Add - int
+............DecLit(1) - int					............DecLit(1) - int
+............DecLit(1) - int					............DecLit(1) - int
+..........Mod - double						..........Mod - double
+............Mul - double					............Mul - double
+..............Div - double					..............Div - double
+................Id(e) - double					................Id(e) - double
+................DecLit(4) - int					................DecLit(4) - int
+..............Minus - double					..............Minus - double
+................RealLit(4.3) - double				................RealLit(4.3) - double
+............DecLit(10) - int					............DecLit(10) - int
+......Assign - int						......Assign - int
+........Id(a) - int						........Id(a) - int
+........Add - double						........Add - double
+..........Add - int						..........Add - int
+............DecLit(1) - int					............DecLit(1) - int
+............DecLit(1) - int					............DecLit(1) - int
+..........Mod - double						..........Mod - double
+............Mul - double					............Mul - double
+..............Div - double					..............Div - double
+................Id(e) - double					................Id(e) - double
+................DecLit(4) - int					................DecLit(4) - int
+..............Minus - double					..............Minus - double
+................RealLit(4.3) - double				................RealLit(4.3) - double
+............DecLit(10) - int					............DecLit(10) - int
+......Assign - int						......Assign - int
+........Id(b) - int						........Id(b) - int
+........Add - double						........Add - double
+..........Add - int						..........Add - int
+............DecLit(1) - int					............DecLit(1) - int
+............DecLit(1) - int					............DecLit(1) - int
+..........Mod - double						..........Mod - double
+............Mul - double					............Mul - double
+..............Div - double					..............Div - double
+................Id(e) - double					................Id(e) - double
+................DecLit(4) - int					................DecLit(4) - int
+..............Minus - double					..............Minus - double
+................RealLit(4.3) - double				................RealLit(4.3) - double
+............DecLit(10) - int					............DecLit(10) - int
+......Assign - boolean						......Assign - boolean
+........Id(i) - boolean						........Id(i) - boolean
+........Not - boolean						........Not - boolean
+..........Not - boolean						..........Not - boolean
+............Not - boolean					............Not - boolean
+..............Not - boolean					..............Not - boolean
+................Not - boolean					................Not - boolean
+..................Not - boolean					..................Not - boolean
+....................Not - boolean				....................Not - boolean
+......................Id(l) - boolean				......................Id(l) - boolean
+......Assign - double						......Assign - double
+........Id(f) - double						........Id(f) - double
+........ParseArgs - int						........ParseArgs - int
+..........Id(i) - boolean					..........Id(i) - boolean
+..........Add - double						..........Add - double
+............Add - double					............Add - double
+..............DecLit(1) - int					..............DecLit(1) - int
+..............RealLit(1.0) - double				..............RealLit(1.0) - double
+............DecLit(2) - int					............DecLit(2) - int
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(ola56)							......Id(ola56)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(x1)						..........Id(x1)
+....MethodBody							....MethodBody
+......Assign - int						......Assign - int
+........Id(x1) - int						........Id(x1) - int
+........Id(ola56) - boolean					........Id(ola56) - boolean
+......Print							......Print
+........StrLit("") - String					........StrLit("") - String
+..FieldDecl							..FieldDecl
+....Bool							....Bool
+....Id(ola56)							....Id(ola56)
+================== tests/meta3/new_test.java DIFF OUTPUT ==================
+Line 15, col 27: Symbol b already defined		      <
+Line 17, col 23: Symbol a already defined		      <
+Line 20, col 42: Symbol t already defined		      <
+Line 22, col 13: Symbol k already defined		      <
+Line 6, col 13: Symbol i already defined		      <
+Line 9, col 17: Symbol b already defined		      <
+===== Class AA Symbol Table =====			      <
+main	()	double					      <
+b		boolean					      <
+a		int					      <
+f	(int,int,double)	double			      <
+f	(int,double)	double				      <
+AA	()	boolean					      <
+							      <
+===== Method main() Symbol Table =====			      <
+return		double					      <
+i		int					      <
+d		double					      <
+b		boolean					      <
+							      <
+===== Method f(int,int,double) Symbol Table =====	      <
+return		double					      <
+t		int	param				      <
+ka		int	param				      <
+d		double	param				      <
+							      <
+===== Method f(int,double) Symbol Table =====		      <
+return		double					      <
+t		int	param				      <
+t		double	param				      <
+k		int					      <
+							      <
+===== Method AA() Symbol Table =====			      <
+return		boolean					      <
+							      <
+Program							      <
+..Id(AA)						      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Double						      <
+......Id(main)						      <
+......MethodParams					      <
+....MethodBody						      <
+......VarDecl						      <
+........Int						      <
+........Id(i)						      <
+......VarDecl						      <
+........Int						      <
+........Id(i)						      <
+......VarDecl						      <
+........Double						      <
+........Id(d)						      <
+......VarDecl						      <
+........Bool						      <
+........Id(b)						      <
+......VarDecl						      <
+........Bool						      <
+........Id(b)						      <
+......Call - double					      <
+........Id(f) - (int,double)				      <
+........Id(i) - int					      <
+........Id(i) - int					      <
+..FieldDecl						      <
+....Bool						      <
+....Id(b)						      <
+..FieldDecl						      <
+....Bool						      <
+....Id(b)						      <
+..FieldDecl						      <
+....Int							      <
+....Id(a)						      <
+..FieldDecl						      <
+....Int							      <
+....Id(a)						      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Double						      <
+......Id(f)						      <
+......MethodParams					      <
+........ParamDecl					      <
+..........Int						      <
+..........Id(t)						      <
+........ParamDecl					      <
+..........Int						      <
+..........Id(ka)					      <
+........ParamDecl					      <
+..........Double					      <
+..........Id(d)						      <
+....MethodBody						      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Double						      <
+......Id(f)						      <
+......MethodParams					      <
+........ParamDecl					      <
+..........Int						      <
+..........Id(t)						      <
+........ParamDecl					      <
+..........Double					      <
+..........Id(t)						      <
+....MethodBody						      <
+......VarDecl						      <
+........Int						      <
+........Id(k)						      <
+......VarDecl						      <
+........Int						      <
+........Id(k)						      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Bool						      <
+......Id(AA)						      <
+......MethodParams					      <
+....MethodBody						      <
+================== tests/meta3/params_in_redefined_method.java DIFF OUTPUT ==================
+Line 4, col 37: Symbol a already defined			Line 4, col 37: Symbol a already defined
+							      >	Line 4, col 24: Symbol a(int,int) already defined
+===== Class test Symbol Table =====				===== Class test Symbol Table =====
+a	(int,int)	void					a	(int,int)	void
+a	(int,int)	void				      <
+main	(String[])	void					main	(String[])	void
+
+===== Method a(int,int) Symbol Table =====			===== Method a(int,int) Symbol Table =====
+return		void						return		void
+a		int	param					a		int	param
+b		int	param					b		int	param
+							      <
+===== Method a(int,int) Symbol Table =====		      <
+return		void					      <
+a		int	param				      <
+a		int	param				      <
+
+===== Method main(String[]) Symbol Table =====			===== Method main(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+
+Program								Program
+..Id(test)							..Id(test)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(a)							......Id(a)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(a)							..........Id(a)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(b)							..........Id(b)
+....MethodBody							....MethodBody
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(a)							......Id(a)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(a)							..........Id(a)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(a)							..........Id(a)
+....MethodBody							....MethodBody
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+================== tests/meta3/diff DIFF OUTPUT ==================
+Line 1, col 1: syntax error: Line			      <
+							      <
+================== tests/meta3/methodsAndFields.java DIFF OUTPUT ==================
+Line 28, col 71: Symbol e already defined			Line 28, col 71: Symbol e already defined
+							      >	Line 17, col 11: Symbol b already defined
+							      >	Line 18, col 4: Operator = cannot be applied to types int, bo
+							      >	Line 21, col 10: Incompatible type int in return statement
+Line 30, col 7: Symbol a already defined			Line 30, col 7: Symbol a already defined
+Line 30, col 10: Symbol b already defined			Line 30, col 10: Symbol b already defined
+Line 30, col 19: Symbol e already defined			Line 30, col 19: Symbol e already defined
+Line 17, col 11: Symbol b already defined		      <
+Line 18, col 4: Operator = cannot be applied to types int, bo <
+===== Class newClass Symbol Table =====				===== Class newClass Symbol Table =====
+i		int						i		int
+b		boolean						b		boolean
+main	(int,int,double)	int				main	(int,int,double)	int
+pI		int						pI		int
+a	(int,int,boolean)	void				a	(int,int,boolean)	void
+a	()	void						a	()	void
+test	(int,int,double,boolean,boolean)	double		test	(int,int,double,boolean,boolean)	double
+sum	(int,int)	int					sum	(int,int)	int
+
+===== Method main(int,int,double) Symbol Table =====		===== Method main(int,int,double) Symbol Table =====
+return		int						return		int
+a		int	param					a		int	param
+c		int	param					c		int	param
+d		double	param					d		double	param
+b		boolean						b		boolean
+i1		int						i1		int
+
+===== Method a(int,int,boolean) Symbol Table =====		===== Method a(int,int,boolean) Symbol Table =====
+return		void						return		void
+a		int	param					a		int	param
+b		int	param					b		int	param
+c		boolean	param					c		boolean	param
+d		int						d		int
+i		int						i		int
+f		double						f		double
+
+===== Method a() Symbol Table =====				===== Method a() Symbol Table =====
+return		void						return		void
+
+===== Method test(int,int,double,boolean,boolean) Symbol Tabl	===== Method test(int,int,double,boolean,boolean) Symbol Tabl
+return		double						return		double
+a		int	param					a		int	param
+b		int	param					b		int	param
+s		double	param					s		double	param
+e		boolean	param					e		boolean	param
+e		boolean	param				      <
+c		int						c		int
+d		int						d		int
+finalI		int						finalI		int
+
+===== Method sum(int,int) Symbol Table =====			===== Method sum(int,int) Symbol Table =====
+return		int						return		int
+k		int	param					k		int	param
+j		int	param					j		int	param
+
+Program								Program
+..Id(newClass)							..Id(newClass)
+..FieldDecl							..FieldDecl
+....Int								....Int
+....Id(i)							....Id(i)
+..FieldDecl							..FieldDecl
+....Bool							....Bool
+....Id(b)							....Id(b)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(a)							..........Id(a)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(c)							..........Id(c)
+........ParamDecl						........ParamDecl
+..........Double						..........Double
+..........Id(d)							..........Id(d)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(b)							........Id(b)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(i1)							........Id(i1)
+......Return							......Return
+........DecLit(0) - int						........DecLit(0) - int
+..FieldDecl							..FieldDecl
+....Int								....Int
+....Id(pI)							....Id(pI)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(a)							......Id(a)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(a)							..........Id(a)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(b)							..........Id(b)
+........ParamDecl						........ParamDecl
+..........Bool							..........Bool
+..........Id(c)							..........Id(c)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(d)							........Id(d)
+......Assign - int						......Assign - int
+........Id(d) - int						........Id(d) - int
+........Id(b) - int						........Id(b) - int
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(i)							........Id(i)
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(b)							........Id(b)
+......Assign - int						......Assign - int
+........Id(b) - int						........Id(b) - int
+........BoolLit(true) - boolean					........BoolLit(true) - boolean
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(f)							........Id(f)
+......Assign - double						......Assign - double
+........Id(f) - double						........Id(f) - double
+........RealLit(0.03) - double					........RealLit(0.03) - double
+......Return							......Return
+........Id(d) - int						........Id(d) - int
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(a)							......Id(a)
+......MethodParams						......MethodParams
+....MethodBody							....MethodBody
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Double							......Double
+......Id(test)							......Id(test)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(a)							..........Id(a)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(b)							..........Id(b)
+........ParamDecl						........ParamDecl
+..........Double						..........Double
+..........Id(s)							..........Id(s)
+........ParamDecl						........ParamDecl
+..........Bool							..........Bool
+..........Id(e)							..........Id(e)
+........ParamDecl						........ParamDecl
+..........Bool							..........Bool
+..........Id(e)							..........Id(e)
+....MethodBody							....MethodBody
+......Call - void						......Call - void
+........Id(a) - (int,int,boolean)				........Id(a) - (int,int,boolean)
+........DecLit(2) - int						........DecLit(2) - int
+........DecLit(3) - int						........DecLit(3) - int
+........BoolLit(true) - boolean					........BoolLit(true) - boolean
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(a) - int					      |	........Id(a)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(b) - int					      |	........Id(b)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(c)							........Id(c)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(d)							........Id(d)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(e) - boolean					      |	........Id(e)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(finalI)						........Id(finalI)
+......Assign - int						......Assign - int
+........Id(finalI) - int					........Id(finalI) - int
+........Add - int						........Add - int
+..........DecLit(2) - int					..........DecLit(2) - int
+..........DecLit(3) - int					..........DecLit(3) - int
+......Return							......Return
+........Div - double						........Div - double
+..........Mul - double						..........Mul - double
+............RealLit(0.02) - double				............RealLit(0.02) - double
+............RealLit(0.03) - double				............RealLit(0.03) - double
+..........DecLit(5) - int					..........DecLit(5) - int
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(sum)							......Id(sum)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(k)							..........Id(k)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(j)							..........Id(j)
+....MethodBody							....MethodBody
+......Call - double						......Call - double
+........Id(test) - (int,int,double,boolean,boolean)		........Id(test) - (int,int,double,boolean,boolean)
+........DecLit(2) - int						........DecLit(2) - int
+........DecLit(2) - int						........DecLit(2) - int
+........RealLit(2.0) - double					........RealLit(2.0) - double
+........BoolLit(true) - boolean					........BoolLit(true) - boolean
+........BoolLit(false) - boolean				........BoolLit(false) - boolean
+......Return							......Return
+........Add - int						........Add - int
+..........Id(k) - int						..........Id(k) - int
+..........Id(j) - int						..........Id(j) - int
+================== tests/meta3/all.sh DIFF OUTPUT ==================
+Line 1, col 1: illegal character (#)			      <
+Line 1, col 2: syntax error: !				      <
+							      <
+================== tests/meta3/MultipleArguments.java DIFF OUTPUT ==================
+Line 12, col 26: Cannot find symbol factorial(int)	      <
+Line 12, col 26: Incompatible type undef in System.out.print  <
+Line 6, col 20: Cannot find symbol factorial(int)		Line 6, col 20: Cannot find symbol factorial(int)
+Line 6, col 18: Operator * cannot be applied to types int, un	Line 6, col 18: Operator * cannot be applied to types int, un
+							      >	Line 6, col 18: Incompatible type undef in return statement
+							      >	Line 12, col 26: Cannot find symbol factorial(int)
+							      >	Line 12, col 26: Incompatible type undef in System.out.print 
+===== Class Factorial Symbol Table =====			===== Class Factorial Symbol Table =====
+factorial	(int,int,double)	int			factorial	(int,int,double)	int
+main	(String[])	void					main	(String[])	void
+noArguments	()	void					noArguments	()	void
+
+===== Method factorial(int,int,double) Symbol Table =====	===== Method factorial(int,int,double) Symbol Table =====
+return		int						return		int
+n		int	param					n		int	param
+x		int	param					x		int	param
+y		double	param					y		double	param
+
+===== Method main(String[]) Symbol Table =====			===== Method main(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+argument		int					argument		int
+
+===== Method noArguments() Symbol Table =====			===== Method noArguments() Symbol Table =====
+return		void						return		void
+
+Program								Program
+..Id(Factorial)							..Id(Factorial)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(factorial)						......Id(factorial)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(n)							..........Id(n)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(x)							..........Id(x)
+........ParamDecl						........ParamDecl
+..........Double						..........Double
+..........Id(y)							..........Id(y)
+....MethodBody							....MethodBody
+......If							......If
+........Eq - boolean						........Eq - boolean
+..........Id(n) - int						..........Id(n) - int
+..........DecLit(0) - int					..........DecLit(0) - int
+........Return							........Return
+..........DecLit(1) - int					..........DecLit(1) - int
+........Block							........Block
+......Return							......Return
+........Mul - undef						........Mul - undef
+..........Id(n) - int						..........Id(n) - int
+..........Call - undef						..........Call - undef
+............Id(factorial) - undef				............Id(factorial) - undef
+............Sub - int						............Sub - int
+..............Id(n) - int					..............Id(n) - int
+..............DecLit(1) - int					..............DecLit(1) - int
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(argument)						........Id(argument)
+......Assign - int						......Assign - int
+........Id(argument) - int					........Id(argument) - int
+........ParseArgs - int						........ParseArgs - int
+..........Id(args) - String[]					..........Id(args) - String[]
+..........DecLit(0) - int					..........DecLit(0) - int
+......Print							......Print
+........Call - undef						........Call - undef
+..........Id(factorial) - undef					..........Id(factorial) - undef
+..........Id(argument) - int					..........Id(argument) - int
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(noArguments)						......Id(noArguments)
+......MethodParams						......MethodParams
+....MethodBody							....MethodBody
+================== tests/meta3/Problema_H.java DIFF OUTPUT ==================
+Line -1, col -1: Operator Integer.parseInt cannot be applied  |	Line 4, col 26: Incompatible type String[] in System.out.prin
+Line -1, col -1: Operator Integer.parseInt cannot be applied  |	Line 5, col 27: Operator .length cannot be applied to type in
+							      >	Line 7, col 26: Operator Integer.parseInt cannot be applied t
+							      >	Line 9, col 48: Cannot find symbol e
+							      >	Line 9, col 26: Operator Integer.parseInt cannot be applied t
+							      >	Line 10, col 16: Incompatible type String[] in return stateme
+							      >	Line 11, col 16: Operator Integer.parseInt cannot be applied 
+							      >	Line 11, col 16: Incompatible type int in return statement
+							      >	Line 12, col 16: Incompatible type void in return statement
+							      >	Line 13, col 16: Incompatible type int in return statement
+							      >	Line 14, col 16: Incompatible type double in return statement
+===== Class teste Symbol Table =====				===== Class teste Symbol Table =====
+xd	(String[])	void					xd	(String[])	void
+
+===== Method xd(String[]) Symbol Table =====			===== Method xd(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+d		int						d		int
+
+Program								Program
+..Id(teste)							..Id(teste)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(xd)							......Id(xd)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(d)							........Id(d)
+......Print							......Print
+........Id(args) - String[]					........Id(args) - String[]
+......Print							......Print
+........Length - int						........Length - int
+..........Id(d) - int						..........Id(d) - int
+......Print							......Print
+........Length - int						........Length - int
+..........Id(args) - String[]					..........Id(args) - String[]
+......Print							......Print
+........ParseArgs - int						........ParseArgs - int
+..........Id(args) - String[]					..........Id(args) - String[]
+..........RealLit(2.0) - double					..........RealLit(2.0) - double
+......Print							......Print
+........ParseArgs - int						........ParseArgs - int
+..........Id(args) - String[]					..........Id(args) - String[]
+..........DecLit(2) - int					..........DecLit(2) - int
+......Print							......Print
+........ParseArgs - int						........ParseArgs - int
+..........Id(args) - String[]					..........Id(args) - String[]
+..........Id(e)						      |	..........Id(e) - undef
+......Return							......Return
+........Id(args) - String[]					........Id(args) - String[]
+......Return							......Return
+........ParseArgs - int						........ParseArgs - int
+..........Id(args) - String[]					..........Id(args) - String[]
+..........RealLit(2.0) - double					..........RealLit(2.0) - double
+......Return							......Return
+........Call - void						........Call - void
+..........Id(xd) - (String[])					..........Id(xd) - (String[])
+..........Id(args) - String[]					..........Id(args) - String[]
+......Return							......Return
+........Id(d) - int						........Id(d) - int
+......Return							......Return
+........RealLit(2.0) - double					........RealLit(2.0) - double
+================== tests/meta3/e_dot_length.java DIFF OUTPUT ==================
+							      >	Line 8, col 14: Operator .length cannot be applied to type in
+							      >	Line 9, col 14: Operator .length cannot be applied to type bo
+							      >	Line 10, col 14: Operator .length cannot be applied to type d
+							      >	Line 12, col 13: Cannot find symbol undef
+							      >	Line 12, col 18: Operator .length cannot be applied to type u
+							      >	Line 14, col 14: Operator .length cannot be applied to type i
+Line 14, col 11: Operator = cannot be applied to types boolea	Line 14, col 11: Operator = cannot be applied to types boolea
+===== Class ClassTeste Symbol Table =====			===== Class ClassTeste Symbol Table =====
+main	(String[])	void					main	(String[])	void
+
+===== Method main(String[]) Symbol Table =====			===== Method main(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+b		boolean						b		boolean
+i		int						i		int
+d		double						d		double
+
+Program								Program
+..Id(ClassTeste)						..Id(ClassTeste)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(b)							........Id(b)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(i)							........Id(i)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(d)							........Id(d)
+......Assign - int						......Assign - int
+........Id(i) - int						........Id(i) - int
+........Length - int						........Length - int
+..........Id(i) - int						..........Id(i) - int
+......Assign - int						......Assign - int
+........Id(i) - int						........Id(i) - int
+........Length - int						........Length - int
+..........Id(b) - boolean					..........Id(b) - boolean
+......Assign - int						......Assign - int
+........Id(i) - int						........Id(i) - int
+........Length - int						........Length - int
+..........Id(d) - double					..........Id(d) - double
+......Assign - int						......Assign - int
+........Id(i) - int						........Id(i) - int
+........Length - int						........Length - int
+..........Id(args) - String[]					..........Id(args) - String[]
+......Assign - int						......Assign - int
+........Id(i) - int						........Id(i) - int
+........Length - int						........Length - int
+..........Id(undef)					      |	..........Id(undef) - undef
+......Assign - boolean						......Assign - boolean
+........Id(b) - boolean						........Id(b) - boolean
+........Length - int						........Length - int
+..........Id(i) - int						..........Id(i) - int
+================== tests/meta3/DoublePrecisionErros.java DIFF OUTPUT ==================
+===== Class Echo1 Symbol Table =====			      |	Line 4, col 22: Number 0.002_4E-321 out of bounds
+main	(String[])	void				      |	Line 5, col 22: Number 0.5E-4965 out of bounds
+							      <
+===== Method main(String[]) Symbol Table =====		      <
+return		void					      <
+args		String[]	param			      <
+							      <
+Program							      <
+..Id(Echo1)						      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Void						      <
+......Id(main)						      <
+......MethodParams					      <
+........ParamDecl					      <
+..........StringArray					      <
+..........Id(args)					      <
+....MethodBody						      <
+......Print						      <
+........RealLit(2.5E-324) - double			      <
+......Print						      <
+........RealLit(0.002_4E-321) - double			      <
+......Print						      <
+........RealLit(0.5E-4965) - double			      <
+================== tests/meta3/while_errors.java DIFF OUTPUT ==================
+							      >	Line 9, col 15: Incompatible type int in while statement
+							      >	Line 10, col 15: Incompatible type int in while statement
+							      >	Line 11, col 15: Incompatible type double in while statement
+							      >	Line 12, col 15: Incompatible type double in while statement
+							      >	Line 13, col 16: Incompatible type int in while statement
+Line 14, col 19: Operator << cannot be applied to types boole	Line 14, col 19: Operator << cannot be applied to types boole
+							      >	Line 14, col 19: Incompatible type undef in while statement
+Line 15, col 16: Operator << cannot be applied to types boole	Line 15, col 16: Operator << cannot be applied to types boole
+							      >	Line 15, col 16: Incompatible type undef in while statement
+							      >	Line 16, col 16: Incompatible type int in while statement
+===== Class while_errors Symbol Table =====			===== Class while_errors Symbol Table =====
+main	(String[])	void					main	(String[])	void
+
+===== Method main(String[]) Symbol Table =====			===== Method main(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+i		int						i		int
+b		boolean						b		boolean
+d		double						d		double
+
+Program								Program
+..Id(while_errors)						..Id(while_errors)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(i)							........Id(i)
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(b)							........Id(b)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(d)							........Id(d)
+......While							......While
+........Id(b) - boolean						........Id(b) - boolean
+........Block							........Block
+......While							......While
+........BoolLit(true) - boolean					........BoolLit(true) - boolean
+........Block							........Block
+......While							......While
+........Id(i) - int						........Id(i) - int
+........Block							........Block
+......While							......While
+........DecLit(1) - int						........DecLit(1) - int
+........Block							........Block
+......While							......While
+........Id(d) - double						........Id(d) - double
+........Block							........Block
+......While							......While
+........RealLit(1.1) - double					........RealLit(1.1) - double
+........Block							........Block
+......While							......While
+........Lshift - int						........Lshift - int
+..........DecLit(1) - int					..........DecLit(1) - int
+..........DecLit(1) - int					..........DecLit(1) - int
+........Block							........Block
+......While							......While
+........Lshift - undef						........Lshift - undef
+..........BoolLit(true) - boolean				..........BoolLit(true) - boolean
+..........BoolLit(true) - boolean				..........BoolLit(true) - boolean
+........Block							........Block
+......While							......While
+........Lshift - undef						........Lshift - undef
+..........Id(b) - boolean					..........Id(b) - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+......While							......While
+........Xor - int						........Xor - int
+..........DecLit(1) - int					..........DecLit(1) - int
+..........DecLit(1) - int					..........DecLit(1) - int
+........Block							........Block
+......While							......While
+........Xor - boolean						........Xor - boolean
+..........BoolLit(true) - boolean				..........BoolLit(true) - boolean
+..........BoolLit(false) - boolean				..........BoolLit(false) - boolean
+........Block							........Block
+================== tests/meta3/invalid_parse_int.java DIFF OUTPUT ==================
+							      >	Line 10, col 26: Cannot find symbol undef
+							      >	Line 10, col 32: Cannot find symbol undef
+							      >	Line 10, col 9: Operator Integer.parseInt cannot be applied t
+							      >	Line 11, col 26: Cannot find symbol undef
+							      >	Line 11, col 9: Operator Integer.parseInt cannot be applied t
+							      >	Line 12, col 26: Cannot find symbol undef
+							      >	Line 12, col 9: Operator Integer.parseInt cannot be applied t
+							      >	Line 13, col 26: Cannot find symbol undef
+							      >	Line 13, col 9: Operator Integer.parseInt cannot be applied t
+							      >	Line 14, col 26: Cannot find symbol undef
+							      >	Line 14, col 9: Operator Integer.parseInt cannot be applied t
+							      >	Line 15, col 26: Cannot find symbol undef
+							      >	Line 15, col 9: Operator Integer.parseInt cannot be applied t
+							      >	Line 16, col 26: Cannot find symbol undef
+							      >	Line 16, col 9: Operator Integer.parseInt cannot be applied t
+							      >	Line 17, col 26: Cannot find symbol undef
+							      >	Line 17, col 9: Operator Integer.parseInt cannot be applied t
+							      >	Line 18, col 26: Cannot find symbol undef
+							      >	Line 18, col 9: Operator Integer.parseInt cannot be applied t
+							      >	Line 19, col 26: Cannot find symbol undef
+							      >	Line 19, col 9: Operator Integer.parseInt cannot be applied t
+							      >	Line 21, col 31: Cannot find symbol undef
+							      >	Line 21, col 9: Operator Integer.parseInt cannot be applied t
+===== Class ClassTeste Symbol Table =====			===== Class ClassTeste Symbol Table =====
+main	(String[])	void					main	(String[])	void
+
+===== Method main(String[]) Symbol Table =====			===== Method main(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+b		boolean						b		boolean
+i		int						i		int
+d		double						d		double
+
+Program								Program
+..Id(ClassTeste)						..Id(ClassTeste)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(b)							........Id(b)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(i)							........Id(i)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(d)							........Id(d)
+......ParseArgs - int						......ParseArgs - int
+........Id(undef)					      |	........Id(undef) - undef
+........Id(undef)					      |	........Id(undef) - undef
+......ParseArgs - int						......ParseArgs - int
+........Id(undef)					      |	........Id(undef) - undef
+........Lshift - int						........Lshift - int
+..........DecLit(1) - int					..........DecLit(1) - int
+..........DecLit(1) - int					..........DecLit(1) - int
+......ParseArgs - int						......ParseArgs - int
+........Id(undef)					      |	........Id(undef) - undef
+........DecLit(0) - int						........DecLit(0) - int
+......ParseArgs - int						......ParseArgs - int
+........Id(undef)					      |	........Id(undef) - undef
+........Id(i) - int						........Id(i) - int
+......ParseArgs - int						......ParseArgs - int
+........Id(undef)					      |	........Id(undef) - undef
+........Length - int						........Length - int
+..........Id(args) - String[]					..........Id(args) - String[]
+......ParseArgs - int						......ParseArgs - int
+........Id(undef)					      |	........Id(undef) - undef
+........RealLit(0.0) - double					........RealLit(0.0) - double
+......ParseArgs - int						......ParseArgs - int
+........Id(undef)					      |	........Id(undef) - undef
+........Id(d) - double						........Id(d) - double
+......ParseArgs - int						......ParseArgs - int
+........Id(undef)					      |	........Id(undef) - undef
+........BoolLit(true) - boolean					........BoolLit(true) - boolean
+......ParseArgs - int						......ParseArgs - int
+........Id(undef)					      |	........Id(undef) - undef
+........Id(b) - boolean						........Id(b) - boolean
+......ParseArgs - int						......ParseArgs - int
+........Id(undef)					      |	........Id(undef) - undef
+........Id(args) - String[]					........Id(args) - String[]
+......ParseArgs - int						......ParseArgs - int
+........Id(args) - String[]					........Id(args) - String[]
+........Id(undef)					      |	........Id(undef) - undef
+================== tests/meta3/test DIFF OUTPUT ==================
+Line 4, col 4: Cannot find symbol a(void)		      <
+===== Class test Symbol Table =====			      <
+method_with_a_very_long_name_to_verify_if_memory_allocation_i <
+a	()	void					      <
+							      <
+===== Method method_with_a_very_long_name_to_verify_if_memory <
+return		void					      <
+							      <
+===== Method a() Symbol Table =====			      <
+return		void					      <
+							      <
+Program							      <
+..Id(test)						      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Void						      <
+......Id(method_with_a_very_long_name_to_verify_if_memory_all <
+......MethodParams					      <
+....MethodBody						      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Void						      <
+......Id(a)						      <
+......MethodParams					      <
+....MethodBody						      <
+......Call - undef					      <
+........Id(a) - undef					      <
+........Call - void					      <
+..........Id(a) - ()					      <
+================== tests/meta3/operator_single.java DIFF OUTPUT ==================
+Line 13, col 9: Operator = cannot be applied to types int, do	Line 13, col 9: Operator = cannot be applied to types int, do
+							      >	Line 20, col 11: Operator + cannot be applied to type boolean
+							      >	Line 20, col 9: Operator = cannot be applied to types boolean
+							      >	Line 21, col 11: Operator + cannot be applied to type boolean
+							      >	Line 21, col 9: Operator = cannot be applied to types boolean
+							      >	Line 28, col 12: Operator .length cannot be applied to type i
+							      >	Line 29, col 12: Operator .length cannot be applied to type d
+							      >	Line 33, col 11: Operator ! cannot be applied to type int
+Line 33, col 9: Operator = cannot be applied to types int, bo	Line 33, col 9: Operator = cannot be applied to types int, bo
+							      >	Line 34, col 11: Operator ! cannot be applied to type double
+Line 34, col 9: Operator = cannot be applied to types double,	Line 34, col 9: Operator = cannot be applied to types double,
+							      >	Line 38, col 7: Reference to method f(int,int) is ambiguous
+===== Class operator_single Symbol Table =====			===== Class operator_single Symbol Table =====
+main	(String[])	void					main	(String[])	void
+f	(int,double)	void					f	(int,double)	void
+f	(double,int)	void					f	(double,int)	void
+
+===== Method main(String[]) Symbol Table =====			===== Method main(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+i		int						i		int
+d		double						d		double
+b		boolean						b		boolean
+tamanho		int						tamanho		int
+
+===== Method f(int,double) Symbol Table =====			===== Method f(int,double) Symbol Table =====
+return		void						return		void
+a		int	param					a		int	param
+b		double	param					b		double	param
+
+===== Method f(double,int) Symbol Table =====			===== Method f(double,int) Symbol Table =====
+return		void						return		void
+a		double	param					a		double	param
+b		int	param					b		int	param
+
+Program								Program
+..Id(operator_single)						..Id(operator_single)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(i)							........Id(i)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(d)							........Id(d)
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(b)							........Id(b)
+......Assign - boolean						......Assign - boolean
+........Id(b) - boolean						........Id(b) - boolean
+........BoolLit(false) - boolean				........BoolLit(false) - boolean
+......Assign - int						......Assign - int
+........Id(i) - int						........Id(i) - int
+........Plus - int						........Plus - int
+..........DecLit(5) - int					..........DecLit(5) - int
+......Assign - int						......Assign - int
+........Id(i) - int						........Id(i) - int
+........Plus - double						........Plus - double
+..........RealLit(2.0) - double					..........RealLit(2.0) - double
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Plus - int						........Plus - int
+..........DecLit(1) - int					..........DecLit(1) - int
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Plus - double						........Plus - double
+..........RealLit(2.0) - double					..........RealLit(2.0) - double
+......Assign - boolean						......Assign - boolean
+........Id(b) - boolean						........Id(b) - boolean
+........Plus - boolean					      |	........Plus - undef
+..........BoolLit(false) - boolean				..........BoolLit(false) - boolean
+......Assign - boolean						......Assign - boolean
+........Id(b) - boolean						........Id(b) - boolean
+........Plus - boolean					      |	........Plus - undef
+..........BoolLit(true) - boolean				..........BoolLit(true) - boolean
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(tamanho)						........Id(tamanho)
+......Assign - int						......Assign - int
+........Id(tamanho) - int					........Id(tamanho) - int
+........Length - int						........Length - int
+..........Id(args) - String[]					..........Id(args) - String[]
+......Assign - int						......Assign - int
+........Id(i) - int						........Id(i) - int
+........Length - int						........Length - int
+..........Id(i) - int						..........Id(i) - int
+......Assign - int						......Assign - int
+........Id(i) - int						........Id(i) - int
+........Length - int						........Length - int
+..........Id(d) - double					..........Id(d) - double
+......Assign - int						......Assign - int
+........Id(i) - int						........Id(i) - int
+........Not - boolean						........Not - boolean
+..........Id(i) - int						..........Id(i) - int
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Not - boolean						........Not - boolean
+..........Id(d) - double					..........Id(d) - double
+......Assign - boolean						......Assign - boolean
+........Id(b) - boolean						........Id(b) - boolean
+........Not - boolean						........Not - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+......Call - void					      |	......Call - undef
+........Id(f) - (double,int)				      |	........Id(f) - undef
+........DecLit(1) - int						........DecLit(1) - int
+........DecLit(1) - int						........DecLit(1) - int
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(f)							......Id(f)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(a)							..........Id(a)
+........ParamDecl						........ParamDecl
+..........Double						..........Double
+..........Id(b)							..........Id(b)
+....MethodBody							....MethodBody
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(f)							......Id(f)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Double						..........Double
+..........Id(a)							..........Id(a)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(b)							..........Id(b)
+....MethodBody							....MethodBody
+================== tests/meta3/equality_ops_tests.java DIFF OUTPUT ==================
+							      >	Line 21, col 15: Operator == cannot be applied to types int, 
+							      >	Line 22, col 15: Operator == cannot be applied to types doubl
+							      >	Line 35, col 15: Operator != cannot be applied to types int, 
+							      >	Line 36, col 15: Operator != cannot be applied to types doubl
+							      >	Line 38, col 18: Operator == cannot be applied to types Strin
+							      >	Line 39, col 18: Operator != cannot be applied to types Strin
+===== Class equality_or_equity_question_mark Symbol Table ===	===== Class equality_or_equity_question_mark Symbol Table ===
+main	(String[])	void					main	(String[])	void
+
+===== Method main(String[]) Symbol Table =====			===== Method main(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+i		int						i		int
+d		double						d		double
+b		boolean						b		boolean
+
+Program								Program
+..Id(equality_or_equity_question_mark)				..Id(equality_or_equity_question_mark)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(i)							........Id(i)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(d)							........Id(d)
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(b)							........Id(b)
+......Assign - int						......Assign - int
+........Id(i) - int						........Id(i) - int
+........DecLit(0) - int						........DecLit(0) - int
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........RealLit(1.1) - double					........RealLit(1.1) - double
+......Assign - boolean						......Assign - boolean
+........Id(b) - boolean						........Id(b) - boolean
+........BoolLit(true) - boolean					........BoolLit(true) - boolean
+......If							......If
+........Eq - boolean						........Eq - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Eq - boolean						........Eq - boolean
+..........Id(i) - int						..........Id(i) - int
+..........DecLit(1) - int					..........DecLit(1) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Eq - boolean						........Eq - boolean
+..........Id(d) - double					..........Id(d) - double
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Eq - boolean						........Eq - boolean
+..........Id(d) - double					..........Id(d) - double
+..........RealLit(1.1) - double					..........RealLit(1.1) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Eq - boolean						........Eq - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Eq - boolean						........Eq - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+..........BoolLit(true) - boolean				..........BoolLit(true) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Eq - boolean						........Eq - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Eq - boolean						........Eq - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Eq - boolean						........Eq - boolean
+..........Id(d) - double					..........Id(d) - double
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ne - boolean						........Ne - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ne - boolean						........Ne - boolean
+..........Id(i) - int						..........Id(i) - int
+..........DecLit(1) - int					..........DecLit(1) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ne - boolean						........Ne - boolean
+..........Id(d) - double					..........Id(d) - double
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ne - boolean						........Ne - boolean
+..........Id(d) - double					..........Id(d) - double
+..........RealLit(1.1) - double					..........RealLit(1.1) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ne - boolean						........Ne - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ne - boolean						........Ne - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+..........BoolLit(true) - boolean				..........BoolLit(true) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ne - boolean						........Ne - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ne - boolean						........Ne - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ne - boolean						........Ne - boolean
+..........Id(d) - double					..........Id(d) - double
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Eq - boolean						........Eq - boolean
+..........Id(args) - String[]					..........Id(args) - String[]
+..........Id(args) - String[]					..........Id(args) - String[]
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ne - boolean						........Ne - boolean
+..........Id(args) - String[]					..........Id(args) - String[]
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+================== tests/meta3/Operators2.java DIFF OUTPUT ==================
+Line 16, col 9: Cannot find symbol operators(()		      |	Line 8, col 17: Operator * cannot be applied to types none, d
+							      >	Line 8, col 10: Operator = cannot be applied to types double,
+							      >	Line 16, col 9: Cannot find symbol operators()
+===== Class Factorial Symbol Table =====			===== Class Factorial Symbol Table =====
+operators	(int)	int					operators	(int)	int
+main	(String[])	void					main	(String[])	void
+
+===== Method operators(int) Symbol Table =====			===== Method operators(int) Symbol Table =====
+return		int						return		int
+n		int	param					n		int	param
+x		int						x		int
+b		int						b		int
+a		int						a		int
+y		double						y		double
+z		boolean						z		boolean
+t		boolean						t		boolean
+
+===== Method main(String[]) Symbol Table =====			===== Method main(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+
+Program								Program
+..Id(Factorial)							..Id(Factorial)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(operators)						......Id(operators)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(n)							..........Id(n)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(x)							........Id(x)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(b)							........Id(b)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(a)							........Id(a)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(y)							........Id(y)
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(z)							........Id(z)
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(t)							........Id(t)
+......If							......If
+........And - boolean						........And - boolean
+..........Eq - boolean						..........Eq - boolean
+............Id(x) - int						............Id(x) - int
+............Id(b) - int						............Id(b) - int
+..........Eq - boolean						..........Eq - boolean
+............Id(z) - boolean					............Id(z) - boolean
+............Id(t) - boolean					............Id(t) - boolean
+........Assign - double						........Assign - double
+..........Id(y) - double					..........Id(y) - double
+..........Mul - double					      |	..........Mul - undef
+............Lshift - int				      |	............Lshift
+..............Id(a) - int				      |	..............Id(a)
+..............Id(b) - int				      |	..............Id(b)
+............RealLit(1.0) - double				............RealLit(1.0) - double
+........Assign - double						........Assign - double
+..........Id(y) - double					..........Id(y) - double
+..........Mod - double						..........Mod - double
+............Id(a) - int						............Id(a) - int
+............Id(y) - double					............Id(y) - double
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......Call - undef						......Call - undef
+........Id(operators) - undef					........Id(operators) - undef
+================== tests/meta3/Operators3.java DIFF OUTPUT ==================
+							      >	Line 14, col 22: Operator <= cannot be applied to types doubl
+===== Class Sum Symbol Table =====				===== Class Sum Symbol Table =====
+operator	()	void					operator	()	void
+main	()	void						main	()	void
+
+===== Method operator() Symbol Table =====			===== Method operator() Symbol Table =====
+return		void						return		void
+
+===== Method main() Symbol Table =====				===== Method main() Symbol Table =====
+return		void						return		void
+a		int						a		int
+b		int						b		int
+c		int						c		int
+d		double						d		double
+e		double						e		double
+x		boolean						x		boolean
+y		boolean						y		boolean
+
+Program								Program
+..Id(Sum)							..Id(Sum)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(operator)						......Id(operator)
+......MethodParams						......MethodParams
+....MethodBody							....MethodBody
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(a)							........Id(a)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(b)							........Id(b)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(c)							........Id(c)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(d)							........Id(d)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(e)							........Id(e)
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(x)							........Id(x)
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(y)							........Id(y)
+......If							......If
+........Eq - boolean						........Eq - boolean
+..........Id(x) - boolean					..........Id(x) - boolean
+..........Id(y) - boolean					..........Id(y) - boolean
+........If							........If
+..........Eq - boolean						..........Eq - boolean
+............Id(a) - int						............Id(a) - int
+............Id(b) - int						............Id(b) - int
+..........If							..........If
+............Eq - boolean					............Eq - boolean
+..............Id(d) - double					..............Id(d) - double
+..............Id(b) - int					..............Id(b) - int
+............Assign - boolean					............Assign - boolean
+..............Id(x) - boolean					..............Id(x) - boolean
+..............Or - boolean					..............Or - boolean
+................Le - boolean					................Le - boolean
+..................Mul - double					..................Mul - double
+....................Id(d) - double				....................Id(d) - double
+....................Id(e) - double				....................Id(e) - double
+..................Rshift - int				      |	..................Rshift
+....................Id(a) - int				      |	....................Id(a)
+....................Id(c) - int				      |	....................Id(c)
+................Eq - boolean					................Eq - boolean
+..................Id(x) - boolean				..................Id(x) - boolean
+..................Not - boolean					..................Not - boolean
+....................Id(y) - boolean				....................Id(y) - boolean
+............Block						............Block
+..........Block							..........Block
+........Block							........Block
+......Call - void						......Call - void
+........Id(operator) - ()					........Id(operator) - ()
+================== tests/meta3/CallError.java DIFF OUTPUT ==================
+Line 10, col 3: Cannot find symbol factorial(int)	      <
+Line 5, col 20: Cannot find symbol factorial(int)		Line 5, col 20: Cannot find symbol factorial(int)
+Line 5, col 18: Operator * cannot be applied to types int, un	Line 5, col 18: Operator * cannot be applied to types int, un
+							      >	Line 5, col 18: Incompatible type undef in return statement
+							      >	Line 10, col 3: Cannot find symbol factorial(int)
+===== Class Factorial Symbol Table =====			===== Class Factorial Symbol Table =====
+factorial	(int,int)	int				factorial	(int,int)	int
+main	(String[])	void					main	(String[])	void
+
+===== Method factorial(int,int) Symbol Table =====		===== Method factorial(int,int) Symbol Table =====
+return		int						return		int
+n		int	param					n		int	param
+i		int	param					i		int	param
+
+===== Method main(String[]) Symbol Table =====			===== Method main(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+
+Program								Program
+..Id(Factorial)							..Id(Factorial)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(factorial)						......Id(factorial)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(n)							..........Id(n)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(i)							..........Id(i)
+....MethodBody							....MethodBody
+......If							......If
+........Eq - boolean						........Eq - boolean
+..........Id(n) - int						..........Id(n) - int
+..........DecLit(0) - int					..........DecLit(0) - int
+........Return							........Return
+..........DecLit(1) - int					..........DecLit(1) - int
+........Block							........Block
+......Return							......Return
+........Mul - undef						........Mul - undef
+..........Id(n) - int						..........Id(n) - int
+..........Call - undef						..........Call - undef
+............Id(factorial) - undef				............Id(factorial) - undef
+............Sub - int						............Sub - int
+..............Id(n) - int					..............Id(n) - int
+..............DecLit(1) - int					..............DecLit(1) - int
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......Call - int						......Call - int
+........Id(factorial) - (int,int)				........Id(factorial) - (int,int)
+........DecLit(1) - int						........DecLit(1) - int
+........DecLit(2) - int						........DecLit(2) - int
+......Call - undef						......Call - undef
+........Id(factorial) - undef					........Id(factorial) - undef
+........DecLit(3) - int						........DecLit(3) - int
+================== tests/meta3/NoFlags.java DIFF OUTPUT ==================
+Line 21, col 8: Number 10_0000_00000 out of bounds	      |	Line 19, col 20: Symbol a(int) already defined
+							      >	Line 5, col 8: Number 2147483648 out of bounds
+Line 15, col 8: Number 2147483649 out of bounds			Line 15, col 8: Number 2147483649 out of bounds
+Line 16, col 6: Operator = cannot be applied to types int, bo	Line 16, col 6: Operator = cannot be applied to types int, bo
+Line 5, col 8: Number 2147483648 out of bounds		      |	Line 25, col 26: Cannot find symbol s
+===== Class NoFlags Symbol Table =====			      |	Line 25, col 9: Operator Integer.parseInt cannot be applied t
+a	(int)	int					      <
+a	(double)	int				      <
+a	(boolean,int,boolean)	int			      <
+a	(int)	int					      <
+main	(String[])	void				      <
+							      <
+===== Method a(int) Symbol Table =====			      <
+return		int					      <
+n		int	param				      <
+a		int					      <
+							      <
+===== Method a(double) Symbol Table =====		      <
+return		int					      <
+n		double	param				      <
+b		int					      <
+							      <
+===== Method a(boolean,int,boolean) Symbol Table =====	      <
+return		int					      <
+n		boolean	param				      <
+a		int	param				      <
+c		boolean	param				      <
+d		int					      <
+							      <
+===== Method a(int) Symbol Table =====			      <
+return		int					      <
+n		int	param				      <
+d		int					      <
+							      <
+===== Method main(String[]) Symbol Table =====		      <
+return		void					      <
+args		String[]	param			      <
+							      <
+Program							      <
+..Id(NoFlags)						      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Int						      <
+......Id(a)						      <
+......MethodParams					      <
+........ParamDecl					      <
+..........Int						      <
+..........Id(n)						      <
+....MethodBody						      <
+......VarDecl						      <
+........Int						      <
+........Id(a)						      <
+......Assign - int					      <
+........Id(a) - int					      <
+........DecLit(2147483648) - int			      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Int						      <
+......Id(a)						      <
+......MethodParams					      <
+........ParamDecl					      <
+..........Double					      <
+..........Id(n)						      <
+....MethodBody						      <
+......VarDecl						      <
+........Int						      <
+........Id(b)						      <
+......Assign - int					      <
+........Id(b) - int					      <
+........DecLit(21474_8_3647) - int			      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Int						      <
+......Id(a)						      <
+......MethodParams					      <
+........ParamDecl					      <
+..........Bool						      <
+..........Id(n)						      <
+........ParamDecl					      <
+..........Int						      <
+..........Id(a)						      <
+........ParamDecl					      <
+..........Bool						      <
+..........Id(c)						      <
+....MethodBody						      <
+......VarDecl						      <
+........Int						      <
+........Id(d)						      <
+......Assign - int					      <
+........Id(d) - int					      <
+........DecLit(2147483649) - int			      <
+......Assign - int					      <
+........Id(d) - int					      <
+........Id(c) - boolean					      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Int						      <
+......Id(a)						      <
+......MethodParams					      <
+........ParamDecl					      <
+..........Int						      <
+..........Id(n)						      <
+....MethodBody						      <
+......VarDecl						      <
+........Int						      <
+........Id(d)						      <
+......Assign - int					      <
+........Id(d) - int					      <
+........DecLit(10_0000_00000) - int			      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Void						      <
+......Id(main)						      <
+......MethodParams					      <
+........ParamDecl					      <
+..........StringArray					      <
+..........Id(args)					      <
+....MethodBody						      <
+......ParseArgs - int					      <
+........Id(s)						      <
+........RealLit(2.2) - double				      <
+......Print						      <
+........RealLit(2e2) - double				      <
+================== tests/meta3/printing_void.java DIFF OUTPUT ==================
+							      >	Line 7, col 26: Incompatible type void in System.out.print st
+===== Class Error Symbol Table =====				===== Class Error Symbol Table =====
+a	(int)	void						a	(int)	void
+main	(String[])	void					main	(String[])	void
+
+===== Method a(int) Symbol Table =====				===== Method a(int) Symbol Table =====
+return		void						return		void
+b		int	param					b		int	param
+
+===== Method main(String[]) Symbol Table =====			===== Method main(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+
+Program								Program
+..Id(Error)							..Id(Error)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(a)							......Id(a)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(b)							..........Id(b)
+....MethodBody							....MethodBody
+......Assign - int						......Assign - int
+........Id(b) - int						........Id(b) - int
+........Add - int						........Add - int
+..........Id(b) - int						..........Id(b) - int
+..........DecLit(2) - int					..........DecLit(2) - int
+......Return							......Return
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......Print							......Print
+........Call - void						........Call - void
+..........Id(a) - (int)						..........Id(a) - (int)
+..........DecLit(3) - int					..........DecLit(3) - int
+================== tests/meta3/widening.java DIFF OUTPUT ==================
+Line 10, col 11: Operator = cannot be applied to types double	Line 10, col 11: Operator = cannot be applied to types double
+Line 15, col 15: Operator * cannot be applied to types int, b	Line 15, col 15: Operator * cannot be applied to types int, b
+Line 15, col 11: Operator = cannot be applied to types double	Line 15, col 11: Operator = cannot be applied to types double
+Line 23, col 13: Cannot find symbol fun_di(int,		      |	Line 23, col 13: Cannot find symbol fun_di(int,double)
+double)							      <
+Line 23, col 11: Operator = cannot be applied to types double	Line 23, col 11: Operator = cannot be applied to types double
+Line 24, col 13: Cannot find symbol fun_di(double,	      |	Line 24, col 13: Cannot find symbol fun_di(double,double)
+double)							      <
+Line 24, col 11: Operator = cannot be applied to types double	Line 24, col 11: Operator = cannot be applied to types double
+Line 27, col 13: Cannot find symbol fun_ii(double,	      |	Line 27, col 13: Cannot find symbol fun_ii(double,int)
+int)							      <
+Line 27, col 11: Operator = cannot be applied to types double	Line 27, col 11: Operator = cannot be applied to types double
+Line 28, col 13: Cannot find symbol fun_ii(int,		      |	Line 28, col 13: Cannot find symbol fun_ii(int,double)
+double)							      <
+Line 28, col 11: Operator = cannot be applied to types double	Line 28, col 11: Operator = cannot be applied to types double
+Line 29, col 13: Cannot find symbol fun_ii(double,	      |	Line 29, col 13: Cannot find symbol fun_ii(double,double)
+double)							      <
+Line 29, col 11: Operator = cannot be applied to types double	Line 29, col 11: Operator = cannot be applied to types double
+===== Class Narrow Symbol Table =====				===== Class Narrow Symbol Table =====
+main	(String[])	void					main	(String[])	void
+fun_dd	(double,double)	int					fun_dd	(double,double)	int
+fun_di	(double,int)	int					fun_di	(double,int)	int
+fun_ii	(int,int)	int					fun_ii	(int,int)	int
+
+===== Method main(String[]) Symbol Table =====			===== Method main(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+i		int						i		int
+d		double						d		double
+b		boolean						b		boolean
+
+===== Method fun_dd(double,double) Symbol Table =====		===== Method fun_dd(double,double) Symbol Table =====
+return		int						return		int
+a		double	param					a		double	param
+b		double	param					b		double	param
+
+===== Method fun_di(double,int) Symbol Table =====		===== Method fun_di(double,int) Symbol Table =====
+return		int						return		int
+a		double	param					a		double	param
+b		int	param					b		int	param
+
+===== Method fun_ii(int,int) Symbol Table =====			===== Method fun_ii(int,int) Symbol Table =====
+return		int						return		int
+a		int	param					a		int	param
+b		int	param					b		int	param
+
+Program								Program
+..Id(Narrow)							..Id(Narrow)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(i)							........Id(i)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(d)							........Id(d)
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(b)							........Id(b)
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........RealLit(1.1) - double					........RealLit(1.1) - double
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........DecLit(1) - int						........DecLit(1) - int
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Id(i) - int						........Id(i) - int
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Id(b) - boolean						........Id(b) - boolean
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Mul - int						........Mul - int
+..........Id(i) - int						..........Id(i) - int
+..........DecLit(1) - int					..........DecLit(1) - int
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Mul - double						........Mul - double
+..........Id(i) - int						..........Id(i) - int
+..........RealLit(1.1) - double					..........RealLit(1.1) - double
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Mul - double						........Mul - double
+..........Id(i) - int						..........Id(i) - int
+..........Id(d) - double					..........Id(d) - double
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Mul - undef						........Mul - undef
+..........Id(i) - int						..........Id(i) - int
+..........Id(b) - boolean					..........Id(b) - boolean
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Call - int						........Call - int
+..........Id(fun_dd) - (double,double)				..........Id(fun_dd) - (double,double)
+..........DecLit(1) - int					..........DecLit(1) - int
+..........DecLit(2) - int					..........DecLit(2) - int
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Call - int						........Call - int
+..........Id(fun_dd) - (double,double)				..........Id(fun_dd) - (double,double)
+..........RealLit(3.0) - double					..........RealLit(3.0) - double
+..........DecLit(4) - int					..........DecLit(4) - int
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Call - int						........Call - int
+..........Id(fun_dd) - (double,double)				..........Id(fun_dd) - (double,double)
+..........RealLit(5.0) - double					..........RealLit(5.0) - double
+..........RealLit(6.0) - double					..........RealLit(6.0) - double
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Call - int						........Call - int
+..........Id(fun_di) - (double,int)				..........Id(fun_di) - (double,int)
+..........DecLit(1) - int					..........DecLit(1) - int
+..........DecLit(1) - int					..........DecLit(1) - int
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Call - int						........Call - int
+..........Id(fun_di) - (double,int)				..........Id(fun_di) - (double,int)
+..........RealLit(1.0) - double					..........RealLit(1.0) - double
+..........DecLit(1) - int					..........DecLit(1) - int
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Call - undef						........Call - undef
+..........Id(fun_di) - undef					..........Id(fun_di) - undef
+..........DecLit(1) - int					..........DecLit(1) - int
+..........RealLit(1.0) - double					..........RealLit(1.0) - double
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Call - undef						........Call - undef
+..........Id(fun_di) - undef					..........Id(fun_di) - undef
+..........RealLit(1.0) - double					..........RealLit(1.0) - double
+..........RealLit(1.0) - double					..........RealLit(1.0) - double
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Call - int						........Call - int
+..........Id(fun_ii) - (int,int)				..........Id(fun_ii) - (int,int)
+..........DecLit(1) - int					..........DecLit(1) - int
+..........DecLit(1) - int					..........DecLit(1) - int
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Call - undef						........Call - undef
+..........Id(fun_ii) - undef					..........Id(fun_ii) - undef
+..........RealLit(1.0) - double					..........RealLit(1.0) - double
+..........DecLit(1) - int					..........DecLit(1) - int
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Call - undef						........Call - undef
+..........Id(fun_ii) - undef					..........Id(fun_ii) - undef
+..........DecLit(1) - int					..........DecLit(1) - int
+..........RealLit(1.0) - double					..........RealLit(1.0) - double
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........Call - undef						........Call - undef
+..........Id(fun_ii) - undef					..........Id(fun_ii) - undef
+..........RealLit(1.0) - double					..........RealLit(1.0) - double
+..........RealLit(1.0) - double					..........RealLit(1.0) - double
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(fun_dd)						......Id(fun_dd)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Double						..........Double
+..........Id(a)							..........Id(a)
+........ParamDecl						........ParamDecl
+..........Double						..........Double
+..........Id(b)							..........Id(b)
+....MethodBody							....MethodBody
+......Return							......Return
+........DecLit(1) - int						........DecLit(1) - int
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(fun_di)						......Id(fun_di)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Double						..........Double
+..........Id(a)							..........Id(a)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(b)							..........Id(b)
+....MethodBody							....MethodBody
+......Return							......Return
+........DecLit(1) - int						........DecLit(1) - int
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(fun_ii)						......Id(fun_ii)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(a)							..........Id(a)
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(b)							..........Id(b)
+....MethodBody							....MethodBody
+......Return							......Return
+........DecLit(1) - int						........DecLit(1) - int
+================== tests/meta3/Operators.java DIFF OUTPUT ==================
+Line 12, col 9: Cannot find symbol operators(()		      |	Line 5, col 9: Operator = cannot be applied to types int, non
+							      >	Line 12, col 9: Cannot find symbol operators()
+===== Class Factorial Symbol Table =====			===== Class Factorial Symbol Table =====
+operators	(int)	int					operators	(int)	int
+main	(String[])	void					main	(String[])	void
+
+===== Method operators(int) Symbol Table =====			===== Method operators(int) Symbol Table =====
+return		int						return		int
+n		int	param					n		int	param
+x		int						x		int
+b		int						b		int
+a		int						a		int
+y		double						y		double
+
+===== Method main(String[]) Symbol Table =====			===== Method main(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+
+Program								Program
+..Id(Factorial)							..Id(Factorial)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(operators)						......Id(operators)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........Int							..........Int
+..........Id(n)							..........Id(n)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(x)							........Id(x)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(b)							........Id(b)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(a)							........Id(a)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(y)							........Id(y)
+......Assign - int						......Assign - int
+........Id(x) - int						........Id(x) - int
+........Lshift - int					      |	........Lshift
+..........Id(b) - int					      |	..........Id(b)
+..........Id(a) - int					      |	..........Id(a)
+......Assign - int						......Assign - int
+........Id(b) - int						........Id(b) - int
+........Mul - int						........Mul - int
+..........Id(x) - int						..........Id(x) - int
+..........Id(a) - int						..........Id(a) - int
+......Assign - double						......Assign - double
+........Id(y) - double						........Id(y) - double
+........Mul - double						........Mul - double
+..........Id(x) - int						..........Id(x) - int
+..........Add - double						..........Add - double
+............RealLit(1.0) - double				............RealLit(1.0) - double
+............Id(b) - int						............Id(b) - int
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......Call - undef						......Call - undef
+........Id(operators) - undef					........Id(operators) - undef
+================== tests/meta3/relational_op_tests.java DIFF OUTPUT ==================
+							      >	Line 18, col 15: Operator < cannot be applied to types int, b
+							      >	Line 19, col 15: Operator <= cannot be applied to types int, 
+							      >	Line 20, col 15: Operator > cannot be applied to types int, b
+							      >	Line 21, col 15: Operator >= cannot be applied to types int, 
+							      >	Line 30, col 15: Operator < cannot be applied to types int, b
+							      >	Line 31, col 15: Operator <= cannot be applied to types int, 
+							      >	Line 32, col 15: Operator > cannot be applied to types int, b
+							      >	Line 33, col 15: Operator >= cannot be applied to types int, 
+							      >	Line 42, col 15: Operator < cannot be applied to types double
+							      >	Line 43, col 15: Operator <= cannot be applied to types doubl
+							      >	Line 44, col 15: Operator > cannot be applied to types double
+							      >	Line 45, col 15: Operator >= cannot be applied to types doubl
+							      >	Line 54, col 15: Operator < cannot be applied to types boolea
+							      >	Line 55, col 15: Operator <= cannot be applied to types boole
+							      >	Line 56, col 15: Operator > cannot be applied to types boolea
+							      >	Line 57, col 15: Operator >= cannot be applied to types boole
+							      >	Line 58, col 15: Operator < cannot be applied to types boolea
+							      >	Line 59, col 15: Operator <= cannot be applied to types boole
+							      >	Line 60, col 15: Operator > cannot be applied to types boolea
+							      >	Line 61, col 15: Operator >= cannot be applied to types boole
+							      >	Line 62, col 15: Operator < cannot be applied to types boolea
+							      >	Line 63, col 15: Operator <= cannot be applied to types boole
+							      >	Line 64, col 15: Operator > cannot be applied to types boolea
+							      >	Line 65, col 15: Operator >= cannot be applied to types boole
+							      >	Line 74, col 15: Operator < cannot be applied to types int, b
+							      >	Line 75, col 15: Operator <= cannot be applied to types int, 
+							      >	Line 76, col 15: Operator > cannot be applied to types int, b
+							      >	Line 77, col 15: Operator >= cannot be applied to types int, 
+===== Class time_is_relative Symbol Table =====			===== Class time_is_relative Symbol Table =====
+main	(String[])	void					main	(String[])	void
+
+===== Method main(String[]) Symbol Table =====			===== Method main(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+i		int						i		int
+d		double						d		double
+b		boolean						b		boolean
+
+Program								Program
+..Id(time_is_relative)						..Id(time_is_relative)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(i)							........Id(i)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(d)							........Id(d)
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(b)							........Id(b)
+......Assign - int						......Assign - int
+........Id(i) - int						........Id(i) - int
+........DecLit(0) - int						........DecLit(0) - int
+......Assign - double						......Assign - double
+........Id(d) - double						........Id(d) - double
+........RealLit(1.1) - double					........RealLit(1.1) - double
+......Assign - boolean						......Assign - boolean
+........Id(b) - boolean						........Id(b) - boolean
+........BoolLit(true) - boolean					........BoolLit(true) - boolean
+......If							......If
+........Lt - boolean						........Lt - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Le - boolean						........Le - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Gt - boolean						........Gt - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ge - boolean						........Ge - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Lt - boolean						........Lt - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Le - boolean						........Le - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Gt - boolean						........Gt - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ge - boolean						........Ge - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Lt - boolean						........Lt - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Le - boolean						........Le - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Gt - boolean						........Gt - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ge - boolean						........Ge - boolean
+..........Id(i) - int						..........Id(i) - int
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Lt - boolean						........Lt - boolean
+..........Id(i) - int						..........Id(i) - int
+..........DecLit(0) - int					..........DecLit(0) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Le - boolean						........Le - boolean
+..........Id(i) - int						..........Id(i) - int
+..........DecLit(0) - int					..........DecLit(0) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Gt - boolean						........Gt - boolean
+..........Id(i) - int						..........Id(i) - int
+..........DecLit(0) - int					..........DecLit(0) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ge - boolean						........Ge - boolean
+..........Id(i) - int						..........Id(i) - int
+..........DecLit(0) - int					..........DecLit(0) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Lt - boolean						........Lt - boolean
+..........Id(i) - int						..........Id(i) - int
+..........RealLit(1.1) - double					..........RealLit(1.1) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Le - boolean						........Le - boolean
+..........Id(i) - int						..........Id(i) - int
+..........RealLit(1.1) - double					..........RealLit(1.1) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Gt - boolean						........Gt - boolean
+..........Id(i) - int						..........Id(i) - int
+..........RealLit(1.1) - double					..........RealLit(1.1) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ge - boolean						........Ge - boolean
+..........Id(i) - int						..........Id(i) - int
+..........RealLit(1.1) - double					..........RealLit(1.1) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Lt - boolean						........Lt - boolean
+..........Id(i) - int						..........Id(i) - int
+..........BoolLit(true) - boolean				..........BoolLit(true) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Le - boolean						........Le - boolean
+..........Id(i) - int						..........Id(i) - int
+..........BoolLit(true) - boolean				..........BoolLit(true) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Gt - boolean						........Gt - boolean
+..........Id(i) - int						..........Id(i) - int
+..........BoolLit(true) - boolean				..........BoolLit(true) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ge - boolean						........Ge - boolean
+..........Id(i) - int						..........Id(i) - int
+..........BoolLit(true) - boolean				..........BoolLit(true) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Lt - boolean						........Lt - boolean
+..........Id(d) - double					..........Id(d) - double
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Le - boolean						........Le - boolean
+..........Id(d) - double					..........Id(d) - double
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Gt - boolean						........Gt - boolean
+..........Id(d) - double					..........Id(d) - double
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ge - boolean						........Ge - boolean
+..........Id(d) - double					..........Id(d) - double
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Lt - boolean						........Lt - boolean
+..........Id(d) - double					..........Id(d) - double
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Le - boolean						........Le - boolean
+..........Id(d) - double					..........Id(d) - double
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Gt - boolean						........Gt - boolean
+..........Id(d) - double					..........Id(d) - double
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ge - boolean						........Ge - boolean
+..........Id(d) - double					..........Id(d) - double
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Lt - boolean						........Lt - boolean
+..........Id(d) - double					..........Id(d) - double
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Le - boolean						........Le - boolean
+..........Id(d) - double					..........Id(d) - double
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Gt - boolean						........Gt - boolean
+..........Id(d) - double					..........Id(d) - double
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ge - boolean						........Ge - boolean
+..........Id(d) - double					..........Id(d) - double
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Lt - boolean						........Lt - boolean
+..........Id(d) - double					..........Id(d) - double
+..........DecLit(0) - int					..........DecLit(0) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Le - boolean						........Le - boolean
+..........Id(d) - double					..........Id(d) - double
+..........DecLit(0) - int					..........DecLit(0) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Gt - boolean						........Gt - boolean
+..........Id(d) - double					..........Id(d) - double
+..........DecLit(0) - int					..........DecLit(0) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ge - boolean						........Ge - boolean
+..........Id(d) - double					..........Id(d) - double
+..........DecLit(0) - int					..........DecLit(0) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Lt - boolean						........Lt - boolean
+..........Id(d) - double					..........Id(d) - double
+..........RealLit(1.1) - double					..........RealLit(1.1) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Le - boolean						........Le - boolean
+..........Id(d) - double					..........Id(d) - double
+..........RealLit(1.1) - double					..........RealLit(1.1) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Gt - boolean						........Gt - boolean
+..........Id(d) - double					..........Id(d) - double
+..........RealLit(1.1) - double					..........RealLit(1.1) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ge - boolean						........Ge - boolean
+..........Id(d) - double					..........Id(d) - double
+..........RealLit(1.1) - double					..........RealLit(1.1) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Lt - boolean						........Lt - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Le - boolean						........Le - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Gt - boolean						........Gt - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ge - boolean						........Ge - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Lt - boolean						........Lt - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Le - boolean						........Le - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Gt - boolean						........Gt - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ge - boolean						........Ge - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Lt - boolean						........Lt - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+..........BoolLit(true) - boolean				..........BoolLit(true) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Le - boolean						........Le - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+..........BoolLit(true) - boolean				..........BoolLit(true) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Gt - boolean						........Gt - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+..........BoolLit(true) - boolean				..........BoolLit(true) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ge - boolean						........Ge - boolean
+..........Id(b) - boolean					..........Id(b) - boolean
+..........BoolLit(true) - boolean				..........BoolLit(true) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Lt - boolean						........Lt - boolean
+..........DecLit(0) - int					..........DecLit(0) - int
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Le - boolean						........Le - boolean
+..........DecLit(0) - int					..........DecLit(0) - int
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Gt - boolean						........Gt - boolean
+..........DecLit(0) - int					..........DecLit(0) - int
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ge - boolean						........Ge - boolean
+..........DecLit(0) - int					..........DecLit(0) - int
+..........Id(i) - int						..........Id(i) - int
+........Block							........Block
+........Block							........Block
+......If							......If
+........Lt - boolean						........Lt - boolean
+..........DecLit(0) - int					..........DecLit(0) - int
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Le - boolean						........Le - boolean
+..........DecLit(0) - int					..........DecLit(0) - int
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Gt - boolean						........Gt - boolean
+..........DecLit(0) - int					..........DecLit(0) - int
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ge - boolean						........Ge - boolean
+..........DecLit(0) - int					..........DecLit(0) - int
+..........Id(d) - double					..........Id(d) - double
+........Block							........Block
+........Block							........Block
+......If							......If
+........Lt - boolean						........Lt - boolean
+..........DecLit(0) - int					..........DecLit(0) - int
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Le - boolean						........Le - boolean
+..........DecLit(0) - int					..........DecLit(0) - int
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Gt - boolean						........Gt - boolean
+..........DecLit(0) - int					..........DecLit(0) - int
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+......If							......If
+........Ge - boolean						........Ge - boolean
+..........DecLit(0) - int					..........DecLit(0) - int
+..........Id(b) - boolean					..........Id(b) - boolean
+........Block							........Block
+........Block							........Block
+================== tests/meta3/AindaSemErros.java DIFF OUTPUT ==================
+							      >	Line 4, col 9: Cannot find symbol b
+							      >	Line 4, col 11: Operator + cannot be applied to types undef, 
+							      >	Line 4, col 7: Operator = cannot be applied to types int, und
+							      >	Line 5, col 9: Cannot find symbol b
+							      >	Line 5, col 11: Operator + cannot be applied to types undef, 
+							      >	Line 5, col 7: Operator = cannot be applied to types int, und
+							      >	Line 6, col 9: Cannot find symbol b
+							      >	Line 6, col 11: Operator + cannot be applied to types undef, 
+							      >	Line 6, col 7: Operator = cannot be applied to types int, und
+							      >	Line 7, col 9: Cannot find symbol b
+							      >	Line 7, col 13: Cannot find symbol c
+							      >	Line 7, col 11: Operator + cannot be applied to types undef, 
+							      >	Line 7, col 7: Operator = cannot be applied to types int, und
+===== Class Java Symbol Table =====				===== Class Java Symbol Table =====
+a	()	int						a	()	int
+
+===== Method a() Symbol Table =====				===== Method a() Symbol Table =====
+return		int						return		int
+a		int						a		int
+b		int						b		int
+c		int						c		int
+
+Program								Program
+..Id(Java)							..Id(Java)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(a)							......Id(a)
+......MethodParams						......MethodParams
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(a)							........Id(a)
+......Assign - int						......Assign - int
+........Id(a) - int						........Id(a) - int
+........Add						      |	........Add - undef
+..........Id(b)						      |	..........Id(b) - undef
+..........BoolLit(true) - boolean				..........BoolLit(true) - boolean
+......Assign - int						......Assign - int
+........Id(a) - int						........Id(a) - int
+........Add						      |	........Add - undef
+..........Id(b)						      |	..........Id(b) - undef
+..........RealLit(1.0_43443) - double				..........RealLit(1.0_43443) - double
+......Assign - int						......Assign - int
+........Id(a) - int						........Id(a) - int
+........Add						      |	........Add - undef
+..........Id(b)						      |	..........Id(b) - undef
+..........DecLit(1) - int					..........DecLit(1) - int
+......Assign - int						......Assign - int
+........Id(a) - int						........Id(a) - int
+........Add						      |	........Add - undef
+..........Id(b)						      |	..........Id(b) - undef
+..........Id(c)						      |	..........Id(c) - undef
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(b)							........Id(b)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(c)							........Id(c)
+......Assign - int						......Assign - int
+........Id(a) - int						........Id(a) - int
+........Add - int						........Add - int
+..........Id(b) - int						..........Id(b) - int
+..........Id(c) - int						..........Id(c) - int
+================== tests/meta3/jucompiler DIFF OUTPUT ==================
+Line 1, col 37: syntax error: H				      <
+							      <
+================== tests/meta3/testsMethods.java DIFF OUTPUT ==================
+Line 15, col 5: Cannot find symbol f(void,		      |	Line 15, col 29: Cannot find symbol W
+String[],						      |	Line 15, col 27: Cannot find symbol f(undef)
+int,							      |	Line 15, col 5: Cannot find symbol f(void,String[],int,undef)
+double)							      |	Line 16, col 5: Reference to method f(int,int) is ambiguous
+===== Class Alguns_Erros Symbol Table =====		      <
+f	(int,double,double,double)	double		      <
+f	(double,double,double,int)	double		      <
+f	(double)	double				      <
+f	(int)	double					      <
+f	(double,int)	double				      <
+f	(double,double)	double				      <
+main	(String[])	void				      <
+							      <
+===== Method f(int,double,double,double) Symbol Table =====   <
+return		double					      <
+a		int	param				      <
+b		double	param				      <
+c		double	param				      <
+d		double	param				      <
+							      <
+===== Method f(double,double,double,int) Symbol Table =====   <
+return		double					      <
+b		double	param				      <
+c		double	param				      <
+d		double	param				      <
+a		int	param				      <
+							      <
+===== Method f(double) Symbol Table =====		      <
+return		double					      <
+b		double	param				      <
+							      <
+===== Method f(int) Symbol Table =====			      <
+return		double					      <
+b		int	param				      <
+							      <
+===== Method f(double,int) Symbol Table =====		      <
+return		double					      <
+b		double	param				      <
+c		int	param				      <
+							      <
+===== Method f(double,double) Symbol Table =====	      <
+return		double					      <
+b		double	param				      <
+c		double	param				      <
+							      <
+===== Method main(String[]) Symbol Table =====		      <
+return		void					      <
+args		String[]	param			      <
+							      <
+Program							      <
+..Id(Alguns_Erros)					      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Double						      <
+......Id(f)						      <
+......MethodParams					      <
+........ParamDecl					      <
+..........Int						      <
+..........Id(a)						      <
+........ParamDecl					      <
+..........Double					      <
+..........Id(b)						      <
+........ParamDecl					      <
+..........Double					      <
+..........Id(c)						      <
+........ParamDecl					      <
+..........Double					      <
+..........Id(d)						      <
+....MethodBody						      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Double						      <
+......Id(f)						      <
+......MethodParams					      <
+........ParamDecl					      <
+..........Double					      <
+..........Id(b)						      <
+........ParamDecl					      <
+..........Double					      <
+..........Id(c)						      <
+........ParamDecl					      <
+..........Double					      <
+..........Id(d)						      <
+........ParamDecl					      <
+..........Int						      <
+..........Id(a)						      <
+....MethodBody						      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Double						      <
+......Id(f)						      <
+......MethodParams					      <
+........ParamDecl					      <
+..........Double					      <
+..........Id(b)						      <
+....MethodBody						      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Double						      <
+......Id(f)						      <
+......MethodParams					      <
+........ParamDecl					      <
+..........Int						      <
+..........Id(b)						      <
+....MethodBody						      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Double						      <
+......Id(f)						      <
+......MethodParams					      <
+........ParamDecl					      <
+..........Double					      <
+..........Id(b)						      <
+........ParamDecl					      <
+..........Int						      <
+..........Id(c)						      <
+....MethodBody						      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Double						      <
+......Id(f)						      <
+......MethodParams					      <
+........ParamDecl					      <
+..........Double					      <
+..........Id(b)						      <
+........ParamDecl					      <
+..........Double					      <
+..........Id(c)						      <
+....MethodBody						      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Void						      <
+......Id(main)						      <
+......MethodParams					      <
+........ParamDecl					      <
+..........StringArray					      <
+..........Id(args)					      <
+....MethodBody						      <
+......Call - undef					      <
+........Id(f) - undef					      <
+........Call - void					      <
+..........Id(main) - (String[])				      <
+..........Id(args) - String[]				      <
+........Id(args) - String[]				      <
+........DecLit(1) - int					      <
+........Call - double					      <
+..........Id(f) - (double)				      <
+..........Id(W)						      <
+......Call - double					      <
+........Id(f) - (double,double)				      <
+........DecLit(1) - int					      <
+........DecLit(1) - int					      <
+================== tests/meta3/algunsErros.java DIFF OUTPUT ==================
+							      >	Line 3, col 9: Incompatible type void in return statement
+							      >	Line 11, col 16: Incompatible type double in return statement
+							      >	Line 16, col 14: Operator .length cannot be applied to type i
+							      >	Line 18, col 13: Operator Integer.parseInt cannot be applied 
+							      >	Line 19, col 18: Operator * cannot be applied to types boolea
+							      >	Line 19, col 13: Operator + cannot be applied to types int, u
+							      >	Line 19, col 13: Incompatible type undef in if statement
+							      >	Line 23, col 13: Cannot find symbol b
+							      >	Line 23, col 15: Operator + cannot be applied to types undef,
+							      >	Line 23, col 11: Operator = cannot be applied to types int, u
+							      >	Line 24, col 17: Cannot find symbol b
+							      >	Line 24, col 15: Operator + cannot be applied to types int, u
+							      >	Line 24, col 11: Operator = cannot be applied to types int, u
+							      >	Line 25, col 13: Cannot find symbol b
+							      >	Line 25, col 15: Operator + cannot be applied to types undef,
+							      >	Line 25, col 11: Operator = cannot be applied to types int, u
+							      >	Line 26, col 13: Cannot find symbol b
+							      >	Line 26, col 17: Cannot find symbol c
+							      >	Line 26, col 15: Operator * cannot be applied to types undef,
+							      >	Line 26, col 11: Operator = cannot be applied to types int, u
+Line 36, col 15: Operator = cannot be applied to types double	Line 36, col 15: Operator = cannot be applied to types double
+Line 36, col 11: Operator = cannot be applied to types int, d	Line 36, col 11: Operator = cannot be applied to types int, d
+Line 37, col 13: Number 123123122121 out of bounds		Line 37, col 13: Number 123123122121 out of bounds
+Line 39, col 15: Operator = cannot be applied to types double	Line 39, col 15: Operator = cannot be applied to types double
+Line 39, col 11: Operator = cannot be applied to types int, d	Line 39, col 11: Operator = cannot be applied to types int, d
+Line 41, col 9: Cannot find symbol factorial(int,	      |	Line 41, col 9: Cannot find symbol factorial(int,int,int)
+int,							      |	Line 48, col 16: Incompatible type int in return statement
+int)							      |	Line 49, col 16: Incompatible type boolean in return statemen
+Line 19, col 18: Operator * cannot be applied to types boolea |	Line 50, col 16: Incompatible type double in return statement
+Line 19, col 13: Operator + cannot be applied to types int, u |	Line 51, col 16: Incompatible type String[] in return stateme
+Line -1, col -1: Operator Integer.parseInt cannot be applied  |	Line 52, col 16: Incompatible type void in return statement
+Line 19, col 18: Operator * cannot be applied to types boolea <
+Line 19, col 13: Operator + cannot be applied to types int, u <
+Line 19, col 13: Incompatible type undef in if statement      <
+===== Class Alguns_Erros Symbol Table =====			===== Class Alguns_Erros Symbol Table =====
+main1	()	int						main1	()	int
+main2	()	double						main2	()	double
+main3	()	int						main3	()	int
+cenas	(String[])	int					cenas	(String[])	int
+main	(String[])	void					main	(String[])	void
+ola	(String[])	void					ola	(String[])	void
+
+===== Method main1() Symbol Table =====				===== Method main1() Symbol Table =====
+return		int						return		int
+
+===== Method main2() Symbol Table =====				===== Method main2() Symbol Table =====
+return		double						return		double
+a		int						a		int
+
+===== Method main3() Symbol Table =====				===== Method main3() Symbol Table =====
+return		int						return		int
+a		double						a		double
+
+===== Method cenas(String[]) Symbol Table =====			===== Method cenas(String[]) Symbol Table =====
+return		int						return		int
+args		String[]	param				args		String[]	param
+x		int						x		int
+a		int						a		int
+xd		double						xd		double
+
+===== Method main(String[]) Symbol Table =====			===== Method main(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+i		int						i		int
+i2		int						i2		int
+d		double						d		double
+b		boolean						b		boolean
+x		int						x		int
+
+===== Method ola(String[]) Symbol Table =====			===== Method ola(String[]) Symbol Table =====
+return		void						return		void
+args		String[]	param				args		String[]	param
+a		int						a		int
+b		boolean						b		boolean
+c		double						c		double
+
+Program								Program
+..Id(Alguns_Erros)						..Id(Alguns_Erros)
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(main1)							......Id(main1)
+......MethodParams						......MethodParams
+....MethodBody							....MethodBody
+......Return							......Return
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Double							......Double
+......Id(main2)							......Id(main2)
+......MethodParams						......MethodParams
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(a)							........Id(a)
+......Return							......Return
+........Id(a) - int						........Id(a) - int
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(main3)							......Id(main3)
+......MethodParams						......MethodParams
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(a)							........Id(a)
+......Return							......Return
+........Id(a) - double						........Id(a) - double
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Int							......Int
+......Id(cenas)							......Id(cenas)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......Call - int						......Call - int
+........Id(cenas) - (String[])					........Id(cenas) - (String[])
+........Id(args) - String[]					........Id(args) - String[]
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(x)							........Id(x)
+......Assign - int						......Assign - int
+........Id(x) - int						........Id(x) - int
+........Length - int						........Length - int
+..........Id(x) - int						..........Id(x) - int
+......Assign - int						......Assign - int
+........Id(x) - int						........Id(x) - int
+........ParseArgs - int						........ParseArgs - int
+..........Id(args) - String[]					..........Id(args) - String[]
+..........DecLit(0) - int					..........DecLit(0) - int
+......Assign - int						......Assign - int
+........Id(x) - int						........Id(x) - int
+........ParseArgs - int						........ParseArgs - int
+..........Id(x) - int						..........Id(x) - int
+..........DecLit(0) - int					..........DecLit(0) - int
+......If							......If
+........Add - undef						........Add - undef
+..........DecLit(2) - int					..........DecLit(2) - int
+..........Mul - undef						..........Mul - undef
+............BoolLit(true) - boolean				............BoolLit(true) - boolean
+............BoolLit(true) - boolean				............BoolLit(true) - boolean
+........Block							........Block
+........Block							........Block
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(a)							........Id(a)
+......Assign - int						......Assign - int
+........Id(a) - int						........Id(a) - int
+........Add						      |	........Add - undef
+..........Id(b)						      |	..........Id(b) - undef
+..........BoolLit(true) - boolean				..........BoolLit(true) - boolean
+......Assign - int						......Assign - int
+........Id(a) - int						........Id(a) - int
+........Add						      |	........Add - undef
+..........DecLit(1) - int					..........DecLit(1) - int
+..........Id(b)						      |	..........Id(b) - undef
+......Assign - int						......Assign - int
+........Id(a) - int						........Id(a) - int
+........Add						      |	........Add - undef
+..........Id(b)						      |	..........Id(b) - undef
+..........DecLit(1) - int					..........DecLit(1) - int
+......Assign - int						......Assign - int
+........Id(a) - int						........Id(a) - int
+........Mul						      |	........Mul - undef
+..........Id(b)						      |	..........Id(b) - undef
+..........Id(c)						      |	..........Id(c) - undef
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(xd)							........Id(xd)
+......Assign - double						......Assign - double
+........Id(xd) - double						........Id(xd) - double
+........Id(a) - int						........Id(a) - int
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(main)							......Id(main)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(i)							........Id(i)
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(i2)							........Id(i2)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(d)							........Id(d)
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(b)							........Id(b)
+......Assign - int						......Assign - int
+........Id(i) - int						........Id(i) - int
+........Assign - double						........Assign - double
+..........Id(d) - double					..........Id(d) - double
+..........Id(b) - boolean					..........Id(b) - boolean
+......Assign - int						......Assign - int
+........Id(i) - int						........Id(i) - int
+........DecLit(123123122121) - int				........DecLit(123123122121) - int
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(x)							........Id(x)
+......Assign - int						......Assign - int
+........Id(i) - int						........Id(i) - int
+........Assign - double						........Assign - double
+..........Id(d) - double					..........Id(d) - double
+..........Id(b) - boolean					..........Id(b) - boolean
+......Return							......Return
+......Call - undef						......Call - undef
+........Id(factorial) - undef					........Id(factorial) - undef
+........Id(i) - int						........Id(i) - int
+........Id(i) - int						........Id(i) - int
+........Id(i) - int						........Id(i) - int
+..MethodDecl							..MethodDecl
+....MethodHeader						....MethodHeader
+......Void							......Void
+......Id(ola)							......Id(ola)
+......MethodParams						......MethodParams
+........ParamDecl						........ParamDecl
+..........StringArray						..........StringArray
+..........Id(args)						..........Id(args)
+....MethodBody							....MethodBody
+......VarDecl							......VarDecl
+........Int							........Int
+........Id(a)							........Id(a)
+......VarDecl							......VarDecl
+........Bool							........Bool
+........Id(b)							........Id(b)
+......VarDecl							......VarDecl
+........Double							........Double
+........Id(c)							........Id(c)
+......Return							......Return
+........Id(a) - int						........Id(a) - int
+......Return							......Return
+........Id(b) - boolean						........Id(b) - boolean
+......Return							......Return
+........Id(c) - double						........Id(c) - double
+......Return							......Return
+........Id(args) - String[]					........Id(args) - String[]
+......Return							......Return
+........Call - void						........Call - void
+..........Id(ola) - (String[])					..........Id(ola) - (String[])
+..........Id(args) - String[]					..........Id(args) - String[]
+================== tests/meta3/simpleTest.java DIFF OUTPUT ==================
+							      >	Line 6, col 9: Operator = cannot be applied to types int, dou
+							      >	Line 7, col 13: Operator = cannot be applied to types int, do
+							      >	Line 8, col 9: Operator = cannot be applied to types int, dou
+							      >	Line 9, col 9: Operator = cannot be applied to types int, boo
+Line 15, col 21: Operator * cannot be applied to types String	Line 15, col 21: Operator * cannot be applied to types String
+Line 15, col 28: Operator + cannot be applied to types undef,	Line 15, col 28: Operator + cannot be applied to types undef,
+							      >	Line 15, col 43: Operator && cannot be applied to types Strin
+							      >	Line 15, col 35: Operator || cannot be applied to types undef
+Line 15, col 14: Operator = cannot be applied to types String	Line 15, col 14: Operator = cannot be applied to types String
+Line 16, col 21: Operator * cannot be applied to types String	Line 16, col 21: Operator * cannot be applied to types String
+Line 16, col 25: Operator + cannot be applied to types undef,	Line 16, col 25: Operator + cannot be applied to types undef,
+							      >	Line 16, col 46: Operator && cannot be applied to types boole
+							      >	Line 16, col 38: Operator || cannot be applied to types undef
+Line 16, col 14: Operator = cannot be applied to types String	Line 16, col 14: Operator = cannot be applied to types String
+							      >	Line 17, col 21: Operator < cannot be applied to types String
+							      >	Line 17, col 25: Operator >= cannot be applied to types boole
+							      >	Line 17, col 47: Operator != cannot be applied to types boole
+Line 17, col 14: Operator = cannot be applied to types String	Line 17, col 14: Operator = cannot be applied to types String
+							      >	Line 18, col 21: Operator < cannot be applied to types boolea
+							      >	Line 18, col 33: Operator == cannot be applied to types Strin
+Line 18, col 14: Operator = cannot be applied to types String	Line 18, col 14: Operator = cannot be applied to types String
+							      >	Line 19, col 21: Operator && cannot be applied to types Strin
+							      >	Line 19, col 29: Operator || cannot be applied to types boole
+Line 19, col 14: Operator = cannot be applied to types String	Line 19, col 14: Operator = cannot be applied to types String
+Line 20, col 14: Operator = cannot be applied to types String	Line 20, col 14: Operator = cannot be applied to types String
+Line 21, col 18: Operator = cannot be applied to types int, d	Line 21, col 18: Operator = cannot be applied to types int, d
+Line 23, col 18: Operator = cannot be applied to types int, d	Line 23, col 18: Operator = cannot be applied to types int, d
+							      >	Line 30, col 18: Operator > cannot be applied to types String
+Line 31, col 16: Cannot find symbol main(int)			Line 31, col 16: Cannot find symbol main(int)
+Line 6, col 9: Operator = cannot be applied to types int, dou |	Line 31, col 16: Incompatible type undef in return statement
+Line 7, col 13: Operator = cannot be applied to types int, do |	Line 32, col 16: Incompatible type String[] in return stateme
+Line 8, col 9: Operator = cannot be applied to types int, dou |	Line 33, col 9: Incompatible type void in return statement
+Line 9, col 9: Operator = cannot be applied to types int, boo |	Line 37, col 12: Incompatible type double in return statement
+===== Class ThatsWhatSheSaid Symbol Table =====		      <
+main2	()	double					      <
+main	(String[])	int				      <
+one	()	int					      <
+two	()	double					      <
+							      <
+===== Method main2() Symbol Table =====			      <
+return		double					      <
+a		int					      <
+b		double					      <
+							      <
+===== Method main(String[]) Symbol Table =====		      <
+return		int					      <
+args		String[]	param			      <
+argument		int				      <
+iterator		double				      <
+							      <
+===== Method one() Symbol Table =====			      <
+return		int					      <
+							      <
+===== Method two() Symbol Table =====			      <
+return		double					      <
+							      <
+Program							      <
+..Id(ThatsWhatSheSaid)					      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Double						      <
+......Id(main2)						      <
+......MethodParams					      <
+....MethodBody						      <
+......VarDecl						      <
+........Int						      <
+........Id(a)						      <
+......VarDecl						      <
+........Double						      <
+........Id(b)						      <
+......Assign - int					      <
+........Id(a) - int					      <
+........Id(b) - double					      <
+......Assign - double					      <
+........Id(b) - double					      <
+........Assign - int					      <
+..........Id(a) - int					      <
+..........Id(b) - double				      <
+......Assign - int					      <
+........Id(a) - int					      <
+........Mul - double					      <
+..........Id(a) - int					      <
+..........Id(b) - double				      <
+......Assign - int					      <
+........Id(a) - int					      <
+........Eq - boolean					      <
+..........Id(a) - int					      <
+..........Id(b) - double				      <
+......Return						      <
+........Id(a) - int					      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Int						      <
+......Id(main)						      <
+......MethodParams					      <
+........ParamDecl					      <
+..........StringArray					      <
+..........Id(args)					      <
+....MethodBody						      <
+......VarDecl						      <
+........Int						      <
+........Id(argument)					      <
+......VarDecl						      <
+........Double						      <
+........Id(iterator)					      <
+......Assign - String[]					      <
+........Id(args) - String[]				      <
+........Or - boolean					      <
+..........Add - undef					      <
+............Mul - undef					      <
+..............Id(args) - String[]			      <
+..............Id(args) - String[]			      <
+............Id(args) - String[]				      <
+..........And - boolean					      <
+............Id(args) - String[]				      <
+............Id(args) - String[]				      <
+......Assign - String[]					      <
+........Id(args) - String[]				      <
+........Or - boolean					      <
+..........Add - undef					      <
+............Mul - undef					      <
+..............Id(args) - String[]			      <
+..............DecLit(1) - int				      <
+............Call - int					      <
+..............Id(main) - (String[])			      <
+..............Id(args) - String[]			      <
+..........And - boolean					      <
+............BoolLit(true) - boolean			      <
+............Id(args) - String[]				      <
+......Assign - String[]					      <
+........Id(args) - String[]				      <
+........Ne - boolean					      <
+..........Eq - boolean					      <
+............Ge - boolean				      <
+..............Lt - boolean				      <
+................Id(args) - String[]			      <
+................DecLit(1) - int				      <
+..............Call - int				      <
+................Id(main) - (String[])			      <
+................Id(args) - String[]			      <
+............BoolLit(true) - boolean			      <
+..........Id(args) - String[]				      <
+......Assign - String[]					      <
+........Id(args) - String[]				      <
+........And - boolean					      <
+..........And - boolean					      <
+............Lt - boolean				      <
+..............BoolLit(true) - boolean			      <
+..............DecLit(1) - int				      <
+............Eq - boolean				      <
+..............Id(args) - String[]			      <
+..............RealLit(1.0) - double			      <
+..........Ne - boolean					      <
+............DecLit(2) - int				      <
+............Call - int					      <
+..............Id(main) - (String[])			      <
+..............Id(args) - String[]			      <
+......Assign - String[]					      <
+........Id(args) - String[]				      <
+........Or - boolean					      <
+..........And - boolean					      <
+............Id(args) - String[]				      <
+............Id(args) - String[]				      <
+..........Id(args) - String[]				      <
+......Assign - String[]					      <
+........Id(args) - String[]				      <
+........Id(args) - String[]				      <
+......Assign - int					      <
+........Id(argument) - int				      <
+........Add - double					      <
+..........Mul - int					      <
+............DecLit(1) - int				      <
+............Id(argument) - int				      <
+..........RealLit(1.0) - double				      <
+......Assign - int					      <
+........Id(argument) - int				      <
+........ParseArgs - int					      <
+..........Id(args) - String[]				      <
+..........Sub - int					      <
+............Length - int				      <
+..............Id(args) - String[]			      <
+............DecLit(1) - int				      <
+......Assign - int					      <
+........Id(argument) - int				      <
+........Add - double					      <
+..........Mul - int					      <
+............Id(argument) - int				      <
+............Id(argument) - int				      <
+..........Mod - double					      <
+............Div - int					      <
+..............Id(argument) - int			      <
+..............Id(argument) - int			      <
+............Id(iterator) - double			      <
+......Assign - double					      <
+........Id(iterator) - double				      <
+........Id(argument) - int				      <
+......If						      <
+........Gt - boolean					      <
+..........Id(argument) - int				      <
+..........Id(iterator) - double				      <
+........Block						      <
+........Block						      <
+......If						      <
+........Eq - boolean					      <
+..........Id(argument) - int				      <
+..........Id(iterator) - double				      <
+........Block						      <
+........Block						      <
+......If						      <
+........Ge - boolean					      <
+..........Id(argument) - int				      <
+..........Id(iterator) - double				      <
+........Block						      <
+........Block						      <
+......If						      <
+........Gt - boolean					      <
+..........Id(argument) - int				      <
+..........Id(argument) - int				      <
+........Block						      <
+........Block						      <
+......If						      <
+........Gt - boolean					      <
+..........Id(argument) - int				      <
+..........Id(argument) - int				      <
+........Block						      <
+........Block						      <
+......If						      <
+........Gt - boolean					      <
+..........Id(args) - String[]				      <
+..........Id(argument) - int				      <
+........Block						      <
+........Block						      <
+......Return						      <
+........Call - undef					      <
+..........Id(main) - undef				      <
+..........Id(argument) - int				      <
+......Return						      <
+........Id(args) - String[]				      <
+......Return						      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Int						      <
+......Id(one)						      <
+......MethodParams					      <
+....MethodBody						      <
+......Return						      <
+........DecLit(1) - int					      <
+......Return						      <
+........RealLit(1.0) - double				      <
+..MethodDecl						      <
+....MethodHeader					      <
+......Double						      <
+......Id(two)						      <
+......MethodParams					      <
+....MethodBody						      <
+......Return						      <
+........DecLit(1) - int					      <
+......Return						      <
+........RealLit(1.0) - double				      <

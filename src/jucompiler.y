@@ -251,7 +251,7 @@ Expr: Assignment                                                                
      | Expr1                                                                    { $$ = $1; }
      ;
 
-Expr1: Expr1 PLUS   Expr1                                                       { $$ = ast_node("Add", NULL_TOKEN); add_children($$, $1); add_brother($1, $3); }
+Expr1: Expr1 PLUS   Expr1                                                       { $$ = ast_node("Add", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
     | Expr1 MINUS  Expr1                                                        { $$ = ast_node("Sub", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
     | Expr1 STAR   Expr1                                                        { $$ = ast_node("Mul", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }
     | Expr1 DIV    Expr1                                                        { $$ = ast_node("Div", NULL_TOKEN); COPY_POS($$, $2); add_children($$, $1); add_brother($1, $3); }

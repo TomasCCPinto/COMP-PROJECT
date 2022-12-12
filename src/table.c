@@ -157,3 +157,24 @@ void print_table(symbol_table *tabela){
     print_function(tabela);
   }
 }
+
+static void free_params(param_list *param) {
+  if (param) {
+    free_params(param->next);
+
+    free(param);
+  }
+}
+
+
+void free_table(symbol_table *head) {
+  if (head) {
+    free_table(head->symbols);
+    free_table(head->next);
+
+    free_params(head->params);
+    head->params = NULL;
+
+    free(head);
+  }
+}

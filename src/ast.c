@@ -28,7 +28,7 @@ token_t token(char *value, int line, int col, int type) {
         free(aux);
         return token;
     }
-    token.value =  (char *) strdup(value);
+    token.value = (char *) strdup(value);
     return token;
 
     /*for (int i = 0; i < 5; ++i) {
@@ -147,8 +147,10 @@ static void _free_ast(ast_node_t *node) {
     if (node != NULL) {
         _free_ast(node->child);
         _free_ast(node->brother);
-        //if (!strcmp(node->id, "Id"))
-        //    free(node->value);
+
+        if (node->value)
+            free(node->value);
+
         free(node);
     }
 }

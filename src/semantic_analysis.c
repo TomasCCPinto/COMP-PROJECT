@@ -29,21 +29,16 @@ static void add_params(ast_node_t *node, param_list **global_head, param_list **
 
     if (!(*global_head) && !(*func_head) && !(*symbol_head)) {
 
-	*global_head = param_list_node(node->child->id);
-	*func_head = param_list_node(node->child->id);
+	    *global_head = param_list_node(node->child->id);
+	    *func_head = param_list_node(node->child->id);
 
-    if (search_type_var_in_table(tabela,  node->child->brother->value) != NULL) {
-        printf("Line %d, col %d: Symbol %s already defined\n", node->child->brother->line, node->child->brother->col, node->child->brother->value);
-        semantic_error=1;
-    }
-    *symbol_head = symbol_table_node(node->child->brother->value, node->child->id, true, false);
-	add_params(node->brother, global_head, func_head, &(*symbol_head)->symbols, head,tabela);
-	return;
-    
-
-    print_table(*symbol_head);
-	add_params(node->brother, global_head, func_head, symbol_head, head,tabela);
-	return;
+        if (search_type_var_in_table(tabela,  node->child->brother->value) != NULL) {
+            printf("Line %d, col %d: Symbol %s already defined\n", node->child->brother->line, node->child->brother->col, node->child->brother->value);
+            semantic_error=1;
+        }
+        *symbol_head = symbol_table_node(node->child->brother->value, node->child->id, true, false);
+	    add_params(node->brother, global_head, func_head, &(*symbol_head)->symbols, head,tabela);
+	    return;
     } 
     if (global_head && func_head && symbol_head) {
       add_params(node, &(*global_head)->next, &(*func_head)->next, symbol_head, head,tabela);
@@ -228,6 +223,7 @@ static char* copy_args(ast_node_t *node, symbol_table *head) {
     }
     string = (char *) realloc(string, sizeof(char *) * strlen(string) + 1);
     strcat(string, ")");
+
     return string;
 }
 
@@ -509,46 +505,6 @@ static void add_type_ast(ast_node_t *node, symbol_table *head) {
         } else if (!strcmp(node->id, "BoolLit")) {
             node->type = "Bool";
         }
-
-        /*if (!strcmp(node->id, "Add")) {
-            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
-                node->type = "Int";
-            else if (!strcmp(node->child->type, "undef") || !strcmp(node->child->brother->type, "undef"))
-                node->type = "undef";
-            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
-                node->type = "Double";
-
-        } else if (!strcmp(node->id, "Sub")) {
-            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
-                node->type = "Int";
-            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
-                node->type = "Double";
-        } else if (!strcmp(node->id, "Div")) {
-            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
-                node->type = "Int";
-            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
-                node->type = "Double";
-        } else if (!strcmp(node->id, "Mul")) {
-            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
-                node->type = "Int";
-            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
-                node->type = "Double";
-        } else if (!strcmp(node->id, "Mod")) {
-            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
-                node->type = "Int";
-            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
-                node->type = "Double";
-        } else if (!strcmp(node->id, "Lshift")) {
-            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
-                node->type = "Int";
-            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
-                node->type = "Double";
-        } else if (!strcmp(node->id, "Rshift")) {
-            if (!strcmp(node->child->type, "Int") && !strcmp(node->child->brother->type, "Int"))
-                node->type = "Int";
-            else if (!strcmp(node->child->type, "Double") || !strcmp(node->child->brother->type, "Double"))
-                node->type = "Double";
-        }*/
     }
 }
 
@@ -677,11 +633,7 @@ static symbol_table* append_symbol_table(ast_node_t *node, symbol_table *symbol_
     symbol_node->next = symbol_table_node(node->child->brother->value, "", false, true); 
     symbol_node->next->symbols = symbol_table_node("return", node->child->id, false, false); 
     if (node->child->brother->brother && node->child->brother->brother->child && !strcmp(node->child->brother->brother->child->id, "ParamDecl")) {
-        //printf("lalala\n");
-        //print_table(symbol_node->next);
-        //printf("lelelele\n");
         add_params(node->child->brother->brother->child, &symbol_node->symbols->params, &symbol_node->next->params, &symbol_node->next->symbols->symbols, symbol_node->next->symbols->symbols, symbol_node->next);
-        
     }
     return symbol_node;
 }
@@ -763,6 +715,11 @@ void semantic_analysis(ast_node_t *node) {
         return; 
     } else if (!strcmp("FieldDecl", node->id)) {
 
+        if (!strcmp(node->child->brother->value, "_")) {
+            printf("Line %d, col %d: Symbol _ is reserved\n", node->child->brother->line, node->child->brother->col);
+            semantic_analysis(node->brother);
+            return;
+        }
         if (search_type_var_in_table(global_table,  node->child->brother->value) != NULL) {
           //printf("Line %d, col %d: Symbol %s already defined\n", node->child->line, node->child->col, node->id);
           printf("Line %d, col %d: Symbol %s already defined\n", node->child->brother->line, node->child->brother->col, node->child->brother->value);

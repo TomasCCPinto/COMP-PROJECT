@@ -334,10 +334,8 @@ int main(int argc, char *argv[]) {
         }
   }  
 
-  // print_ast(my_program);
-  // printf("analysis\n");
-  // printf("printing\n\n");
   free_ast(my_program);
+  free_table(global_table);
   return 0;
 }
 

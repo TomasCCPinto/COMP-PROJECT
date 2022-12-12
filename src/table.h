@@ -31,5 +31,6 @@ symbol_table* symbol_table_node(char *id, char *value, bool is_param, bool is_fu
 param_list *param_list_node(char *param);
 
 void print_table(symbol_table *tabela);
+void free_table(symbol_table *head);
 
 #endif // __TABLE_H
